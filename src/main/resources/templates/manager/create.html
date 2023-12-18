@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>CREATE ROOM</p2>
+    <br>
+    <a th:href="@{/manager/index}">Return back</a>
+    <form th:action="@{/manager/save}" th:object="${room}" method="post">
+    <div>
+        <div>
+            <label>No Room</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{noRoom}" required />
+        </div>
+        <div>
+            <label>ID Owner</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{idOwner}" required />
+        </div>
+        <div>
+            <label>Name Owner</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{nameOwner}" required />
+        </div>
+        <div>
+            <label>Phone number Owner</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{numberPhoneOwner}" required />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+    
+</body>
+</html>

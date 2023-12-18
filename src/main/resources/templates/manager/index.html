@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to my world</p2>
+    <br>
+    <a th:href="@{/manager/createRoom}">CreateRoom</a>
+    <table>
+        <thead>
+            <th>No Room</th>
+            <th>ID Owner</th>
+            <th>Name Owner</th>
+            <th>Phone number Owner</th>
+            <th>Key</th>
+            <th>Details</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Room : ${listRoom}">
+                <tr>
+                    <th>[[${Room.noRoom}]]</th>
+                    <th>[[${Room.idOwner}]]</th>
+                    <th>[[${Room.nameOwner}]]</th>
+                    <th>[[${Room.numberPhoneOwner}]]</th>
+                    <th>[[${Room.key}]]</th>
+                    <th><a th:href="@{/landing}">Manager</a></th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>
