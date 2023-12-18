@@ -1,52 +1,58 @@
 package com.example.project1.entity;
 
+import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 
 @Entity
 public class Resident {
-    @ManyToOne
-    @JoinColumn(name = "key")
-    private Room room;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String id;
     private String name;
     private String gender;
+    private String birthDate;
     private String birthPlace;
     private String job;
     private String phoneNumber;
-    private String keyRoom;
     private int noRoom;
     private String relationshipWithOwner;
-    private String idOwner;
+
+    @ManyToOne
+    @JoinColumns({
+        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
+        @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
+    })
+    private Room room;
+
 
     // Constructor mặc định
     public Resident() {
     }
 
     // Constructor với tham số
-    public Resident(String id, String name, String gender, String birthPlace, String job,
+    public Resident(String id, String name, String gender, String birthDate, String birthPlace, String job,
                     String phoneNumber, String keyRoom, int noRoom, String relationshipWithOwner,
                     String idOwner) {
         this.id = id;
         this.name = name;
         this.gender = gender;
+        this.birthDate = birthDate;
         this.birthPlace = birthPlace;
         this.job = job;
         this.phoneNumber = phoneNumber;
-        this.keyRoom = keyRoom;
         this.noRoom = noRoom;
         this.relationshipWithOwner = relationshipWithOwner;
-        this.idOwner = idOwner;
     }
 
     // Getter and Setter methods for 'id'
@@ -74,6 +80,15 @@ public class Resident {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    // Getter and Setter methods for 'birthDate'
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     // Getter and Setter methods for 'birthPlace'
@@ -104,13 +119,13 @@ public class Resident {
     }
 
     // Getter and Setter methods for 'keyRoom'
-    public String getKeyRoom() {
-        return keyRoom;
-    }
+    // public String getKeyRoom() {
+    //     return keyRoom;
+    // }
 
-    public void setKeyRoom(String keyRoom) {
-        this.keyRoom = keyRoom;
-    }
+    // public void setKeyRoom(String keyRoom) {
+    //     this.keyRoom = keyRoom;
+    // }
     
     // Getter and Setter methods for 'noRoom'
     public int getNoRoom() {
@@ -131,13 +146,13 @@ public class Resident {
     }
 
     // Getter and Setter methods for 'idOwner'
-    public String getIdOwner() {
-        return idOwner;
-    }
+    // public String getIdOwner() {
+    //     return idOwner;
+    // }
 
-    public void setIdOwner(String idOwner) {
-        this.idOwner = idOwner;
-    }
+    // public void setIdOwner(String idOwner) {
+    //     this.idOwner = idOwner;
+    // }
     
 
 

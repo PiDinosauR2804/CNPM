@@ -1,6 +1,5 @@
 package com.example.project1.controllers;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,7 @@ import com.example.project1.entity.Room;
 
 
 @Controller
-public class ManagerController {
+public class RoomController {
     @Autowired
     private RoomRepository RoomRepo;
 
@@ -26,7 +25,7 @@ public class ManagerController {
     @GetMapping("/manager/createRoom")
     public String create(Model model) {
         model.addAttribute("room", new Room());
-        return "manager/create";
+        return "manager/room/create";
     }
 
     @PostMapping("/manager/save")

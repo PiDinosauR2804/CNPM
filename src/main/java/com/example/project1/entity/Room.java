@@ -2,18 +2,21 @@ package com.example.project1.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int no;
+    private int id;
     private int noRoom;
     
     private String idOwner;
@@ -22,8 +25,9 @@ public class Room {
     @Column(name = "`key`")
     private String key;
 
-    @OneToMany(mappedBy = "keyRoom")
-    private List<Resident> residents;
+    // @OneToMany(mappedBy = "address", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // // MapopedBy trỏ tới tên biến Address ở trong Person.
+    // private List<Resident> resident;
 
     public Room() {
     }
@@ -38,11 +42,11 @@ public class Room {
 
     public void generateKey() {
         String suffix = idOwner.substring(idOwner.length() - 4);
-        this.key = suffix + String.valueOf(no);
+        this.key = suffix + String.valueOf(id);
     }
 
-    public int getNo() {
-        return no;
+    public int getId() {
+        return id;
     }
 
     public int getNoRoom() {
