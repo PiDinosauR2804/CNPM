@@ -8,7 +8,7 @@ import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
-
+// tue dep trai
 @Entity
 public class Resident {
     @ManyToOne
