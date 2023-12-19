@@ -3,11 +3,25 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <p2>Welcome to my world</p2>
-    <br>
+<div align = "center">
+    <p>Welcome to my world</p>
     <a th:href="@{/manager/createRoom}">CreateRoom</a>
+    <div>&nbsp;</div>
+    
+    <div>
+    <!-- tìm kiếm -->
+    <form th:action="@{/manager/index}" method="get">
+    <label for="searchInput">Search:</label>
+    <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..." th:value="${keyword}"/>
+    <button type="submit">Search</button>
+	</form>
+
+    </div>
+    <div>&nbsp;</div>
+    
     <table>
         <thead>
             <th>No Room</th>
@@ -18,7 +32,7 @@
             <th>Details</th>
         </thead>
         <tbody>
-            <th:block th:each="Room : ${listRoom}">
+                <th:block th:each="Room : ${listRoom}">
                 <tr>
                     <th>[[${Room.noRoom}]]</th>
                     <th>[[${Room.idOwner}]]</th>
@@ -28,7 +42,30 @@
                     <th><a th:href="@{/landing}">Manager</a></th>
                 </tr>
             </th:block>
+        
         </tbody>
     </table>
+    <!-- Đánh số trang -->
+     <div class="pagination">
+    	<!-- Link to the first page -->
+    	<a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
+
+    	<!-- Link to the previous page -->
+    	<a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+
+    	<!-- Links to individual pages -->
+    	<span th:each="i : ${#numbers.sequence(1, totalPage)}">
+        	<a th:if="${currentPage != i}" th:href="@{/manager/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+        	<span th:if="${currentPage == i}" th:text="${i}"></span>
+    	</span>
+
+    	<!-- Link to the next page -->
+    	<a th:if="${currentPage < totalPage}" th:href="@{/manager/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+
+	    <!-- Link to the last page -->
+    	<a th:if="${currentPage < totalPage}" th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+	</div>
+
+
 </body>
 </html>
