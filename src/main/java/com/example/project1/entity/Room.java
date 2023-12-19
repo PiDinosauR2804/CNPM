@@ -1,5 +1,6 @@
 package com.example.project1.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -25,11 +26,12 @@ public class Room {
     @Column(name = "`key`")
     private String key;
 
-    // @OneToMany(mappedBy = "address", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
-    // // MapopedBy trỏ tới tên biến Address ở trong Person.
-    // private List<Resident> resident;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<Resident> residents;
 
     public Room() {
+        this.residents = new ArrayList<Resident>();
     }
 
     // Constructor với tham số
@@ -38,6 +40,15 @@ public class Room {
         this.idOwner = idOwner;
         this.nameOwner = nameOwner;
         this.numberPhoneOwner = numberPhoneOwner;
+        this.residents = new ArrayList<Resident>();
+    }
+
+    public void addResident(Resident resident) {
+        residents.add(resident);
+    }
+
+    public void eraseResident(int index) {
+        residents.remove(index);
     }
 
     public void generateKey() {

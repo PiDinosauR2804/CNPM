@@ -1,4 +1,4 @@
-package com.example.project1.controllers;
+package com.example.project1.controllers.Manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,7 @@ import com.example.project1.entity.Room;
 
 
 @Controller
-public class RoomController {
+public class ManagerRoomController {
     @Autowired
     private RoomRepository RoomRepo;
 

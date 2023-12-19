@@ -42,8 +42,7 @@ public class Resident {
 
     // Constructor với tham số
     public Resident(String id, String name, String gender, String birthDate, String birthPlace, String job,
-                    String phoneNumber, String keyRoom, int noRoom, String relationshipWithOwner,
-                    String idOwner) {
+                    String phoneNumber, int noRoom, String relationshipWithOwner) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -62,6 +61,18 @@ public class Resident {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public String getkey() {
+        return room.getKey();
+    }
+
+    public String getidOwner() {
+        return room.getIdOwner();
     }
 
     // Getter and Setter methods for 'name'
