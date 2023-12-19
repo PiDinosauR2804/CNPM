@@ -12,11 +12,13 @@ public class WebController {
 		model.addAttribute("name", name);
 		return "greeting";
 	}
+	
     @GetMapping("/landing")
 	public String landing(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
 		model.addAttribute("name", name);
 		return "landing";
 	}
+
 	public String SayHello() {
         return "Hiiiii";
     }
