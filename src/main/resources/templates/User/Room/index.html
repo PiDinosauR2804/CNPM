@@ -18,16 +18,14 @@
             <th>Details</th>
         </thead>
         <tbody>
-            <th:block th:each="Room : ${listRoom}">
                 <tr>
-                    <th>[[${Room.noRoom}]]</th>
-                    <th>[[${Room.idOwner}]]</th>
-                    <th>[[${Room.nameOwner}]]</th>
-                    <th>[[${Room.numberPhoneOwner}]]</th>
-                    <th>[[${Room.key}]]</th>
+                    <th>[[${room.noRoom}]]</th>
+                    <th>[[${room.idOwner}]]</th>
+                    <th>[[${room.nameOwner}]]</th>
+                    <th>[[${room.numberPhoneOwner}]]</th>
+                    <th>[[${room.key}]]</th>
                     <th><a th:href="@{/landing}">Manager</a></th>
                 </tr>
-            </th:block>
         </tbody>
     </table>
 </body>

@@ -1,23 +1,41 @@
 package com.example.project1.controllers.User;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ch.qos.logback.core.model.Model;
+import com.example.project1.Repository.RoomRepository;
+import com.example.project1.entity.Room;
+
 
 
 @Controller
 public class UserRoomController {
+
+    @Autowired
+    private RoomRepository RoomRepo;
+
     @GetMapping("/user/search")
-    public String searchRoom(Model model) {
+    public String searchRoom(@RequestParam(name = "key", required = false, defaultValue = "") String key, Model model) {
+        model.addAttribute("key", key);
         return "user/search";
     }
+    
 
-    @GetMapping("/user/index")
-    public String index(String key) {
-
-        return "user/index";
+    @GetMapping("/user/index/")
+    public String index(@RequestParam("key") String key, Model model) {
+        List<Room> rooms = RoomRepo.findByKey(key);
+        if (!rooms.isEmpty()) {
+            Room room = rooms.get(0);
+            model.addAttribute("room", room);
+        }
+        return "user/Room/index";
     }
     
     

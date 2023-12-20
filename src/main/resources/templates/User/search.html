@@ -8,19 +8,19 @@
     <p2>CREATE ROOM</p2>
     <br>
     <a th:href="@{/greeting}">Return back</a>
-    <form th:action="@{/user/index}" th:object="${key}" method="get">
+    <form th:action="@{'/user/index/' + ${key}}" method="get">
     <div>
         <div>
             <label>Key Room</label>
         </div>
         <div>
-            <input type="text" th:field="${key}" required />
+            <input type="text" name="key" required />
         </div>
         <div>
             <button type="submit">Find</button>
         </div>
-    <div>
-    </form>
+    </div>
+    </form> 
     
 </body>
 </html>
