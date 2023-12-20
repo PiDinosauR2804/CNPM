@@ -69,7 +69,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         d.setRoom(c);
         ResidentRepo.save(d);
 
-        Resident d1 = new Resident("004206000240", "Huy", "Male", "04/12/2003", "Hà Nội", "Dượng", "0344859629", a.getNoRoom(), "Phò");
+        Resident d1 = new Resident("004206000240", "Huy", "Male", "04/12/2003", "Hà Nội", "Dượng", "0344859629", c.getNoRoom(), "Phò");
         c.addResident(d1);
         d1.setRoom(c);
         ResidentRepo.save(d1);
@@ -84,7 +84,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         f.setRoom(e);
         ResidentRepo.save(f);
 
-        Resident f1 = new Resident("002304000570", "Người Thương Của Tuệ", "Female", "09/20/2003", "Hà Nội", "Student", "0233846115", a.getNoRoom(), "Con nuôi");
+        Resident f1 = new Resident("002304000570", "Người Thương Của Tuệ", "Female", "09/20/2003", "Hà Nội", "Student", "0233846115", e.getNoRoom(), "Con nuôi");
         e.addResident(f1);
         f1.setRoom(e);
         ResidentRepo.save(f1);
@@ -99,7 +99,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         h.setRoom(g);
         ResidentRepo.save(h);
 
-        Resident h1 = new Resident("005602000685", "Người Thương Của Cường", "Female", "01/31/2003", "Hà Nội", "Student", "0344712990", a.getNoRoom(), "Vợ");
+        Resident h1 = new Resident("005602000685", "Người Thương Của Cường", "Female", "01/31/2003", "Hà Nội", "Student", "0344712990", g.getNoRoom(), "Vợ");
         g.addResident(h1);
         h1.setRoom(g);
         ResidentRepo.save(h1);

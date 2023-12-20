@@ -25,7 +25,7 @@
                     <th>[[${Room.nameOwner}]]</th>
                     <th>[[${Room.numberPhoneOwner}]]</th>
                     <th>[[${Room.key}]]</th>
-                    <th><a th:href="@{/landing}">Manager</a></th>
+                    <th><a th:href="@{'/manager/room/' + ${Room.noRoom}}">Manager</a></th>
                 </tr>
             </th:block>
         </tbody>
