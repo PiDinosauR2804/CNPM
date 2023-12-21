@@ -1,15 +1,10 @@
 package com.example.project1.entity;
 
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails.Address;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 
