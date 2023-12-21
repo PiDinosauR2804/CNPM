@@ -31,6 +31,12 @@ public class ManagerRoomController {
         model.addAttribute("listRoom", listRoom);
         return "manager/index";
     }
+
+    public String index1(Model model) {
+        java.util.List<Room> listRoom = RoomRepo.findAll();
+        model.addAttribute("listRoom", listRoom);
+        return "manager/index";
+    }
     
     @GetMapping("/manager/createRoom")
     public String create(Model model) {
