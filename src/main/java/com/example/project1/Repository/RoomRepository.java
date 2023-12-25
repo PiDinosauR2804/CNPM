@@ -21,7 +21,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
     @Query("SELECT p FROM Room p WHERE p.key LIKE %?1%")
     public List<Room> findByKey(String key);
 
-    @Query("SELECT p FROM Room p WHERE p.key LIKE %?1%")
+    @Query("SELECT p FROM Room p WHERE p.noRoom = %?1%")
     public List<Room> findByRoom(int room);
     // tìm kiếm theo idOwner -> phát triển ra concat để tìm được nhiều hơn
     @Query("SELECT r FROM Room r WHERE r.idOwner LIKE %?1%")
