@@ -2,6 +2,7 @@ package com.example.project1.controllers.Manager;
 
 import java.util.ArrayList;
 
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.Resident;
+import com.example.project1.entity.Room;
 
 @Controller
 public class ManagerResidentController {
@@ -40,9 +42,12 @@ public class ManagerResidentController {
 
     @PostMapping("/manager/room/{roomNumber}/addresident/save")
     public String save(@PathVariable int roomNumber, Resident resident) {
-        Resident save = residentRepo.save(resident);
-        save.setNoRoom(roomNumber);
-        residentRepo.save(save);
+        java.util.List<Room> room = roomRepository.findByRoom(roomNumber);
+        if (!room.isEmpty()) {
+            resident.setRoom(room.get(0));
+            room.get(0).addResident(resident);
+            residentRepo.save(resident);
+        }
         return "redirect:/manager/room/{roomNumber}";
     }
 }

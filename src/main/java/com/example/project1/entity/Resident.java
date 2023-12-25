@@ -20,11 +20,11 @@ public class Resident {
     private String birthPlace;
     private String job;
     private String phoneNumber;
-    private int noRoom;
     private String relationshipWithOwner;
 
     @ManyToOne
     @JoinColumns({
+        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
         @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
         @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
     })
@@ -37,7 +37,7 @@ public class Resident {
 
     // Constructor với tham số
     public Resident(String id, String name, String gender, String birthDate, String birthPlace, String job,
-                    String phoneNumber, int noRoom, String relationshipWithOwner) {
+                    String phoneNumber, String relationshipWithOwner) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -45,7 +45,6 @@ public class Resident {
         this.birthPlace = birthPlace;
         this.job = job;
         this.phoneNumber = phoneNumber;
-        this.noRoom = noRoom;
         this.relationshipWithOwner = relationshipWithOwner;
     }
 
@@ -135,11 +134,7 @@ public class Resident {
     
     // Getter and Setter methods for 'noRoom'
     public int getNoRoom() {
-        return noRoom;
-    }
-
-    public void setNoRoom(int noRoom) {
-        this.noRoom = noRoom;
+        return room.getNoRoom();
     }
 
     // Getter and Setter methods for 'relationshipWithOwner'
@@ -150,17 +145,4 @@ public class Resident {
     public void setRelationshipWithOwner(String relationshipWithOwner) {
         this.relationshipWithOwner = relationshipWithOwner;
     }
-
-    // Getter and Setter methods for 'idOwner'
-    // public String getIdOwner() {
-    //     return idOwner;
-    // }
-
-    // public void setIdOwner(String idOwner) {
-    //     this.idOwner = idOwner;
-    // }
-    
-
-
-
 }

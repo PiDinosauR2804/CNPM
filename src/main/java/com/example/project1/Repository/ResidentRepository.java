@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.project1.entity.Resident;
@@ -15,6 +16,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
     @Query(value = "TRUNCATE TABLE resident", nativeQuery = true)
     void truncateTable();
 
-    @Query("SELECT p FROM Resident p WHERE p.noRoom = ?1")
-    public List<Resident> findByRoom(int room);
+    @Query("SELECT r FROM Resident r WHERE r.room.noRoom = :noRoom")
+    List<Resident> findByRoom(@Param("noRoom") int noRoom);
 }

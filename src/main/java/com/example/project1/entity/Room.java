@@ -27,6 +27,10 @@ public class Room {
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<Resident> residents;
 
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<MandatoryFee> mandatoryFees;
+
     public Room() {
         this.residents = new ArrayList<Resident>();
     }
