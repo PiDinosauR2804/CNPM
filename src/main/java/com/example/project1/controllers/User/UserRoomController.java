@@ -48,6 +48,11 @@ public class UserRoomController {
         return "user/index";
     }
 
+    @GetMapping("/sendform")
+    public String sendform(Model model) {
+        return "user/sendform";
+    }
+
     
     
 }
