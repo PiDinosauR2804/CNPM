@@ -31,7 +31,7 @@ public class ResidentHistory {
         @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
         @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
     })
-    private RoomHisotry roomHistory;
+    private RoomHistory roomHistory;
 
 
     // Constructor mặc định
@@ -61,7 +61,7 @@ public class ResidentHistory {
         this.id = id;
     }
 
-    public void setRoom(RoomHisotry roomHistory) {
+    public void setRoom(RoomHistory roomHistory) {
         this.roomHistory = roomHistory;
     }
 

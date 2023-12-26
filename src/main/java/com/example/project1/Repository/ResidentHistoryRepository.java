@@ -10,6 +10,6 @@ import com.example.project1.entity.ResidentHistory;
 public interface ResidentHistoryRepository extends JpaRepository<ResidentHistory, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE residentHistory", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE resident_history", nativeQuery = true)
     void truncateTable();
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
+    <br>
+    <a th:href="@{/manager/index}">Return back</a>
+    <br>
+    <a th:href="@{/manager/fee/createAll}">CreateAll</a>
+    <br>
+    <a th:href="@{/manager/fee/update}">Update</a>
+    <br>
+    <a th:href="@{/manager/fee/donation/index}">Donation Fee</a>
+    <br>
+    
+    <table>
+        <thead>
+            <th>Room</th>
+            <th>roomFeePaid</th>
+            <th>roomFee</th>
+            <th>waterFeePaid</th>
+            <th>waterFee</th>
+            <th>electricFeePaid</th>
+            <th>electricFee</th>
+            <th>parkingFeePaid</th>
+            <th>parkingFee</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listFees}">
+                <tr>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.waterFee}]]</th>
+                    <th>[[${Fee.electricFeePaid}]]</th>
+                    <th>[[${Fee.electricFee}]]</th>
+                    <th>[[${Fee.parkingFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultParkingFee}]]</th>
+                    <td><a th:href="@{/landing}">Edit</a></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>

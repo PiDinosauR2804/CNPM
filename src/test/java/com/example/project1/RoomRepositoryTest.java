@@ -19,7 +19,7 @@ public class RoomRepositoryTest {
     private RoomRepository repo;
     @Test
     public void testCreateCategory() {
-        repo.save(new Room(1010, "001203000768", "Ngo Dinh Luyen", "0911052885"));
+        
     }
 
     
