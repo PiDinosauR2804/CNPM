@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Báo Lỗi</title>
+    <!-- Kết nối với Bootstrap CSS từ CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MQw5k3IwISlZKlHiJC4z0YHJOGJFh4NOz+8BvLEHSM9+6UqUZ9/fXn49B0K5trG" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông Báo Lỗi</h5>
+                        <p class="card-text" id="errorMessage">Đã xảy ra một lỗi không mong muốn.</p>
+                        <a href="#" class="btn btn-primary" onclick="goBack()">Quay lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kết nối với Bootstrap JS và Popper.js từ CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-fRc6IQnlHRGNhV5+2aaC6pDfUMvU6fbSI6HpnbI5Q8eNV9C2BJS9+9aXXYB2zMTB" crossorigin="anonymous"></script>
+
+    <script>
+        // Hàm quay lại trang trước đó
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

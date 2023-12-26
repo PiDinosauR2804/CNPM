@@ -40,6 +40,10 @@ public class MandatoryFee {
         this.electricFee = electricFee;
     }
 
+    public int getNo() {
+        return no;
+    }
+
     public int getNoRoom() {
         return room.getNoRoom();
     }

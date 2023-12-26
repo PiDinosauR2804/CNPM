@@ -15,35 +15,59 @@
     <br>
     <a th:href="@{/manager/fee/donation/index}">Donation Fee</a>
     <br>
-    
-    <table>
-        <thead>
-            <th>Room</th>
-            <th>roomFeePaid</th>
-            <th>roomFee</th>
-            <th>waterFeePaid</th>
-            <th>waterFee</th>
-            <th>electricFeePaid</th>
-            <th>electricFee</th>
-            <th>parkingFeePaid</th>
-            <th>parkingFee</th>
-        </thead>
-        <tbody>
-            <th:block th:each="Fee : ${listFees}">
-                <tr>
-                    <th>[[${Fee.room.noRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.waterFee}]]</th>
-                    <th>[[${Fee.electricFeePaid}]]</th>
-                    <th>[[${Fee.electricFee}]]</th>
-                    <th>[[${Fee.parkingFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultParkingFee}]]</th>
-                    <td><a th:href="@{/landing}">Edit</a></td>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
+
+    <form method="post" th:action="@{/manager/saveall}">
+        <table>
+            <thead>
+                <th>Room</th>
+                <th>roomFeePaid</th>
+                <th>roomFee</th>
+                <th>waterFeePaid</th>
+                <th>waterFee</th>
+                <th>electricFeePaid</th>
+                <th>electricFee</th>
+                <th>parkingFeePaid</th>
+                <th>parkingFee</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <th:block th:each="Fee, rowStat : ${listFees}">
+                    <tr>
+                        <td><span th:text="${Fee.room.noRoom}" th:utext="${Fee.room.noRoom}" readonly></span></td>
+                        <td><span th:text="${Fee.roomFeePaid}" th:utext="${Fee.roomFeePaid}" readonly></span></td>
+                        <td><span th:text="${Fee.room.defaultFeeRoom}" th:utext="${Fee.room.defaultFeeRoom}" readonly></span></td>
+                        <td><span th:text="${Fee.waterFeePaid}" th:utext="${Fee.waterFeePaid}" readonly></span></td>
+                        <td><span th:text="${Fee.waterFee}" th:utext="${Fee.waterFee}" readonly></span></td>
+                        <td><span th:text="${Fee.electricFeePaid}" th:utext="${Fee.electricFeePaid}" readonly></span></td>
+                        <td><span th:text="${Fee.electricFee}" th:utext="${Fee.electricFee}" readonly></span></td>
+                        <td><span th:text="${Fee.parkingFeePaid}" th:utext="${Fee.parkingFeePaid}" readonly></span></td>
+                        <td><span th:text="${Fee.room.defaultParkingFee}" th:utext="${Fee.room.defaultParkingFee}" readonly></span></td>
+                        <td><button type="button" onclick="editRow(this)">Edit</button></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+
+    <script>
+        // Chỉ mục của các cột cần sửa đổi
+        var editableColumns = [1, 3, 4, 5, 6, 7];
+        
+        function editRow(button) {
+            var row = button.parentNode.parentNode;
+            var cells = row.cells;
+
+            for (var i = 0; i < cells.length - 1; i++) {
+                var cell = cells[i];
+                
+                // Kiểm tra xem chỉ mục cột có trong danh sách được sửa đổi không
+                if (editableColumns.includes(i)) {
+                    var span = cell.querySelector('span');
+                    span.outerHTML = '<input type="text" value="' + span.textContent + '" name="' + i + '" />';
+                }
+            }
+        }
+    </script>
 </body>
 </html>

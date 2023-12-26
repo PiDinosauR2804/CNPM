@@ -130,6 +130,18 @@ public class RoomDataSeeder implements CommandLineRunner {
         d1.setRoom(c);
         ResidentRepo.save(d1);
 
+        MandatoryFee b_fee = new MandatoryFee(12, 2023, 12345678, 1546328);
+        c.addMandatoryFee(b_fee);
+        b_fee.setRoom(c);
+        RoomRepo.save(c);
+        MandatoryFeeRepo.save(b_fee);
+
+        DonationFee b_dfee = new DonationFee(12, 2023, 1, 44555669);
+        c.addDonationFee(b_dfee);
+        b_dfee.setRoom(c);
+        RoomRepo.save(c);
+        DonationFeeRepo.save(b_dfee);
+
         // Room 3
         Room e = new Room(0003, "123456782", "Lê Đình Trí Tuệ", "0911052883", 1000000, 200000);
         e.generateKey();
@@ -145,6 +157,18 @@ public class RoomDataSeeder implements CommandLineRunner {
         f1.setRoom(e);
         ResidentRepo.save(f1);
 
+        MandatoryFee c_fee = new MandatoryFee(12, 2023, 32165478, 1536974);
+        e.addMandatoryFee(c_fee);
+        c_fee.setRoom(e);
+        RoomRepo.save(e);
+        MandatoryFeeRepo.save(c_fee);
+
+        DonationFee c_dfee = new DonationFee(12, 2023, 1, 5555550);
+        e.addDonationFee(c_dfee);
+        c_dfee.setRoom(e);
+        RoomRepo.save(e);
+        DonationFeeRepo.save(c_dfee);
+
         // Room 4
         Room g = new Room(0004, "123456789", "Phan Trọng Cường", "0911052881", 1000000, 200000);
         g.generateKey();
@@ -159,6 +183,18 @@ public class RoomDataSeeder implements CommandLineRunner {
         g.addResident(h1);
         h1.setRoom(g);
         ResidentRepo.save(h1);
+
+        MandatoryFee d_fee = new MandatoryFee(12, 2023, 5555555, 9999999);
+        g.addMandatoryFee(d_fee);
+        d_fee.setRoom(g);
+        RoomRepo.save(g);
+        MandatoryFeeRepo.save(d_fee);
+
+        DonationFee d_dfee = new DonationFee(12, 2023, 1, 36458788);
+        g.addDonationFee(d_dfee);
+        d_dfee.setRoom(g);
+        RoomRepo.save(g);
+        DonationFeeRepo.save(d_dfee);
 
         // Room 5
         Room i = new Room(0005, "123456784", "Nguyễn Xuân Phúc", "0911052885", 1000000, 200000);
@@ -185,5 +221,17 @@ public class RoomDataSeeder implements CommandLineRunner {
         i.addResident(m);
         m.setRoom(i);
         ResidentRepo.save(m);
+
+        MandatoryFee e_fee = new MandatoryFee(12, 2023, 36544444, 89878888);
+        i.addMandatoryFee(e_fee);
+        e_fee.setRoom(i);
+        RoomRepo.save(i);
+        MandatoryFeeRepo.save(e_fee);
+
+        DonationFee e_dfee = new DonationFee(12, 2023, 1, 23333330);
+        i.addDonationFee(e_dfee);
+        e_dfee.setRoom(i);
+        RoomRepo.save(i);
+        DonationFeeRepo.save(e_dfee);        
     }
 }

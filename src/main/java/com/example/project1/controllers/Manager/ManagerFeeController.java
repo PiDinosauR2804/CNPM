@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.data.repository.CrudRepository;
 
 import com.example.project1.Repository.DonationFeeRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
@@ -17,6 +18,11 @@ import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Room;
+
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ManagerFeeController {
@@ -50,8 +56,7 @@ public class ManagerFeeController {
         model.addAttribute("listFees", listFees);
         return "manager/fee/createAll";
     }
-    
-    
+
     @GetMapping("/manager/room/{roomNumber}/fees")
     public String detail(@PathVariable int roomNumber, Model model) {
         model.addAttribute("roomNumber", roomNumber);
@@ -68,10 +73,36 @@ public class ManagerFeeController {
         return "manager/fee/edit";
     }
 
-
     @PostMapping("/manager/fee/save")
-    public String save(@ModelAttribute("fee")MandatoryFee fee) {
+    public String save(@ModelAttribute("fee") MandatoryFee fee) {
         MandatoryFeeRepo.save(fee);
+        return "redirect:/manager/fee/index";
+    }
+
+    @PostMapping("/manager/saveall")
+    public String saveFees(HttpServletRequest request) {
+        List<MandatoryFee> listFee_check = MandatoryFeeRepo.findAll();
+        String[] noRooms = request.getParameterValues("0");
+        String[] roomFeePaids = request.getParameterValues("1");
+        String[] waterFeePaids = request.getParameterValues("3");
+        String[] waterFees = request.getParameterValues("4");
+        String[] electricFeePaids = request.getParameterValues("5");
+        String[] electricFees = request.getParameterValues("6");
+        String[] parkingFeePaids = request.getParameterValues("7");
+        for (int i = 0; i < noRooms.length; i++) {
+            for (MandatoryFee fee_check : listFee_check) {
+                if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
+                    MandatoryFeeRepo.updateAllMandatoryFee(fee_check.getNo(),
+                            Integer.parseInt(roomFeePaids[i]),
+                            Integer.parseInt(waterFeePaids[i]),
+                            Integer.parseInt(waterFees[i]),
+                            Integer.parseInt(electricFeePaids[i]),
+                            Integer.parseInt(electricFees[i]),
+                            Integer.parseInt(parkingFeePaids[i]));
+                    break;
+                }
+            }
+        }
         return "redirect:/manager/fee/index";
     }
 

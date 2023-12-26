@@ -24,4 +24,16 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
 
     @Query("SELECT r FROM MandatoryFee r WHERE r.waterFeePaid = r.waterFee AND r.electricFee = r.electricFeePaid AND r.roomFeePaid = r.room.defaultFeeRoom AND r.parkingFeePaid = r.room.defaultParkingFee")
     List<MandatoryFee> findIfFeeComplete();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE MandatoryFee mf SET mf.roomFeePaid = :roomFeePaid, mf.waterFee = :waterFee, mf.waterFeePaid = :waterFeePaid, mf.electricFee = :electricFee, mf.electricFeePaid = :electricFeePaid, mf.parkingFeePaid = :parkingFeePaid WHERE mf.no = :no")
+    void updateAllMandatoryFee(@Param("no") int no,
+                        @Param("roomFeePaid") int roomFeePaid, 
+                        @Param("waterFee") int waterFee, 
+                        @Param("waterFeePaid") int waterFeePaid,
+                        @Param("electricFee") int electricFee, 
+                        @Param("electricFeePaid") int electricFeePaid,
+                        @Param("parkingFeePaid") int parkingFeePaid);
+
 }
