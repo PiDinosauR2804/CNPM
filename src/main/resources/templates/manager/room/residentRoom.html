@@ -6,9 +6,12 @@
 </head>
 <body>
     <p2>Welcome to tue dep trai = "${noRoom}"</p2>
-
+    <br>
+    <a th:href="@{/manager/index}">Return back</a>
     <br>
     <a th:href="@{/manager/room/{noRoom}/addresident(noRoom=${noRoom})}">Add Resident</a>
+    <br>
+    <a th:href="@{/manager/room/{noRoom}/fees(noRoom=${noRoom})}">Fees Manage</a>
     <table>
         <thead>
             <th>ID</th>

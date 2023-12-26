@@ -16,7 +16,7 @@ public class serviceRoom {
 	
 	//Tìm kiếm theo String keyword
 	 public Page<Room> listAll(String keyword,Integer pageNo){
-		Pageable pageable = PageRequest.of(pageNo - 1, 2);//2 là size page
+		Pageable pageable = PageRequest.of(pageNo - 1, 10);//2 là size page
 		if(keyword !=null) {
 			return repo.findAll(keyword,pageable);
 		}

@@ -10,6 +10,6 @@ import com.example.project1.entity.AbsentResident;
 public interface AbsentResidentRepository extends JpaRepository<AbsentResident, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE absentRepository", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE absent_resident", nativeQuery = true)
     void truncateTable();
 }

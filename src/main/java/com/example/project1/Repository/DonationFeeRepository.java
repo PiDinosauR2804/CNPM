@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.project1.entity.TemporaryResident;
+import com.example.project1.entity.DonationFee;
 
-public interface TemporaryResidentRepository extends JpaRepository<TemporaryResident, Integer> {
+public interface DonationFeeRepository extends JpaRepository<DonationFee, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE temporary_resident", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE donation_fee", nativeQuery = true)
     void truncateTable();
 }

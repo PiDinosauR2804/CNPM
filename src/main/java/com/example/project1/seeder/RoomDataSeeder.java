@@ -5,10 +5,21 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.project1.Repository.AbsentResidentRepository;
+import com.example.project1.Repository.DonationFeeHistoryRepository;
+import com.example.project1.Repository.DonationFeeRepository;
+import com.example.project1.Repository.MandatoryFeeHistoryRepository;
+import com.example.project1.Repository.MandatoryFeeRepository;
+import com.example.project1.Repository.ResidentHistoryRepository;
 import com.example.project1.Repository.ResidentRepository;
+import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
+import com.example.project1.Repository.TemporaryResidentRepository;
+import com.example.project1.entity.DonationFee;
+import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
+import com.example.project1.entity.RoomHistory;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,7 +29,28 @@ public class RoomDataSeeder implements CommandLineRunner {
     @Autowired
 	RoomRepository RoomRepo;
     @Autowired
+	RoomHistoryRepository RoomHisotryRepo;
+
+    @Autowired
     ResidentRepository ResidentRepo;
+    @Autowired
+    ResidentHistoryRepository ResidentHistoryRepo;
+
+    @Autowired
+    MandatoryFeeRepository MandatoryFeeRepo;
+    @Autowired
+    MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
+
+    @Autowired
+    DonationFeeRepository DonationFeeRepo;
+    @Autowired
+    DonationFeeHistoryRepository DonationFeeHistoryRepo;
+
+    @Autowired
+    TemporaryResidentRepository TemporaryResidentRepo;
+
+    @Autowired
+    AbsentResidentRepository AbsentResidentRepo;
 
 	@Override
     @Transactional
@@ -43,6 +75,18 @@ public class RoomDataSeeder implements CommandLineRunner {
     public void Truncate() {
         disableForeignKeyChecks();
         ResidentRepo.truncateTable();
+        ResidentHistoryRepo.truncateTable();
+
+        MandatoryFeeRepo.truncateTable();
+        MandatoryFeeHistoryRepo.truncateTable();
+
+        DonationFeeHistoryRepo.truncateTable();
+        DonationFeeRepo.truncateTable();
+
+        TemporaryResidentRepo.truncateTable();
+        AbsentResidentRepo.truncateTable();
+
+        RoomHisotryRepo.truncateTable();
 		RoomRepo.truncateTable();
         enableForeignKeyChecks();
     }
@@ -50,7 +94,7 @@ public class RoomDataSeeder implements CommandLineRunner {
     private void loadUserData() {
         Truncate();
         // Room 1
-        Room a = new Room(0004, "123456783", "Ngô Đình Luyện", "0911052884");
+        Room a = new Room(0001, "123456783", "Ngô Đình Luyện", "0911052884", 1000000, 200000);
         a.generateKey();
         RoomRepo.save(a);
 
@@ -59,8 +103,20 @@ public class RoomDataSeeder implements CommandLineRunner {
         b.setRoom(a);
         ResidentRepo.save(b);
 
+        MandatoryFee a_fee = new MandatoryFee(12, 2023, 1000000, 1000000);
+        a.addMandatoryFee(a_fee);
+        a_fee.setRoom(a);
+        RoomRepo.save(a);
+        MandatoryFeeRepo.save(a_fee);
+
+        DonationFee a_dfee = new DonationFee(12, 2023, 1, 111110);
+        a.addDonationFee(a_dfee);
+        a_dfee.setRoom(a);
+        RoomRepo.save(a);
+        DonationFeeRepo.save(a_dfee);
+
         // Room 2
-        Room c = new Room(0002, "123456781", "Hoàng Đức Huy", "0911052882");
+        Room c = new Room(0002, "123456781", "Hoàng Đức Huy", "0911052882", 1000000, 200000);
         c.generateKey();
         RoomRepo.save(c);
 
@@ -75,7 +131,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(d1);
 
         // Room 3
-        Room e = new Room(0003, "123456782", "Lê Đình Trí Tuệ", "0911052883");
+        Room e = new Room(0003, "123456782", "Lê Đình Trí Tuệ", "0911052883", 1000000, 200000);
         e.generateKey();
         RoomRepo.save(e);
 
@@ -90,7 +146,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(f1);
 
         // Room 4
-        Room g = new Room(0001, "123456789", "Phan Trọng Cường", "0911052881");
+        Room g = new Room(0004, "123456789", "Phan Trọng Cường", "0911052881", 1000000, 200000);
         g.generateKey();
         RoomRepo.save(g);
 
@@ -105,7 +161,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(h1);
 
         // Room 5
-        Room i = new Room(0005, "123456784", "Nguyễn Xuân Phúc", "0911052885");
+        Room i = new Room(0005, "123456784", "Nguyễn Xuân Phúc", "0911052885", 1000000, 200000);
         i.generateKey();
         RoomRepo.save(i);
 
