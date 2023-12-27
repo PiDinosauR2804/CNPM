@@ -1,5 +1,7 @@
 package com.example.project1.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +14,7 @@ public interface RoomHistoryRepository extends JpaRepository<RoomHistory, Intege
     @Transactional
     @Query(value = "TRUNCATE TABLE room_history", nativeQuery = true)
     void truncateTable();
+
+    @Query("SELECT p FROM RoomHistory p WHERE p.key LIKE %?1%")
+    public List<RoomHistory> findByKey(String key);
 }

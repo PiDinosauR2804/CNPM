@@ -30,22 +30,26 @@ public class MandatoryFeeHistory {
         @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
         @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
     })
-    private RoomHistory roomHisotry;
+    private RoomHistory roomHistory;
     
     public MandatoryFeeHistory() {};
-    public MandatoryFeeHistory(int month, int year, int waterFee, int electricFee) {
+    public MandatoryFeeHistory(int month, int year,int waterFeePaid, int waterFee,int electricFeePaid, int electricFee, int parkingFeePaid, int roomFeePaid) {
         this.month = month;
         this.year = year;
         this.waterFee = waterFee;
         this.electricFee = electricFee;
+        this.electricFeePaid = electricFeePaid;
+        this.waterFeePaid = waterFeePaid;
+        this.parkingFeePaid = parkingFeePaid;
+        this.roomFeePaid = roomFeePaid;
     }
 
     public int getNoRoom() {
-        return roomHisotry.getNoRoom();
+        return roomHistory.getNoRoom();
     }
 
     public String getKey() {
-        return roomHisotry.getKey();
+        return roomHistory.getKey();
     }
 
     public int getMonth() {
@@ -57,7 +61,7 @@ public class MandatoryFeeHistory {
     }
 
     public int getRoomFee() {
-        return roomHisotry.getDefaultFeeRoom();
+        return roomHistory.getDefaultFeeRoom();
     }
 
     public int getRoomFeePaid() {
@@ -81,7 +85,7 @@ public class MandatoryFeeHistory {
     }
 
     public int getParkingFee() {
-        return roomHisotry.getDefaultParkingFee();
+        return roomHistory.getDefaultParkingFee();
     }
 
     public int getParkingFeePaid() {
@@ -89,7 +93,7 @@ public class MandatoryFeeHistory {
     }
 
     public RoomHistory getRoom() {
-        return roomHisotry;
+        return roomHistory;
     }
 
     public void setMonth(int month) {
@@ -101,7 +105,7 @@ public class MandatoryFeeHistory {
     }
 
     public void setRoomFee(int roomFee) {
-        roomHisotry.setDefaultFeeRoom(roomFee);
+        roomHistory.setDefaultFeeRoom(roomFee);
     }
 
     public void setRoomFeePaid(int roomFeePaid) {
@@ -125,14 +129,14 @@ public class MandatoryFeeHistory {
     }
 
     public void setParkingFee(int parkingFee) {
-        roomHisotry.setDefaultParkingFee(parkingFee);
+        roomHistory.setDefaultParkingFee(parkingFee);
     }
 
     public void setParkingFeePaid(int parkingFeePaid) {
         this.parkingFeePaid = parkingFeePaid;
     }
 
-    public void setRoom(RoomHistory roomHisotry) {
-        this.roomHisotry = roomHisotry;
+    public void setRoom(RoomHistory roomHistory) {
+        this.roomHistory = roomHistory;
     }
 }

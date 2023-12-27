@@ -1,5 +1,8 @@
 package com.example.project1.seeder;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,11 +18,16 @@ import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.Repository.TemporaryResidentRepository;
+import com.example.project1.Repository.TypeDonationRepository;
+import com.example.project1.controllers.Manager.ManagerFeeController;
+import com.example.project1.controllers.Manager.ManagerResidentController;
+import com.example.project1.controllers.Manager.ManagerRoomController;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.entity.TypeDonation;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -29,7 +37,7 @@ public class RoomDataSeeder implements CommandLineRunner {
     @Autowired
 	RoomRepository RoomRepo;
     @Autowired
-	RoomHistoryRepository RoomHisotryRepo;
+	RoomHistoryRepository RoomHistoryRepo;
 
     @Autowired
     ResidentRepository ResidentRepo;
@@ -51,6 +59,16 @@ public class RoomDataSeeder implements CommandLineRunner {
 
     @Autowired
     AbsentResidentRepository AbsentResidentRepo;
+
+    @Autowired
+    TypeDonationRepository TypeDonationRepo;
+
+    @Autowired
+    private ManagerFeeController feeController;
+    @Autowired
+    private ManagerResidentController residentController;
+    @Autowired
+    private ManagerRoomController managerRoomController;
 
 	@Override
     @Transactional
@@ -86,21 +104,45 @@ public class RoomDataSeeder implements CommandLineRunner {
         TemporaryResidentRepo.truncateTable();
         AbsentResidentRepo.truncateTable();
 
-        RoomHisotryRepo.truncateTable();
+        RoomHistoryRepo.truncateTable();
 		RoomRepo.truncateTable();
+
+        TypeDonationRepo.truncateTable();
         enableForeignKeyChecks();
+    }
+
+    public String getTime() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String curDate_string = currentDate.format(dateFormatter);
+        return curDate_string;
+    }
+
+    public void setTypeDonation() {
+        TypeDonation a = new TypeDonation("Tiền khuyến học");
+        TypeDonationRepo.save(a);
+        TypeDonation b = new TypeDonation("Tiền thiên tai");
+        TypeDonationRepo.save(b);
     }
 
     private void loadUserData() {
         Truncate();
+        TypeDonation a_type = new TypeDonation("Tiền khuyến học");
+        TypeDonationRepo.save(a_type);
+        TypeDonation b_type = new TypeDonation("Tiền thiên tai");
+        TypeDonationRepo.save(b_type);
         // Room 1
         Room a = new Room(0001, "123456783", "Ngô Đình Luyện", "0911052884", 1000000, 200000);
         a.generateKey();
         RoomRepo.save(a);
 
+        RoomHistory roomHis = new RoomHistory(a.getKey(), a.getNoRoom(), a.getIdOwner(), a.getNameOwner(), a.getNumberPhoneOwner(), a.getDefaultFeeRoom(), a.getDefaultParkingFee(), getTime());
+        RoomHistoryRepo.save(roomHis);
+
         Resident b = new Resident("001203000768", "Ngô Đình Luyện", "Male", "28/04/2003", "Hà Nội", "Student", "0911052885", "Chủ");
         a.addResident(b);
         b.setRoom(a);
+        residentController.saveResidentInHistory(b);
         ResidentRepo.save(b);
 
         MandatoryFee a_fee = new MandatoryFee(12, 2023, 1000000, 1000000);
@@ -109,9 +151,11 @@ public class RoomDataSeeder implements CommandLineRunner {
         RoomRepo.save(a);
         MandatoryFeeRepo.save(a_fee);
 
-        DonationFee a_dfee = new DonationFee(12, 2023, 1, 111110);
+        
+        DonationFee a_dfee = new DonationFee(12, 2023, 100000);
         a.addDonationFee(a_dfee);
         a_dfee.setRoom(a);
+        a_dfee.setType_donation(a_type);
         RoomRepo.save(a);
         DonationFeeRepo.save(a_dfee);
 

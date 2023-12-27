@@ -7,27 +7,22 @@
 <body>
     <p2>Welcome to tue dep trai = "${noRoom}"</p2>
     <br>
-    <a th:href="@{/manager/index}">Return back</a>
+    <a th:href="@{/manager/fee/donation/index}">Return back</a>
     <br>
     <a th:href="@{/manager/fee/donation/type}">All Type</a>
     
     <table>
         <thead>
-            <th>Room</th>
-            <th>year</th>
-            <th>month</th>
-            <th>Amount</th>
-            <th>Type</th>
+            <th>Name of Type</th>
+            <th>Action</th>
+            <th>Close</th>
         </thead>
         <tbody>
-            <th:block th:each="Fee : ${listFees}">
+            <th:block th:each="Type : ${listTypes}">
                 <tr>
-                    <th>[[${Fee.room.noRoom}]]</th>
-                    <th>[[${Fee.year}]]</th>
-                    <th>[[${Fee.month}]]</th>
-                    <th>[[${Fee.amount}]]</th>
-                    <th>[[${Fee.id_money}]]</th>
+                    <th>[[${Type.type}]]</th>
                     <td><a th:href="@{/landing}">Edit</a></td>
+                    <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.id})}">Close</a></td>
                 </tr>
             </th:block>
         </tbody>

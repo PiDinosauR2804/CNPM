@@ -41,4 +41,8 @@ public class TypeDonation {
     public String getType() {
         return type;
     }
+
+    public int getId() {
+        return id;
+    }
 }

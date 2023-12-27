@@ -72,6 +72,18 @@ public class Room {
         donatioFees.add(fee);
     }
 
+    public List<Resident> getResidents(){
+        return residents;
+    }
+
+    public List<MandatoryFee> getMandatoryFees(){
+        return mandatoryFees;
+    }
+
+    public List<DonationFee> getDonationFees(){
+        return donatioFees;
+    }
+
     public void generateKey() {
         String suffix = idOwner.substring(idOwner.length() - 4);
         this.key = suffix + String.valueOf(id);

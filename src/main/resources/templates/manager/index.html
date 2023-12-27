@@ -31,6 +31,7 @@
             <th>Phone number Owner</th>
             <th>Key</th>
             <th>Details</th>
+            <th>Delete</th>
         </thead>
         <tbody>
                 <th:block th:each="Room : ${listRoom}">
@@ -41,6 +42,7 @@
                     <th>[[${Room.numberPhoneOwner}]]</th>
                     <th>[[${Room.key}]]</th>
                     <th><a th:href="@{'/manager/room/' + ${Room.noRoom}}">Manager</a></th>
+                    <th><a th:href="@{'/manager/room/delete/' + ${Room.noRoom}}">Delete</a></th>
                 </tr>
             </th:block>
         

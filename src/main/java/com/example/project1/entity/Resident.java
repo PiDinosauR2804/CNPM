@@ -48,6 +48,10 @@ public class Resident {
         this.relationshipWithOwner = relationshipWithOwner;
     }
 
+    public int getNo() {
+        return no;
+    }
+
     // Getter and Setter methods for 'id'
     public String getId() {
         return id;

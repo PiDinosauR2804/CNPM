@@ -15,8 +15,7 @@ public class DonationFeeHistory {
     private int no;
     private int month;
     private int year;
-
-    private int id_money;
+    private String typeMoney;
     private int amount;
 
     @ManyToOne
@@ -24,16 +23,16 @@ public class DonationFeeHistory {
         @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
         @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
     })
-    private RoomHistory roomHisotry;
+    private RoomHistory roomHistory;
 
     public DonationFeeHistory() {
     }
 
-    public DonationFeeHistory(int month, int year, int id_money, int amount) {
+    public DonationFeeHistory(int month, int year, int amount, String TypeMoney) {
         this.month = month;
         this.year = year;
         this.amount = amount;
-        this.id_money = id_money;
+        this.typeMoney = TypeMoney;
     }
 
     public int getNo() {
@@ -60,12 +59,12 @@ public class DonationFeeHistory {
         this.year = year;
     }
 
-    public int getId_money() {
-        return id_money;
+    public String getTypeMoney() {
+        return typeMoney;
     }
 
-    public void setId_money(int id_money) {
-        this.id_money = id_money;
+    public void setType_donation(String typeMoney) {
+        this.typeMoney = typeMoney;
     }
 
     public int getAmount() {
@@ -77,13 +76,13 @@ public class DonationFeeHistory {
     }
 
     public RoomHistory getRoom() {
-        return roomHisotry;
+        return roomHistory;
     }
 
-    public void setRoom(RoomHistory roomHisotry) {
-        this.roomHisotry = roomHisotry;
+    public void setRoom(RoomHistory roomHistory) {
+        this.roomHistory = roomHistory;
     }
     public int getNoRoom() {
-        return roomHisotry.getNoRoom();
+        return roomHistory.getNoRoom();
     }
 }

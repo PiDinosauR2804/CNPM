@@ -32,7 +32,7 @@ public class DonationFee {
     public DonationFee() {
     }
 
-    public DonationFee(int month, int year, int id_money, int amount) {
+    public DonationFee(int month, int year, int amount) {
         this.month = month;
         this.year = year;
         this.amount = amount;

@@ -1,5 +1,7 @@
 package com.example.project1.controllers.Manager;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,23 +13,40 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.project1.Repository.DonationFeeHistoryRepository;
 import com.example.project1.Repository.DonationFeeRepository;
+import com.example.project1.Repository.MandatoryFeeHistoryRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
+import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
+import com.example.project1.Repository.TypeDonationRepository;
 import com.example.project1.entity.DonationFee;
+import com.example.project1.entity.DonationFeeHistory;
 import com.example.project1.entity.MandatoryFee;
+import com.example.project1.entity.MandatoryFeeHistory;
 import com.example.project1.entity.Room;
+import com.example.project1.entity.RoomHistory;
+import com.example.project1.entity.TypeDonation;
 
 @Controller
 public class ManagerFeeController {
     @Autowired
     MandatoryFeeRepository MandatoryFeeRepo;
+    @Autowired
+    MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
 
     @Autowired
     RoomRepository RoomRepo;
+    @Autowired
+    RoomHistoryRepository RoomHistoryRepo;
 
     @Autowired
     DonationFeeRepository DonationFeeRepo;
+    @Autowired
+    DonationFeeHistoryRepository DonationFeeHistoryRepo;
+
+    @Autowired
+    TypeDonationRepository TypeDonationRepo;
 
     // Mandatory Fee
 
@@ -79,16 +98,71 @@ public class ManagerFeeController {
     public String update() {
         List<MandatoryFee> fees = MandatoryFeeRepo.findIfFeeComplete();
         for (int i = 0; i < fees.size(); i++) {
+            // Room a = RoomRepo.findByRoom(fees.get(i).getNoRoom()).get(0);
+            eraseMandatoryFee(fees.get(i));
             MandatoryFeeRepo.delete(fees.get(i));
         }
         return "redirect:/manager/fee/index";
     }
 
-    // Donation Feee
+    // Donation Fee
     @GetMapping("/manager/fee/donation/index")
     public String donation_index(Model model) {
         List<DonationFee> listFees = DonationFeeRepo.findAll();
         model.addAttribute("listFees", listFees);
         return "manager/fee/donation/index";
+    }
+
+    @GetMapping("/manager/fee/donation/type")
+    public String donation_type_index(Model model) {
+        List<TypeDonation> listTypes = TypeDonationRepo.findAll();
+        model.addAttribute("listTypes", listTypes);
+        return "manager/fee/donation/type";
+    }
+
+    @GetMapping("/manager/fee/donation/type/{id}/close")
+    public String donation_type_close(@PathVariable int id) {
+        List<TypeDonation> listTypes = TypeDonationRepo.findByNo(id);
+        if (!listTypes.isEmpty()) {
+            List<DonationFee> listDonationFees = DonationFeeRepo.findByNo(id);
+            for (int i = 0; i < listDonationFees.size(); i++) {
+                eraseDonationFee(listDonationFees.get(i));
+            }
+            TypeDonationRepo.delete(listTypes.get(0));
+        }
+        return "redirect:/manager/fee/donation/type";
+    }
+
+    // History Fee
+
+    public void eraseMandatoryFee(MandatoryFee fee) {
+        if (fee.getElectricFeePaid() + fee.getParkingFeePaid() + fee.getRoomFeePaid() + fee.getWaterFeePaid() > 0) {
+            createMandatoryFeeHistory(fee);
+            MandatoryFeeRepo.delete(fee);
+        }
+    }
+
+    public void createMandatoryFeeHistory(MandatoryFee fee) {
+        MandatoryFeeHistory a = new MandatoryFeeHistory(fee.getMonth(), fee.getYear(), fee.getWaterFeePaid(), fee.getWaterFee(), fee.getElectricFeePaid(), fee.getElectricFee(), fee.getParkingFeePaid(), fee.getRoomFeePaid());
+        RoomHistory b = RoomHistoryRepo.findByKey(fee.getKey()).get(0);
+        a.setRoom(b);
+        b.addMandatoryFee(a);
+        MandatoryFeeHistoryRepo.save(a);
+        RoomHistoryRepo.save(b);
+    }
+
+        // Donation History Fee
+    public void eraseDonationFee(DonationFee fee) {
+        createDonationFeeFeeHistory(fee);
+        DonationFeeRepo.delete(fee);
+    }
+
+    public void createDonationFeeFeeHistory(DonationFee fee) {
+        DonationFeeHistory a = new DonationFeeHistory(fee.getMonth(), fee.getYear(), fee.getAmount(), fee.getId_money());
+        RoomHistory b = RoomHistoryRepo.findByKey(fee.getRoom().getKey()).get(0);
+        a.setRoom(b);
+        b.addDonationFee(a);
+        DonationFeeHistoryRepo.save(a);
+        RoomHistoryRepo.save(b);
     }
 }
