@@ -89,60 +89,64 @@ public class ManagerFeeController {
     @PostMapping("/manager/saveall/mandatoryfee")
     public String saveAllMandatory(HttpServletRequest request) {
         List<MandatoryFee> listFee_check = MandatoryFeeRepo.findAll();
-        String[] noRooms = request.getParameterValues("0");
-        String[] roomFeePaids = request.getParameterValues("1");
-        String[] waterFeePaids = request.getParameterValues("3");
-        String[] waterFees = request.getParameterValues("4");
-        String[] electricFeePaids = request.getParameterValues("5");
-        String[] electricFees = request.getParameterValues("6");
-        String[] parkingFeePaids = request.getParameterValues("7");
+        String[] noRooms = request.getParameterValues("noRooms");
+        String[] roomFeePaids = request.getParameterValues("roomFeePaids");
+        String[] waterFeePaids = request.getParameterValues("waterFeePaids");
+        String[] waterFees = request.getParameterValues("waterFees");
+        String[] electricFeePaids = request.getParameterValues("electricFeePaids");
+        String[] electricFees = request.getParameterValues("electricFees");
+        String[] parkingFeePaids = request.getParameterValues("parkingFeePaids");
+
+
         for (int i = 0; i < noRooms.length; i++) {
             for (MandatoryFee fee_check : listFee_check) {
                 if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
                     MandatoryFeeRepo.updateAllMandatoryFee(fee_check.getNo(),
                             Integer.parseInt(roomFeePaids[i]),
-                            Integer.parseInt(waterFeePaids[i]),
                             Integer.parseInt(waterFees[i]),
-                            Integer.parseInt(electricFeePaids[i]),
+                            Integer.parseInt(waterFeePaids[i]),
                             Integer.parseInt(electricFees[i]),
+                            Integer.parseInt(electricFeePaids[i]),
                             Integer.parseInt(parkingFeePaids[i]));
                     break;
                 }
             }
         }
-        return "redirect:/manager/fee/index";
+        
+        
+        return "redirect:/manager/fee/mandatoryfee";
     }
-
-    @PostMapping("/manager/saveall/donationfee")
-    public String saveAllDonation(HttpServletRequest request) {
-        List<DonationFee> listFee_check = DonationFeeRepo.findAll();
-        String[] noRooms = request.getParameterValues("0");
-        String[] roomFeePaids = request.getParameterValues("1");
-        String[] waterFeePaids = request.getParameterValues("3");
-        String[] waterFees = request.getParameterValues("4");
-        String[] electricFeePaids = request.getParameterValues("5");
-        String[] electricFees = request.getParameterValues("6");
-        String[] parkingFeePaids = request.getParameterValues("7");
-        for (int i = 0; i < noRooms.length; i++) {
-            for (DonationFee fee_check : listFee_check) {
-                if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
-                    void updateAllDonationFee(@Param("no_room") int no_room,
-                        @Param("amount") int amount, 
-                        @Param("month") int month, 
-                        @Param("year") int year);
-                    DonationFeeRepository.updateAllDonationFee(fee_check.getNoRoom(),
-                            Integer.parseInt(roomFeePaids[i]),
-                            Integer.parseInt(waterFeePaids[i]),
-                            Integer.parseInt(waterFees[i]),
-                            Integer.parseInt(electricFeePaids[i]),
-                            Integer.parseInt(electricFees[i]),
-                            Integer.parseInt(parkingFeePaids[i]));
-                    break;
-                }
-            }
-        }
-        return "redirect:/manager/fee/index";
-    }
+    
+    // @PostMapping("/manager/saveall/donationfee")
+    // public String saveAllDonation(HttpServletRequest request) {
+    //     List<DonationFee> listFee_check = DonationFeeRepo.findAll();
+    //     String[] noRooms = request.getParameterValues("0");
+    //     String[] roomFeePaids = request.getParameterValues("1");
+    //     String[] waterFeePaids = request.getParameterValues("3");
+    //     String[] waterFees = request.getParameterValues("4");
+    //     String[] electricFeePaids = request.getParameterValues("5");
+    //     String[] electricFees = request.getParameterValues("6");
+    //     String[] parkingFeePaids = request.getParameterValues("7");
+    //     for (int i = 0; i < noRooms.length; i++) {
+    //         for (DonationFee fee_check : listFee_check) {
+    //             if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
+    //                 /*void updateAllDonationFee(@Param("no_room") int no_room,
+    //                     @Param("amount") int amount, 
+    //                     @Param("month") int month, 
+    //                     @Param("year") int year);*/
+    //                 DonationFeeRepository.updateAllDonationFee(fee_check.getNoRoom(),
+    //                         Integer.parseInt(roomFeePaids[i]),
+    //                         Integer.parseInt(waterFeePaids[i]),
+    //                         Integer.parseInt(waterFees[i]),
+    //                         Integer.parseInt(electricFeePaids[i]),
+    //                         Integer.parseInt(electricFees[i]),
+    //                         Integer.parseInt(parkingFeePaids[i]));
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return "redirect:/manager/fee/index";
+    // }
 
     @GetMapping("/manager/fee/update")
     public String update() {

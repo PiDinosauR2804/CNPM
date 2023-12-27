@@ -232,6 +232,8 @@ public class RoomDataSeeder implements CommandLineRunner {
         i.addDonationFee(e_dfee);
         e_dfee.setRoom(i);
         RoomRepo.save(i);
-        DonationFeeRepo.save(e_dfee);        
+        DonationFeeRepo.save(e_dfee); 
+        
+        
     }
 }
