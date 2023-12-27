@@ -86,7 +86,13 @@
                 <li><a href="/manager/index">Room</a></li>
                 <li><a href="/manager/fee/mandatoryfee">Fee</a></li>
                 <li><a href="/user">User</a></li>
-                <li><a href="/signin">Log In</a></li>
+                <th:block th:if="${username}">
+                    <li><a th:text="${username}"></a></li>
+                    <li><a href="/signout">Log Out</a></li>
+                </th:block>
+                <th:block th:unless="${username}">
+                    <li><a href="/signin">Log In</a></li>
+                </th:block>
             </ul>
         </div>
     </nav>

@@ -10,7 +10,6 @@
             font-family: 'Trebuchet MS', sans-serif;
         }
 
-
         .login-container {
             display: flex;
             justify-content: center;
@@ -47,7 +46,7 @@
         .login-form button {
             width: 100%;
             padding: 10px;
-            background-color: #2e8983;
+            background-color: #31559c;
             color: white;
             border: none;
             outline-width: 55px;
@@ -68,7 +67,7 @@
 
 
         .login-form button:hover {
-            background-color: #164bd0;
+            background-color: #1e9871;
         }
 
         .forgot-password {
@@ -112,57 +111,33 @@
     <title>Login Form</title>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-header">
-                <h2>Log in</h2>
-            </div>
-            <div class="login-form">
-                <input type="text" id="textUsername" placeholder="Username">
-                <input type="password" id="textPassword" placeholder="Password">
-                <button id="loginButton">Login</button>
-                <div class="show-text">
-                    <p id="displayText" class="hidden" type="disText"></p>
+
+    <form method="get" th:object="${AccountManager}" th:action="@{/manager/signin/check}">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Sign in</h2>
                 </div>
-                <div class="forgot-password">
-                    <a href="#" >Forgot Password?</a>
+                <div class="login-form">
+                    <input type="text" id="textUsername" th:field="*{username}" placeholder="Username">
+                    <input type="password" id="textPassword" th:field="*{password}" placeholder="Password">
+                    <button type="submit" id="loginButton">Login</button>
+                    <div class="show-text" th:if="${message}">
+                        <p th:text="${message}"></p>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <div class="separator">
+                        <div class="line"></div>
+                        <div class="text">or</div>
+                        <div class="line"></div>
+                    </div>
+                    <button class="login-with-gmail" id="gmailButton">Continue with Gmail</button>
                 </div>
-                <div class="separator">
-                    <div class="line"></div>
-                    <div class="text">or</div>
-                    <div class="line"></div>
-                </div>
-                <button class="login-with-gmail" id="gmailButton">Continue with Gmail</button>
             </div>
         </div>
-    </div>
-    <script>
-        const textUsername = document.getElementById("textUsername");
-        const textPassword = document.getElementById("textPassword");
-        const loginButton = document.getElementById("loginButton")
-        const displayText = document.getElementById("displayText");
-        console.log("huhuuu")
+    </form>
 
-        loginButton.addEventListener("click", () => {
-        const usernameValue = textUsername.value.trim();
-        const passwordValue = textPassword.value.trim();
-
-        if (usernameValue === "") {
-            displayText.textContent = "Your name is blank";
-        } else if (passwordValue === ""){
-            displayText.textContent = "Your password is blank";
-        } else if (usernameValue != "" && passwordValue != ""){
-            displayText.textContent = "Yes, you are right"
-        } else {
-            displayText.textContent = "An error occurred"
-        }
-
-        //    window.location.href = "your-url-here";
-
-
-        displayText.classList.remove("hidden");
-        });
-
-    </script>
 </body>
 </html>

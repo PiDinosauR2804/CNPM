@@ -30,15 +30,8 @@ public class ManagerRoomController {
     private ResidentHistoryRepository ResidentHistoryRepo;
     @Autowired
     private serviceRoom service;
-    
-    @GetMapping("/signin")
-    //tìm kiếm theo keyword là 1 string
-    public String index(Model model){
-        return "/signin";
-    }
 
     @GetMapping("/manager/index")
-    //tìm kiếm theo keyword là 1 string
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
         Page <Room> listRoom = this.service.listAll(keyword,pageNo);
