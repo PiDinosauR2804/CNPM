@@ -27,6 +27,8 @@ import com.example.project1.entity.MandatoryFeeHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.entity.TypeDonation;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class ManagerFeeController {
@@ -133,7 +135,34 @@ public class ManagerFeeController {
         return "redirect:/manager/fee/donation/type";
     }
 
+    @GetMapping("/manager/fee/donation/type/create")
+    public String createType(Model model) {
+        TypeDonation new_type = new TypeDonation();
+        model.addAttribute("new_type", new_type);
+        return "manager/fee/donation/createType";
+    }
+
+    @PostMapping("/manager/fee/donation/type/save")
+    public String saveType(@ModelAttribute("typeDonation") TypeDonation typeDonation) {
+        TypeDonationRepo.save(typeDonation);
+        return "redirect:/manager/fee/donation/type";
+    }
+    
     // History Fee
+
+    @GetMapping("/manager/history/fee/index")
+    public String his_mdt_index(Model model) {
+        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
+        model.addAttribute("listFees", listFees);
+        return "manager/fee/his_index";
+    }
+
+    @GetMapping("/manager/history/fee/donation/index")
+    public String his_dnt_index(Model model) {
+        List<DonationFeeHistory> listFees = DonationFeeHistoryRepo.findAll();
+        model.addAttribute("listFees", listFees);
+        return "manager/fee/donation/his_index";
+    }
 
     public void eraseMandatoryFee(MandatoryFee fee) {
         if (fee.getElectricFeePaid() + fee.getParkingFeePaid() + fee.getRoomFeePaid() + fee.getWaterFeePaid() > 0) {

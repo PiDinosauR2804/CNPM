@@ -7,11 +7,7 @@
 <body>
     <p2>Welcome to tue dep trai = "${noRoom}"</p2>
     <br>
-    <a th:href="@{/manager/index}">Return back</a>
-    <br>
-    <a th:href="@{/manager/fee/donation/type}">All Type</a>
-    <br>
-    <a th:href="@{/manager/history/fee/donation/index}">Donation History</a>
+    <a th:href="@{/manager/fee/donation/index}">Return back</a>
     
     <table>
         <thead>
@@ -28,8 +24,7 @@
                     <th>[[${Fee.year}]]</th>
                     <th>[[${Fee.month}]]</th>
                     <th>[[${Fee.amount}]]</th>
-                    <th>[[${Fee.id_money}]]</th>
-                    <td><a th:href="@{/landing}">Edit</a></td>
+                    <th>[[${Fee.typeMoney}]]</th>
                 </tr>
             </th:block>
         </tbody>
