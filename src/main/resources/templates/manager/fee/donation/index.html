@@ -12,7 +12,15 @@
     <a th:href="@{/manager/fee/donation/type}">All Type</a>
     <br>
     <a th:href="@{/manager/history/fee/donation/index}">Donation History</a>
-    
+    <div class="search-form">
+            <!-- tìm kiếm -->
+            <form th:action="@{/manager/fee/donation/index}" method="get">
+                <label for="searchInput">Search:</label>
+                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
+                    th:value="${keyword}" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
     <table>
         <thead>
             <th>Room</th>
@@ -34,5 +42,30 @@
             </th:block>
         </tbody>
     </table>
+     <!-- Đánh số trang -->
+        <div th:if="${totalPage > 0}" class="pagination">
+            <!-- Link to the first page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/fee/donation/index(pageNo=1, keyword=${keyword})}">First</a>
+
+            <!-- Link to the previous page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/fee/donation/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+
+            <!-- Links to individual pages -->
+            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                <a th:if="${currentPage != i}"
+                    th:href="@{/manager/fee/donation/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
+
+            <!-- Link to the next page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/fee/donation/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+
+            <!-- Link to the last page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/fee/donation/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+        </div>
 </body>
 </html>

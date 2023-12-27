@@ -27,7 +27,9 @@ public class ManagerTemporaryResident {
 	                   @RequestParam(name = "endDate", required = false) String endDate,
 	                   @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
 	    Page <TemporaryResident> listTemporaryResident = this.service.listAll(keyword, startDate, endDate, pageNo);
-
+	    model.addAttribute("keyword",keyword);
+	    model.addAttribute("startDate",startDate);
+	    model.addAttribute("endDate",endDate);
 	    model.addAttribute("totalPage", listTemporaryResident.getTotalPages());
 	    model.addAttribute("currentPage", pageNo);
 	    model.addAttribute("listTemporaryResident", listTemporaryResident);
