@@ -10,6 +10,11 @@ import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
 
+import com.example.project1.Repository.TemporaryResidentRepository;
+import com.example.project1.Repository.AbsentResidentRepository;
+import com.example.project1.entity.AbsentResident;
+import com.example.project1.entity.TemporaryResident;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
@@ -19,6 +24,11 @@ public class RoomDataSeeder implements CommandLineRunner {
 	RoomRepository RoomRepo;
     @Autowired
     ResidentRepository ResidentRepo;
+    
+    @Autowired
+    TemporaryResidentRepository TemRepo;
+    @Autowired
+    AbsentResidentRepository AbsentRepo;
 
 	@Override
     @Transactional
@@ -44,6 +54,11 @@ public class RoomDataSeeder implements CommandLineRunner {
         disableForeignKeyChecks();
         ResidentRepo.truncateTable();
 		RoomRepo.truncateTable();
+		
+		AbsentRepo.truncateTable();
+		TemRepo.truncateTable();
+		
+		
         enableForeignKeyChecks();
     }
 
@@ -129,5 +144,23 @@ public class RoomDataSeeder implements CommandLineRunner {
         i.addResident(m);
         m.setRoom(i);
         ResidentRepo.save(m);
+        
+        AbsentResident n1 = new AbsentResident("Phan Trọng Cường","005602000683","0001","123456789","10/08/2017", "04/02/2018");
+        AbsentRepo.save(n1);
+        AbsentResident n2 = new AbsentResident("Nguyễn Xuân Phúc","002305000329","0005","123456784","06/05/2019","14/10/2021" );
+        AbsentRepo.save(n2);
+        AbsentResident n3 = new AbsentResident("Phan Trọng Cường","005602000683","0001","123456789","15/07/2013", "22/02/2016");
+        AbsentRepo.save(n3);
+               
+        TemporaryResident o1 = new TemporaryResident("Nguyễn Xuân Phúc","002305000329","0005","123456784","15/10/2021", null);
+        TemRepo.save(o1);
+        TemporaryResident o2 = new TemporaryResident("Phan Trọng Cường","005602000683","0001","123456789","10/02/2021", null);
+        TemRepo.save(o2);
+        TemporaryResident o3 = new TemporaryResident("Lê Đình Trí Tuệ","002304000568","0003","123456782","09/09/2021", "30/12/2023");
+        TemRepo.save(o3);
+        TemporaryResident o4 = new TemporaryResident("Ngô Đình Luyện","001203000768","0004", "123456783","28/04/2022", null);
+        TemRepo.save(o4);
+        TemporaryResident o5 = new TemporaryResident("Hoàng Đức Huy","004206000240","0002", "123456781", "04/12/2003", "01/09/2024");
+        TemRepo.save(o5);
     }
 }

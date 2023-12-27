@@ -17,7 +17,10 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
     @Transactional
     @Query(value = "TRUNCATE TABLE room", nativeQuery = true)
     void truncateTable();
-
+    
+    //tìm kiếm all
+    public List<Room> findAll();
+    
     @Query("SELECT p FROM Room p WHERE p.key LIKE %?1%")
     public List<Room> findByKey(String key);
 

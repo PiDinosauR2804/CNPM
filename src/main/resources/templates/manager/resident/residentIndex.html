@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager - Resident Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div align="center">
+        <h2>Current Residents</h2>
+
+        <!-- Add Resident Link and Search Form -->
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 70%;">
+            <div>
+                <a th:href="@{/manager/resident/createDontKnowRoom}">Add Resident</a>
+            </div>
+
+            <form th:action="@{/manager/resident/residentIndex}" method="get">
+                <label for="searchInput">Search:</label>
+                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..." th:value="${keyword}"/>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div>&nbsp;</div>
+
+        <!-- Residents Table -->
+        <table>
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>Birth Place</th>
+                <th>Job</th>
+                <th>Phone Number</th>
+                <th>Relationship with Owner</th>
+            </thead>
+            <tbody>
+                <th:block th:each="resident : ${listResident.content}">
+                    <tr>
+                        <th th:text="${resident.id}"></th>
+                        <th th:text="${resident.name}"></th>
+                        <th th:text="${resident.gender}"></th>
+                        <th th:text="${resident.birthDate}"></th>
+                        <th th:text="${resident.birthPlace}"></th>
+                        <th th:text="${resident.job}"></th>
+                        <th th:text="${resident.phoneNumber}"></th>
+                        <th th:text="${resident.relationshipWithOwner}"></th>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a th:if="${currentPage > 1}" th:href="@{/manager/resident/residentIndex(pageNo=1, keyword=${keyword})}">First</a>
+            <a th:if="${currentPage > 1}" th:href="@{/manager/resident/residentIndex(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+            
+            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                <a th:if="${currentPage != i}" th:href="@{/manager/resident/residentIndex(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
+            
+            <a th:if="${currentPage < totalPage}" th:href="@{/manager/resident/residentIndex(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+            <a th:if="${currentPage < totalPage}" th:href="@{/manager/resident/residentIndex(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+        </div>
+    </div>
+</body>
+</html>

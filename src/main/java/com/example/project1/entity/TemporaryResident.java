@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 public class TemporaryResident {
@@ -16,8 +17,10 @@ public class TemporaryResident {
     private String keyRoom;
     private String dayIn;
     private String dayOut;
+    
+    public TemporaryResident() {}
 
-    public TemporaryResident() {
+    public TemporaryResident(String string, String string2, String string3, String string4, int i) {
     }
 
     public TemporaryResident(String name, String id, String noRoom, String keyRoom, String dayIn, String dayOut) {

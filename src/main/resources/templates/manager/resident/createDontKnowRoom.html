@@ -1,0 +1,26 @@
+<!-- src/main/resources/templates/manager/resident/createDontKnowRoom.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+     <title>Choose Room</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h2>Choose Room</h2>
+    
+    <form th:action="@{/manager/resident/createDontKnowRoom/next}" method="post">
+        <label for="numberRoom">Choose Room Number:</label>
+        <div>	
+        	<br>
+         	<select id="numberRoom" name="numberRoom" required>
+            <option th:each="room : ${rooms}" th:value="${room.noRoom}" th:text="${room.noRoom + ' - ' + room.nameOwner}"></option>
+        	</select>
+        	<br>
+        </div>
+        <br>
+        <div>
+        <button type="submit">Next</button>
+        </div>
+    </form>
+</body>
+</html>
