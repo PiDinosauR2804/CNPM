@@ -151,11 +151,11 @@ public class RoomHistory {
         return key;
     }
 
-    public String getdayOut() {
+    public String getDayOut() {
         return dayOut;
     }
 
-    public String getdayIn() {
+    public String getDayIn() {
         return dayIn;
     }
 

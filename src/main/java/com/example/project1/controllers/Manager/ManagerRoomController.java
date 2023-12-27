@@ -83,6 +83,13 @@ public class ManagerRoomController {
     }
     // Room History
 
+    @GetMapping("/manager/history/room/index")
+    public String his_index(Model model) {
+        java.util.List<RoomHistory> listRoom = RoomHistoryRepo.findAll();
+        model.addAttribute("listRoom", listRoom);
+        return "manager/room/his_index";
+    }
+
     public void saveRoomInHistory(Room room) {
         RoomHistory roomHis = new RoomHistory(room.getKey(), room.getNoRoom(), room.getIdOwner(), room.getNameOwner(), room.getNumberPhoneOwner(), room.getDefaultFeeRoom(), room.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis);
