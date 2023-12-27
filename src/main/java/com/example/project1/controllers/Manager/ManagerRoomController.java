@@ -20,6 +20,7 @@ import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Resident;
+import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.service.serviceRoom;
@@ -87,6 +88,16 @@ public class ManagerRoomController {
     public String his_index(Model model) {
         java.util.List<RoomHistory> listRoom = RoomHistoryRepo.findAll();
         model.addAttribute("listRoom", listRoom);
+        return "manager/room/his_index";
+    }
+
+    @GetMapping("/manager/history/room/detail/{key}")
+    public String his_detail(@PathVariable String key ,Model model) {
+        RoomHistory room = RoomHistoryRepo.findByKey(key).get(0);
+        List<ResidentHistory> residents = room.getResidents();
+        model.addAttribute("room", room);
+        model.addAttribute("residents", residents); 
+
         return "manager/room/his_index";
     }
 

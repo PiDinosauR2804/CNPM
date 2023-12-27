@@ -13,7 +13,7 @@ import com.example.project1.entity.MandatoryFee;
 public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Integer>{
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE mandatory_fee", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE Mandatory_Fee", nativeQuery = true)
     void truncateTable();
 
     @Query("SELECT r FROM MandatoryFee r WHERE r.room.noRoom = :noRoom")
