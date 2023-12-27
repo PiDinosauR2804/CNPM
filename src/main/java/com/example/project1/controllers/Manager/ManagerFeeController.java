@@ -3,6 +3,7 @@ package com.example.project1.controllers.Manager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,17 +63,20 @@ public class ManagerFeeController {
         return "manager/fee/index";
     }
 
-    @GetMapping("/manager/fee/createAll")
-    public String createAll(Model model) {
+    @GetMapping("/manager/fee/mandatory/createAll")
+    public String createAll() {
         List<Room> rooms = RoomRepo.findAll();
-        model.addAttribute("rooms", rooms);
-        List<MandatoryFee> listFees = new ArrayList<MandatoryFee>();
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int currentYear = calendar.get(Calendar.YEAR);
         for (int i = 0; i < rooms.size(); i++) {
-            MandatoryFee mandatoryFee = new MandatoryFee();
-            listFees.add(mandatoryFee);
+            MandatoryFee a = new MandatoryFee(currentMonth, currentYear, 0, 0);
+            a.setRoom(rooms.get(i));
+            rooms.get(i).addMandatoryFee(a);
+            MandatoryFeeRepo.save(a);
+            RoomRepo.save(rooms.get(i));
         }
-        model.addAttribute("listFees", listFees);
-        return "manager/fee/createAll";
+        return "redirect:/manager/fee/index";
     }
     
     
