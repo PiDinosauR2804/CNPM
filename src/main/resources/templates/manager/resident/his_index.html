@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manager - Resident Index</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div align="center">
+        <h2>History Residents</h2>
+        <!-- Residents Table -->
+        <a th:href="@{/manager/resident/index}">Return to Resident Manager</a>
+        <table>
+            <thead>
+                <th>No Room</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Birth Date</th>
+                <th>Birth Place</th>
+                <th>Job</th>
+                <th>Phone Number</th>
+                <th>Relationship with Owner</th>
+                <th>Day In</th>
+                <th>Day Out</th>
+            </thead>
+            <tbody>
+                <th:block th:each="resident : ${listResident}">
+                    <tr>
+                        <th th:text="${resident.noRoom}"></th>
+                        <th th:text="${resident.id}"></th>
+                        <th th:text="${resident.name}"></th>
+                        <th th:text="${resident.gender}"></th>
+                        <th th:text="${resident.birthDate}"></th>
+                        <th th:text="${resident.birthPlace}"></th>
+                        <th th:text="${resident.job}"></th>
+                        <th th:text="${resident.phoneNumber}"></th>
+                        <th th:text="${resident.relationshipWithOwner}"></th>
+                        <th th:text="${resident.dayIn}"></th>
+                        <th th:text="${resident.dayOut}"></th>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

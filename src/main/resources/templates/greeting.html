@@ -1,13 +1,71 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
+
+<head>
+    <title>Your Application Name</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf4f9; /* Màu nền xanh nước biển nhạt */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Đặt chiều cao của body là 100% chiều cao của màn hình */
+        }
+
+        .container {
+            width: 50%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0077cc; /* Màu xanh nước biển */
+        }
+
+        .navigation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .navigation a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #0077cc; /* Màu xanh nước biển */
+            padding: 10px 20px;
+            border: 1px solid #0077cc; /* Viền xanh nước biển */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #0077cc; /* Màu nền khi hover */
+            color: #fff; /* Màu chữ khi hover */
+        }
+    </style>
 </head>
+
 <body>
-    <p th:text="|Hello, ${name}!|" />
-    <a th:href="@{/manager/index}">Manager</a>
-    <br>
-    <a th:href="@{/user/search}">User</a>
+    <div class="container">
+        <div class="header">
+            <p th:text="|Hello, ${name}!|" />
+        </div>
+        <div class="navigation">
+            <a th:href="@{/manager/index}">Manager</a>
+            <a th:href="@{/user/search}">User</a>
+        </div>
+    </div>
 </body>
+
 </html>

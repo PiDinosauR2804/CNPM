@@ -27,6 +27,9 @@ import com.example.project1.entity.MandatoryFeeHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.entity.TypeDonation;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -81,7 +84,7 @@ public class ManagerFeeController {
         return "manager/fee/feesRoom";
     }
 
-    @GetMapping("/manager/fee/{no}/fees")
+    @GetMapping("/manager/fee/edit/{no}")
     public String edit(@PathVariable int no, Model model) {
         model.addAttribute("no", no);
         List<MandatoryFee> fees = MandatoryFeeRepo.findByPK(no);
@@ -105,6 +108,44 @@ public class ManagerFeeController {
             MandatoryFeeRepo.delete(fees.get(i));
         }
         return "redirect:/manager/fee/index";
+    }
+
+    @GetMapping("/manager/fee/mandatory/multiple_edit")
+    public String multipleEditMandatoryFee(Model model) {
+        List<MandatoryFee> listFees = MandatoryFeeRepo.findAll();
+        model.addAttribute("listFees", listFees);
+        return "manager/fee/multiple_edit";
+    }
+
+    @PostMapping("/manager/fee/mandatory/saveAll")
+    public String saveAllMandatory(HttpServletRequest request) {
+        List<MandatoryFee> listFee_check = MandatoryFeeRepo.findAll();
+        String[] noRooms = request.getParameterValues("noRooms");
+        String[] roomFeePaids = request.getParameterValues("roomFeePaids");
+        String[] waterFeePaids = request.getParameterValues("waterFeePaids");
+        String[] waterFees = request.getParameterValues("waterFees");
+        String[] electricFeePaids = request.getParameterValues("electricFeePaids");
+        String[] electricFees = request.getParameterValues("electricFees");
+        String[] parkingFeePaids = request.getParameterValues("parkingFeePaids");
+
+
+        for (int i = 0; i < noRooms.length; i++) {
+            for (MandatoryFee fee_check : listFee_check) {
+                if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
+                    MandatoryFeeRepo.updateAllMandatoryFee(fee_check.getNo(),
+                            Integer.parseInt(roomFeePaids[i]),
+                            Integer.parseInt(waterFees[i]),
+                            Integer.parseInt(waterFeePaids[i]),
+                            Integer.parseInt(electricFees[i]),
+                            Integer.parseInt(electricFeePaids[i]),
+                            Integer.parseInt(parkingFeePaids[i]));
+                    break;
+                }
+            }
+        }
+
+
+        return "redirect:/manager/fee/mandatory/multiple_edit";
     }
 
     // Donation Fee
