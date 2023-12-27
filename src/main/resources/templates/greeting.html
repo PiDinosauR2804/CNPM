@@ -3,11 +3,92 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body, ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-family: 'Hubot Sans', sans-serif;
+        }
+
+        .main-content {
+            padding: 70px 60px;
+        }
+
+        .footer {
+            padding: 0px 60px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #5761b4 0%, #756a28 100%);
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .navbar:hover {
+            background: linear-gradient(90deg, #756a28 0%, #5761b4 100%);
+            transition: 0.9;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .logo:hover {
+            background: #ffffff;
+            color: #103da4;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            padding-right: 100px;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px ;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links li a:hover {
+            background: #ffffff;
+            color: #103da4;
+        }
+
+    </style>
 </head>
 <body>
-    <p th:text="|Hello, ${name}!|" />
-    <a th:href="@{/manager/index}">Manager</a>
-    <br>
-    <a th:href="@{/user/search}">User</a>
+    <nav>
+        <div class="navbar">
+            <a href="/greeting" class="logo">Home</a>
+            <ul class="nav-links">
+                <li><a href="/manager/index">Room</a></li>
+                <li><a href="/manager/fee/mandatoryfee">Fee</a></li>
+                <li><a href="/user">User</a></li>
+                <li><a href="/greeting">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
 </body>
 </html>
