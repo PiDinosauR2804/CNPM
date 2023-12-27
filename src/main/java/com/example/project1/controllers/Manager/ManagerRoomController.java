@@ -31,6 +31,12 @@ public class ManagerRoomController {
     @Autowired
     private serviceRoom service;
     
+    @GetMapping("/signin")
+    //tìm kiếm theo keyword là 1 string
+    public String index(Model model){
+        return "/signin";
+    }
+
     @GetMapping("/manager/index")
     //tìm kiếm theo keyword là 1 string
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
