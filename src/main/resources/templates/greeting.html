@@ -1,69 +1,57 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="vi">
 
 <head>
-    <title>Your Application Name</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ecf4f9; /* Màu nền xanh nước biển nhạt */
-            margin: 0;
-            padding: 0;
-            color: #333;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Đặt chiều cao của body là 100% chiều cao của màn hình */
-        }
-
-        .container {
-            width: 50%;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .header {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #0077cc; /* Màu xanh nước biển */
-        }
-
-        .navigation {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .navigation a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #0077cc; /* Màu xanh nước biển */
-            padding: 10px 20px;
-            border: 1px solid #0077cc; /* Viền xanh nước biển */
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .navigation a:hover {
-            background-color: #0077cc; /* Màu nền khi hover */
-            color: #fff; /* Màu chữ khi hover */
-        }
-    </style>
+    <title>Đăng nhập quản trị | Website quản trị v2.0</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <p th:text="|Hello, ${name}!|" />
-        </div>
-        <div class="navigation">
-            <a th:href="@{/manager/index}">Manager</a>
-            <a th:href="@{/user/search}">User</a>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/fg-img.png" alt="IMG">
+                </div>
+                <!--=====TIÊU ĐỀ======-->
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        <b>BAN QUẢN LÝ CHUNG CƯ BLUEMOON</b>
+                    </span>
+                    <!--=====FORM INPUT TÀI KHOẢN VÀ PASSWORD======-->
+                    <form action="">
+                        <!--=====ĐĂNG NHẬP======-->
+                        <div class="container-login100-form-btn">
+                            <input type="button" value="Manager" onclick="navigateTo('/manager/index')" style="margin-bottom: 10px;"/><br>
+                            <input type="button" value="User" onclick="navigateTo('/user/search')" />
+
+                            <script>
+                                function navigateTo(url) {
+                                    window.location.href = url;
+                                }
+                            </script>
+                    </form>
+                    <!--=====FOOTER======-->
+                    <div class="text-center p-t-70 txt2">
+                        Phần mềm quản lý dân cư chung cư BlueMoon <i class="far fa-copyright" aria-hidden="true"></i>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
