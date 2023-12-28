@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <br>
+    <form th:action="@{/manager/fee/save}" th:object="${fee}" method="post">
+    <div>
+        <div>
+            <label>No Room</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{room.noRoom}" required />
+        </div>
+        <div>
+            <label>Month</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{month}" required />
+        </div>
+        <div>
+            <label>Year</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{year}" required />
+        </div>
+        <div>
+            <label>Room Fee</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{room.defaultFeeRoom}" required />
+        </div>
+        <div>
+            <label>Water Fee</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{waterFee}" required />
+        </div>
+        <div>
+            <label>Electric Fee</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{electricFee}" required />
+        </div>
+        <div>
+            <label>Parking Fee</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{room.defaultParkingFee}" required />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+</body>
+</html>
