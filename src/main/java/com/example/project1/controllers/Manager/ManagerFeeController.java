@@ -239,22 +239,16 @@ public class ManagerFeeController {
 
     // History Fee
 
-    // Mandatory History Fee - phí bắt buộc - đã phân trang + search
     @GetMapping("/manager/history/fee/index")
-    public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-    	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+    public String his_mdt_index(Model model) {
+        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
         model.addAttribute("listFees", listFees);
         return "manager/fee/his_index";
-    }    
-    
-    //Donation history fee - đã phân trang + search
+    }
+
     @GetMapping("/manager/history/fee/donation/index")
-    public String his_dnt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page <DonationFeeHistory> listFees = serviceDFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+    public String his_dnt_index(Model model) {
+        List<DonationFeeHistory> listFees = DonationFeeHistoryRepo.findAll();
         model.addAttribute("listFees", listFees);
         return "manager/fee/donation/his_index";
     }

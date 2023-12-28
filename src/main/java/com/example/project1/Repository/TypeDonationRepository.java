@@ -16,11 +16,6 @@ public interface TypeDonationRepository extends JpaRepository<TypeDonation, Inte
     @Query(value = "TRUNCATE TABLE type_donation", nativeQuery = true)
     void truncateTable();
 
-    // tìm kiếm theo id và type
-    @Query("SELECT r FROM TypeDonation r WHERE concat(r.idMoney, r.type) LIKE %?1%")
-    public Page<TypeDonation> findAll(String keyword, Pageable pageable);
-    
-
     @Query("SELECT r FROM TypeDonation r WHERE r.idMoney = :idMoney")
     List<TypeDonation> findByNo(@Param("idMoney") int idMoney);
 }
