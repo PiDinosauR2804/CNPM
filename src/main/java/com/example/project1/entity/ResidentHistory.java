@@ -150,19 +150,19 @@ public class ResidentHistory {
         this.relationshipWithOwner = relationshipWithOwner;
     }
 
-    public String getdayOut() {
+    public String getDayOut() {
         return dayOut;
     }
 
-    public String getdayIn() {
+    public String getDayIn() {
         return dayIn;
     }
 
-    public void setdayOut(String dayOut) {
+    public void setDayOut(String dayOut) {
         this.dayOut = dayOut;
     }
 
-    public void setdayIn(String dayIn) {
+    public void setDayIn(String dayIn) {
         this.dayIn = dayIn;
     }
 }

@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class MandatoryFee {
-    @Id
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private int month;
@@ -38,6 +38,10 @@ public class MandatoryFee {
         this.year = year;
         this.waterFee = waterFee;
         this.electricFee = electricFee;
+    }
+
+    public int getNo() {
+        return no;
     }
 
     public int getNoRoom() {

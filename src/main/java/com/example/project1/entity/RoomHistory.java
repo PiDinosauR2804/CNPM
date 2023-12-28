@@ -32,11 +32,11 @@ public class RoomHistory {
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<ResidentHistory> ResidentsHistory;
 
-    @OneToMany(mappedBy = "roomHisotry", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomHistory", cascade = CascadeType.ALL)
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<MandatoryFeeHistory> mandatoryFeeHistories;
 
-    @OneToMany(mappedBy = "roomHisotry", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomHistory", cascade = CascadeType.ALL)
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<DonationFeeHistory> donationFees;
 
@@ -45,13 +45,16 @@ public class RoomHistory {
         this.mandatoryFeeHistories = new ArrayList<MandatoryFeeHistory>();
         this.donationFees = new ArrayList<DonationFeeHistory>();
     }
-
+    
     // Constructor với tham số
-    public RoomHistory(int noRoom, String idOwner, String nameOwner, String numberPhoneOwner, String dayIn) {
+    public RoomHistory(String key, int noRoom, String idOwner, String nameOwner, String numberPhoneOwner, int defaultFeeRoom, int defaultParkingFee, String dayIn) {
+        this.key = key;
         this.noRoom = noRoom;
         this.idOwner = idOwner;
         this.nameOwner = nameOwner;
         this.numberPhoneOwner = numberPhoneOwner;
+        this.defaultFeeRoom = defaultFeeRoom;
+        this.defaultParkingFee = defaultParkingFee;
         this.ResidentsHistory = new ArrayList<ResidentHistory>();
         this.mandatoryFeeHistories = new ArrayList<MandatoryFeeHistory>();
         this.donationFees = new ArrayList<DonationFeeHistory>();
@@ -72,6 +75,18 @@ public class RoomHistory {
 
     public void addDonationFee(DonationFeeHistory fee) {
         donationFees.add(fee);
+    }
+
+    public List<ResidentHistory> getResidents(){
+        return ResidentsHistory;
+    }
+
+    public List<MandatoryFeeHistory> getMandatoryFees(){
+        return mandatoryFeeHistories;
+    }
+
+    public List<DonationFeeHistory> getDonationFees(){
+        return donationFees;
     }
 
     public void generateKey() {
@@ -136,11 +151,11 @@ public class RoomHistory {
         return key;
     }
 
-    public String getdayOut() {
+    public String getDayOut() {
         return dayOut;
     }
 
-    public String getdayIn() {
+    public String getDayIn() {
         return dayIn;
     }
 

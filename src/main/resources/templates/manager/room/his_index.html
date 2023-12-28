@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div align = "center">
+    <p>Welcome to my world</p>
+    <a th:href="@{/manager/createRoom}">CreateRoom</a>
+    <a th:href="@{/manager/fee/index}">Fees Manage</a>
+    <div>&nbsp;</div>
+    
+    <div>
+    <!-- tìm kiếm -->
+
+    </div>
+    <div>&nbsp;</div>
+    
+    <table>
+        <thead>
+            <th>No Room</th>
+            <th>ID Owner</th>
+            <th>Name Owner</th>
+            <th>Phone number Owner</th>
+            <th>Key</th>
+            <th>Day In</th>
+            <th>Day Out</th>
+            <th>Details</th>
+        </thead>
+        <tbody>
+                <th:block th:each="Room : ${listRoom}">
+                <tr>
+                    <th>[[${Room.noRoom}]]</th>
+                    <th>[[${Room.idOwner}]]</th>
+                    <th>[[${Room.nameOwner}]]</th>
+                    <th>[[${Room.numberPhoneOwner}]]</th>
+                    <th>[[${Room.key}]]</th>
+                    <th>[[${Room.dayIn}]]</th>
+                    <th>[[${Room.dayOut}]]</th>
+                    <th><a th:href="@{'/manager/history/room/detail/' + ${Room.key}}">Detail</a></th>
+                </tr>
+            </th:block>
+        
+        </tbody>
+    </table>
+    <!-- Đánh số trang -->
+    
+
+</body>
+</html>
