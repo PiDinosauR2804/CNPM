@@ -16,10 +16,10 @@ public class Request {
     private String content_changed;
     private Boolean approved = false;
 
-    Request() {
+    public Request() {
     }
 
-    Request(int noRoom, int id_request, String content_changed) {
+    public Request(int noRoom, int id_request, String content_changed) {
         this.noRoom = noRoom;
         this.id_request = id_request;
         this.content_changed = content_changed;

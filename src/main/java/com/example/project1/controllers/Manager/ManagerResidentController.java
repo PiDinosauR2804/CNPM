@@ -105,8 +105,10 @@ public class ManagerResidentController {
     public String viewRoomDetails(@PathVariable String noRoom, Model model) {
         roomNumber = Integer.parseInt(noRoom);
         java.util.List<Resident> listResidentRoom = residentRepo.findByRoom(roomNumber);
+        java.util.List<Room> listRoom = roomRepo.findByRoom(roomNumber);
         model.addAttribute("noRoom", noRoom);
         model.addAttribute("listResidentRoom", listResidentRoom);
+        model.addAttribute("listRoom", listRoom);
         return "manager/room/residentRoom";
     }
 

@@ -64,6 +64,13 @@ public class ManagerRoomController {
         return "manager/room/create";
     }
 
+    @GetMapping("/manager/room/edit/{key}")
+    public String create(@PathVariable String key, Model model) {
+        model.addAttribute("room", new Room());
+        model.addAttribute("key", key);
+        return "manager/room/create";
+    }
+
     @PostMapping("/manager/save")
     public String save(Room room) {
         Room save = RoomRepo.save(room);

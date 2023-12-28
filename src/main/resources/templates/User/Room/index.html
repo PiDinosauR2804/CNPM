@@ -8,9 +8,9 @@
     <p2>Welcome to my world</p2>
     <br>
     <a th:href="@{'/user/request/' + ${room.key} + '/add_resident'}">Request Add Resident</a>
-    <a th:href="@{/user/request/room_info}">Request Change Room Information</a>
-    <a th:href="@{/user/request/resident_info}">Request Change Resident Information</a>
-    <a th:href="@{/user/request/update_fee}">Request Update Fee</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/room_info'}">Request Change Room Information</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/resident_info'}">Request Change Resident Information</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/update_fee'}">Request Update Fee</a>
     <table>
         <thead>
             <th>No Room</th>

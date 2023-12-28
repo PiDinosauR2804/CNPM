@@ -134,7 +134,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         // Room 1
         Room a = new Room(0001, "123456783", "Ngô Đình Luyện", "0911052884", 1000000, 200000);
         a.generateKey();
-        RoomRepo.save(a);
+        RoomRepo.save(a);        
 
         RoomHistory roomHis = new RoomHistory(a.getKey(), a.getNoRoom(), a.getIdOwner(), a.getNameOwner(), a.getNumberPhoneOwner(), a.getDefaultFeeRoom(), a.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis);

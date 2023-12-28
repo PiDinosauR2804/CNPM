@@ -11,7 +11,38 @@
     <br>
     <a th:href="@{/manager/room/{noRoom}/addresident(noRoom=${noRoom})}">Add Resident</a>
     <br>
-    <a th:href="@{/manager/room/{noRoom}/fees(noRoom=${noRoom})}">Fees Manage</a>
+    <a th:href="@{/manager/room/{noRoom}/fees(noRoom=${noRoom})}">Fees Manage This Room</a>
+
+
+    <table>
+        <thead>
+            <th>No Room</th>
+            <th>ID Owner</th>
+            <th>Name Owner</th>
+            <th>Phone number Owner</th>
+            <th>Key</th>
+            <th>Room Fee</th>
+            <th>Parking Fee</th>
+            <th>Edit</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Room : ${listRoom}">
+                <tr>
+                    <th>[[${Room.noRoom}]]</th>
+                    <th>[[${Room.idOwner}]]</th>
+                    <th>[[${Room.nameOwner}]]</th>
+                    <th>[[${Room.numberPhoneOwner}]]</th>
+                    <th>[[${Room.key}]]</th>
+                    <th>[[${Room.defaultFeeRoom}]]</th>
+                    <th>[[${Room.defaultParkingFee}]]</th>
+                    <td><a th:href="@{'/manager/room/edit/'  + ${Room.key}}">Edit</a></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
     <table>
         <thead>
             <th>ID</th>

@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import com.example.project1.Repository.AddResidentRequestRepository;
 import com.example.project1.Repository.RequestRepository;
 import com.example.project1.entity.AddResidentRequest;
-
+import com.example.project1.entity.Request;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,19 +37,43 @@ public class UserRequestController {
         return "redirect:/user/index/{key}";
     }
 
-    @GetMapping("/user/request/room_info")
-    public String changeRoomInfo() {
+    @GetMapping("/user/request/{key}/room_info")
+    public String changeRoomInfo(@PathVariable String key, Model model) {
+        Request request = new Request();
+        model.addAttribute("request", request);
         return "user/Request/room_info";
     }
 
-    @GetMapping("/user/request/resident_info")
-    public String changeResidentInfo() {
+    @PostMapping("/user/request/{key}/room_info/save")
+    public String saveRoomInfo(@PathVariable String key, Request request) {
+        RequestRepo.save(request);
+        return "redirect:/user/index/{key}";
+    }
+
+    @GetMapping("/user/request/{key}/resident_info")
+    public String changeResidentInfo(@PathVariable String key, Model model) {
+        Request request = new Request();
+        model.addAttribute("request", request);
         return "user/Request/resident_info";
     }
 
-    @GetMapping("/user/request/update_fee")
-    public String updateFee() {
+    @PostMapping("/user/request/{key}/resident_info/save")
+    public String saveResidentInfo(@PathVariable String key, Request request) {
+        RequestRepo.save(request);
+        return "redirect:/user/index/{key}";
+    }
+
+    @GetMapping("/user/request/{key}/update_fee")
+    public String updateFee(@PathVariable String key, Model model) {
+        Request request = new Request();
+        model.addAttribute("request", request);
         return "user/Request/update_fee";
+    }
+
+    @PostMapping("/user/request/{key}/update_fee/save")
+    public String sa(@PathVariable String key, Request request) {
+        RequestRepo.save(request);
+        return "redirect:/user/index/{key}";
     }
     
 }
