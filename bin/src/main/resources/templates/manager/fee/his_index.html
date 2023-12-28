@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
+    <br>
+    <a th:href="@{/manager/fee/index}">Return back</a>
+    <br>
+    <div class="search-form">
+            <!-- tìm kiếm -->
+            <form th:action="@{/manager/fee/his_index}" method="get">
+                <label for="searchInput">Search:</label>
+                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
+                    th:value="${keyword}" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    
+    <table>
+        <thead>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Room</th>
+            <th>roomFeePaid</th>
+            <th>roomFee</th>
+            <th>waterFeePaid</th>
+            <th>waterFee</th>
+            <th>electricFeePaid</th>
+            <th>electricFee</th>
+            <th>parkingFeePaid</th>
+            <th>parkingFee</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listFees}">
+                <tr>
+                    <th>[[${Fee.year}]]</th>
+                    <th>[[${Fee.month}]]</th>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.waterFee}]]</th>
+                    <th>[[${Fee.electricFeePaid}]]</th>
+                    <th>[[${Fee.electricFee}]]</th>
+                    <th>[[${Fee.parkingFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultParkingFee}]]</th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+      <!-- Đánh số trang -->
+        <div th:if="${totalPage > 0}" class="pagination">
+            <!-- Link to the first page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/fee/his_index(pageNo=1, keyword=${keyword})}">First</a>
+
+            <!-- Link to the previous page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/fee/his_index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+
+            <!-- Links to individual pages -->
+            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                <a th:if="${currentPage != i}"
+                    th:href="@{/manager/fee/his_index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
+
+            <!-- Link to the next page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/fee/his_index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+
+            <!-- Link to the last page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/fee/his_index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+        </div>
+</body>
+</html>
