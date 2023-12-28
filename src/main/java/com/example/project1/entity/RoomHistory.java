@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class RoomHisotry {
+public class RoomHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,6 +23,8 @@ public class RoomHisotry {
     private String numberPhoneOwner;
     private String dayIn;
     private String dayOut;
+    private int defaultFeeRoom;
+    private int defaultParkingFee;
     @Column(name = "`key`")
     private String key;
 
@@ -30,17 +32,32 @@ public class RoomHisotry {
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<ResidentHistory> ResidentsHistory;
 
-    public RoomHisotry() {
-        this.ResidentsHistory = new ArrayList<ResidentHistory>();
-    }
+    @OneToMany(mappedBy = "roomHistory", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<MandatoryFeeHistory> mandatoryFeeHistories;
 
+    @OneToMany(mappedBy = "roomHistory", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<DonationFeeHistory> donationFees;
+
+    public RoomHistory() {
+        this.ResidentsHistory = new ArrayList<ResidentHistory>();
+        this.mandatoryFeeHistories = new ArrayList<MandatoryFeeHistory>();
+        this.donationFees = new ArrayList<DonationFeeHistory>();
+    }
+    
     // Constructor với tham số
-    public RoomHisotry(int noRoom, String idOwner, String nameOwner, String numberPhoneOwner, String dayIn) {
+    public RoomHistory(String key, int noRoom, String idOwner, String nameOwner, String numberPhoneOwner, int defaultFeeRoom, int defaultParkingFee, String dayIn) {
+        this.key = key;
         this.noRoom = noRoom;
         this.idOwner = idOwner;
         this.nameOwner = nameOwner;
         this.numberPhoneOwner = numberPhoneOwner;
+        this.defaultFeeRoom = defaultFeeRoom;
+        this.defaultParkingFee = defaultParkingFee;
         this.ResidentsHistory = new ArrayList<ResidentHistory>();
+        this.mandatoryFeeHistories = new ArrayList<MandatoryFeeHistory>();
+        this.donationFees = new ArrayList<DonationFeeHistory>();
         this.dayIn = dayIn;
     }
 
@@ -52,6 +69,26 @@ public class RoomHisotry {
         ResidentsHistory.remove(index);
     }
 
+    public void addMandatoryFee(MandatoryFeeHistory fee) {
+        mandatoryFeeHistories.add(fee);
+    }
+
+    public void addDonationFee(DonationFeeHistory fee) {
+        donationFees.add(fee);
+    }
+
+    public List<ResidentHistory> getResidents(){
+        return ResidentsHistory;
+    }
+
+    public List<MandatoryFeeHistory> getMandatoryFees(){
+        return mandatoryFeeHistories;
+    }
+
+    public List<DonationFeeHistory> getDonationFees(){
+        return donationFees;
+    }
+
     public void generateKey() {
         String suffix = idOwner.substring(idOwner.length() - 4);
         this.key = suffix + String.valueOf(id);
@@ -59,6 +96,22 @@ public class RoomHisotry {
 
     public int getId() {
         return id;
+    }
+
+    public int getDefaultFeeRoom() {
+        return defaultFeeRoom;
+    }
+
+    public void setDefaultFeeRoom(int defaultFeeRoom) {
+        this.defaultFeeRoom = defaultFeeRoom;
+    }
+
+    public int getDefaultParkingFee() {
+        return defaultParkingFee;
+    }
+
+    public void setDefaultParkingFee(int defaultParkingFee) {
+        this.defaultParkingFee = defaultParkingFee;
     }
 
     public int getNoRoom() {
@@ -98,11 +151,11 @@ public class RoomHisotry {
         return key;
     }
 
-    public String getdayOut() {
+    public String getDayOut() {
         return dayOut;
     }
 
-    public String getdayIn() {
+    public String getDayIn() {
         return dayIn;
     }
 

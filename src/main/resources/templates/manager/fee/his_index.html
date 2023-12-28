@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
+    <br>
+    <a th:href="@{/manager/fee/index}">Return back</a>
+    <br>
+    
+    <table>
+        <thead>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Room</th>
+            <th>roomFeePaid</th>
+            <th>roomFee</th>
+            <th>waterFeePaid</th>
+            <th>waterFee</th>
+            <th>electricFeePaid</th>
+            <th>electricFee</th>
+            <th>parkingFeePaid</th>
+            <th>parkingFee</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listFees}">
+                <tr>
+                    <th>[[${Fee.year}]]</th>
+                    <th>[[${Fee.month}]]</th>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.waterFee}]]</th>
+                    <th>[[${Fee.electricFeePaid}]]</th>
+                    <th>[[${Fee.electricFee}]]</th>
+                    <th>[[${Fee.parkingFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultParkingFee}]]</th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
+    <br>
+    <a th:href="@{/manager/fee/donation/index}">Return back</a>
+    <br>
+    <a th:href="@{/manager/fee/donation/type/create}">Add Type</a>
+    
+    <table>
+        <thead>
+            <th>Name of Type</th>
+            <th>Action</th>
+            <th>Close</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Type : ${listTypes}">
+                <tr>
+                    <th>[[${Type.type}]]</th>
+                    <td><a th:href="@{'/manager/fee/donation/type/edit/' + ${Type.idMoney}}">Edit</a></td>
+                    <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.idMoney})}">Close</a></td>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>

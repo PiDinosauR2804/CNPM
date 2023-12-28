@@ -20,6 +20,8 @@ public class Room {
     private String idOwner;
     private String nameOwner;
     private String numberPhoneOwner;
+    private int defaultFeeRoom;
+    private int defaultParkingFee;
     @Column(name = "`key`")
     private String key;
 
@@ -27,25 +29,59 @@ public class Room {
     // MapopedBy trỏ tới tên biến Address ở trong Person.
     private List<Resident> residents;
 
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<MandatoryFee> mandatoryFees;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
+    // MapopedBy trỏ tới tên biến Address ở trong Person.
+    private List<DonationFee> donatioFees;
+
     public Room() {
         this.residents = new ArrayList<Resident>();
+        this.mandatoryFees = new ArrayList<MandatoryFee>();
+        this.donatioFees = new ArrayList<DonationFee>();
     }
 
     // Constructor với tham số
-    public Room(int noRoom, String idOwner, String nameOwner, String numberPhoneOwner) {
+    public Room(int noRoom, String idOwner, String nameOwner, String numberPhoneOwner, int defaultFeeRoom, int defaultParkingFee) {
         this.noRoom = noRoom;
         this.idOwner = idOwner;
         this.nameOwner = nameOwner;
         this.numberPhoneOwner = numberPhoneOwner;
+        this.defaultFeeRoom = defaultFeeRoom;
+        this.defaultParkingFee = defaultParkingFee;
         this.residents = new ArrayList<Resident>();
+        this.mandatoryFees = new ArrayList<MandatoryFee>();
+        this.donatioFees = new ArrayList<DonationFee>();
     }
 
     public void addResident(Resident resident) {
         residents.add(resident);
     }
 
-    public void eraseResident(int index) {
-        residents.remove(index);
+    public void addMandatoryFee(MandatoryFee fee) {
+        mandatoryFees.add(fee);
+    }
+
+    public void eraseMandatoryFee(int index) {
+        mandatoryFees.remove(index);
+    }
+
+    public void addDonationFee(DonationFee fee) {
+        donatioFees.add(fee);
+    }
+
+    public List<Resident> getResidents(){
+        return residents;
+    }
+
+    public List<MandatoryFee> getMandatoryFees(){
+        return mandatoryFees;
+    }
+
+    public List<DonationFee> getDonationFees(){
+        return donatioFees;
     }
 
     public void generateKey() {
@@ -94,5 +130,20 @@ public class Room {
         return key;
     }
 
+    public int getDefaultFeeRoom() {
+        return defaultFeeRoom;
+    }
+
+    public void setDefaultFeeRoom(int defaultFeeRoom) {
+        this.defaultFeeRoom = defaultFeeRoom;
+    }
+
+    public int getDefaultParkingFee() {
+        return defaultParkingFee;
+    }
+
+    public void setDefaultParkingFee(int defaultParkingFee) {
+        this.defaultParkingFee = defaultParkingFee;
+    }
 
 }

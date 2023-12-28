@@ -21,17 +21,17 @@ public class ResidentHistory {
     private String birthPlace;
     private String job;
     private String phoneNumber;
-    private int noRoom;
     private String relationshipWithOwner;
     private String dayIn;
     private String dayOut;
 
     @ManyToOne
     @JoinColumns({
+        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
         @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
         @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
     })
-    private RoomHisotry roomHistory;
+    private RoomHistory roomHistory;
 
 
     // Constructor mặc định
@@ -40,7 +40,7 @@ public class ResidentHistory {
 
     // Constructor với tham số
     public ResidentHistory(String id, String name, String gender, String birthDate, String birthPlace, String job,
-                    String phoneNumber, int noRoom, String relationshipWithOwner, String dayIn) {
+                    String phoneNumber, String relationshipWithOwner, String dayIn) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -48,7 +48,6 @@ public class ResidentHistory {
         this.birthPlace = birthPlace;
         this.job = job;
         this.phoneNumber = phoneNumber;
-        this.noRoom = noRoom;
         this.relationshipWithOwner = relationshipWithOwner;
         this.dayIn = dayIn;
     }
@@ -62,7 +61,7 @@ public class ResidentHistory {
         this.id = id;
     }
 
-    public void setRoom(RoomHisotry roomHistory) {
+    public void setRoom(RoomHistory roomHistory) {
         this.roomHistory = roomHistory;
     }
 
@@ -139,11 +138,7 @@ public class ResidentHistory {
     
     // Getter and Setter methods for 'noRoom'
     public int getNoRoom() {
-        return noRoom;
-    }
-
-    public void setNoRoom(int noRoom) {
-        this.noRoom = noRoom;
+        return roomHistory.getNoRoom();
     }
 
     // Getter and Setter methods for 'relationshipWithOwner'
@@ -155,19 +150,19 @@ public class ResidentHistory {
         this.relationshipWithOwner = relationshipWithOwner;
     }
 
-    public String getdayOut() {
+    public String getDayOut() {
         return dayOut;
     }
 
-    public String getdayIn() {
+    public String getDayIn() {
         return dayIn;
     }
 
-    public void setdayOut(String dayOut) {
+    public void setDayOut(String dayOut) {
         this.dayOut = dayOut;
     }
 
-    public void setdayIn(String dayIn) {
+    public void setDayIn(String dayIn) {
         this.dayIn = dayIn;
     }
 }

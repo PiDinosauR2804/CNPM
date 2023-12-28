@@ -1,71 +1,160 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
+
+<head>
+    <title>Your Application Name</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ecf4f9; /* Màu nền xanh nước biển nhạt */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Đặt chiều cao của body là 100% chiều cao của màn hình */
+        }
+
+        .container {
+            width: 50%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0077cc; /* Màu xanh nước biển */
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .navigation a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #0077cc; /* Màu xanh nước biển */
+            padding: 10px 20px;
+            border: 1px solid #0077cc; /* Viền xanh nước biển */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navigation a:hover {
+            background-color: #0077cc; /* Màu nền khi hover */
+            color: #fff; /* Màu chữ khi hover */
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #0077cc; /* Màu xanh nước biển */
+            border: 1px solid #0077cc; /* Viền xanh nước biển */
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+
+        .pagination a:hover {
+            background-color: #0077cc; /* Màu nền khi hover */
+            color: #fff; /* Màu chữ khi hover */
+        }
+    </style>
 </head>
+
 <body>
-<div align = "center">
-    <p>Welcome to my world</p>
-    <a th:href="@{/manager/createRoom}">CreateRoom</a>
-    <div>&nbsp;</div>
-    
-    <div>
-    <!-- tìm kiếm -->
-    <form th:action="@{/manager/index}" method="get">
-    <label for="searchInput">Search:</label>
-    <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..." th:value="${keyword}"/>
-    <button type="submit">Search</button>
-	</form>
+    <div class="container">
+        <div class="header">
+            <p th:text="|Hello, ${name}!|" />
+        </div>
+        <div class="navigation">
+            <a th:href="@{/manager/temporary_resident/index}">Temporary Resident Manager</a>
+            <a th:href="@{/manager/index}">Absent Resident Manager</a>
+            <a th:href="@{/manager/createRoom}">Create Room</a>
+            <a th:href="@{/manager/resident/index}">Resident Manage</a>
+            <a th:href="@{/manager/fee/index}">Fees Manage</a>
+            <a th:href="@{/manager/history/room/index}">Room history</a>
+        </div>
 
-    </div>
-    <div>&nbsp;</div>
-    
-    <table>
-        <thead>
-            <th>No Room</th>
-            <th>ID Owner</th>
-            <th>Name Owner</th>
-            <th>Phone number Owner</th>
-            <th>Key</th>
-            <th>Details</th>
-        </thead>
-        <tbody>
+        <div class="search-form">
+            <!-- tìm kiếm -->
+            <form th:action="@{/manager/index}" method="get">
+                <label for="searchInput">Search:</label>
+                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
+                    th:value="${keyword}" />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <th>No Room</th>
+                <th>ID Owner</th>
+                <th>Name Owner</th>
+                <th>Phone number Owner</th>
+                <th>Key</th>
+                <th>Details</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
                 <th:block th:each="Room : ${listRoom}">
-                <tr>
-                    <th>[[${Room.noRoom}]]</th>
-                    <th>[[${Room.idOwner}]]</th>
-                    <th>[[${Room.nameOwner}]]</th>
-                    <th>[[${Room.numberPhoneOwner}]]</th>
-                    <th>[[${Room.key}]]</th>
-                    <th><a th:href="@{'/manager/room/' + ${Room.noRoom}}">Manager</a></th>
-                </tr>
-            </th:block>
-        
-        </tbody>
-    </table>
-    <!-- Đánh số trang -->
-     <div class="pagination">
-    	<!-- Link to the first page -->
-    	<a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
+                    <tr>
+                        <th>[[${Room.noRoom}]]</th>
+                        <th>[[${Room.idOwner}]]</th>
+                        <th>[[${Room.nameOwner}]]</th>
+                        <th>[[${Room.numberPhoneOwner}]]</th>
+                        <th>[[${Room.key}]]</th>
+                        <th><a th:href="@{'/manager/room/' + ${Room.noRoom}}">Manager</a></th>
+                        <th><a th:href="@{'/manager/room/delete/' + ${Room.noRoom}}">Delete</a></th>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
 
-    	<!-- Link to the previous page -->
-    	<a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+        <!-- Đánh số trang -->
+        <div class="pagination">
+            <!-- Link to the first page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
 
-    	<!-- Links to individual pages -->
-    	<span th:each="i : ${#numbers.sequence(1, totalPage)}">
-        	<a th:if="${currentPage != i}" th:href="@{/manager/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
-        	<span th:if="${currentPage == i}" th:text="${i}"></span>
-    	</span>
+            <!-- Link to the previous page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
 
-    	<!-- Link to the next page -->
-    	<a th:if="${currentPage < totalPage}" th:href="@{/manager/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+            <!-- Links to individual pages -->
+            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                <a th:if="${currentPage != i}"
+                    th:href="@{/manager/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
 
-	    <!-- Link to the last page -->
-    	<a th:if="${currentPage < totalPage}" th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
-	</div>
+            <!-- Link to the next page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
 
-
+            <!-- Link to the last page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+        </div>
+    </div>
 </body>
+
 </html>

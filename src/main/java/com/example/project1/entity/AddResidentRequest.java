@@ -1,19 +1,17 @@
 package com.example.project1.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-public class Resident {
+public class AddResidentRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private String id;
+    private int noRoom;
     private String name;
     private String gender;
     private String birthDate;
@@ -22,23 +20,15 @@ public class Resident {
     private String phoneNumber;
     private String relationshipWithOwner;
 
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
-    })
-    private Room room;
-
-
     // Constructor mặc định
-    public Resident() {
+    public AddResidentRequest() {
     }
 
     // Constructor với tham số
-    public Resident(String id, String name, String gender, String birthDate, String birthPlace, String job,
+    public AddResidentRequest(String id,int noRoom , String name, String gender, String birthDate, String birthPlace, String job,
                     String phoneNumber, String relationshipWithOwner) {
         this.id = id;
+        this.noRoom = noRoom;
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -61,16 +51,8 @@ public class Resident {
         this.id = id;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public String getkey() {
-        return room.getKey();
-    }
-
-    public String getidOwner() {
-        return room.getIdOwner();
+    public void setRoom(int noRoom) {
+        this.noRoom = noRoom;
     }
 
     // Getter and Setter methods for 'name'
@@ -126,19 +108,10 @@ public class Resident {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    // Getter and Setter methods for 'keyRoom'
-    // public String getKeyRoom() {
-    //     return keyRoom;
-    // }
-
-    // public void setKeyRoom(String keyRoom) {
-    //     this.keyRoom = keyRoom;
-    // }
     
     // Getter and Setter methods for 'noRoom'
     public int getNoRoom() {
-        return room.getNoRoom();
+        return noRoom;
     }
 
     // Getter and Setter methods for 'relationshipWithOwner'

@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>CREATE Fees</p2>
+    <br>
+    <a th:href="@{/manager/index}">Return back</a>
+    <form action="/manager/fee/saveAll" method="post" th:object="${listFees}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Room Name</th>
+                    <th>Fee Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="fee, index : ${listFees}">
+                    <td>
+                        <label th:text="${'Room ' + rooms[index.index].noRoom}"></label>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="submit">Save All</button>
+    </form>
+</body>
+</html>

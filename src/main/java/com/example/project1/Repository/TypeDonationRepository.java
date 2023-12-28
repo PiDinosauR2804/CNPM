@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.project1.entity.ResidentHistory;
+import com.example.project1.entity.TypeDonation;
 
-public interface ResidentHistoryRepository extends JpaRepository<ResidentHistory, Integer> {
+public interface TypeDonationRepository extends JpaRepository<TypeDonation, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE resident_history", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE type_donation", nativeQuery = true)
     void truncateTable();
 
-    @Query("SELECT r FROM ResidentHistory r WHERE r.no = :no")
-    List<ResidentHistory> findByNo(@Param("no") int no);
+    @Query("SELECT r FROM TypeDonation r WHERE r.idMoney = :idMoney")
+    List<TypeDonation> findByNo(@Param("idMoney") int idMoney);
 }
