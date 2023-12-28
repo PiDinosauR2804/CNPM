@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>ADD RESIDENT</p2>
+    <br>
+    <form th:action="@{'/user/request/' + ${key} + '/update_fee/save'}" th:object="${request}" method="post">
+    <div>
+        <div>
+            <label>Type Change</label>
+        </div>
+        <div>
+            <select th:field="*{id_request}" required>
+                <option value="0" disabled selected>Select an option</option>
+                <option value="13">Pay Room Fee</option>
+                <option value="14">Pay Water Fee</option>
+                <option value="15">Pay Electric Fee</option>
+                <option value="16">Pay Parking Fee</option>
+                <option th:each="typeDo : ${list}" th:value="${typeDo.idMoney}" th:text="${typeDo.type}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Amount</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{content_changed}" required />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+    
+</body>
+</html>
