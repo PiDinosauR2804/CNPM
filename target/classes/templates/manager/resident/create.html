@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>ADD RESIDENT</p2>
+    <br>
+    <a th:href="@{/manager/room/{roomNumber}(roomNumber=${roomNumber})}">Return back</a>
+    <form th:action="@{/manager/room/{roomNumber}/addresident/save(roomNumber=${roomNumber})}" th:object="${Resident}" method="post">
+    <div>
+        <div>
+            <label>ID</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{id}" required />
+        </div>
+        <div>
+            <label>name</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{name}" required />
+        </div>
+        <div>
+            <label>gender</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{gender}" required />
+        </div>
+        <div>
+            <label>birthDate</label>
+        </div>
+        <div>
+            <input type="date" th:field="*{birthDate}" required />
+        </div>
+        <div>
+            <label>birthPlace</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{birthPlace}" required />
+        </div>
+        <div>
+            <label>job</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{job}" required />
+        </div>
+        <div>
+            <label>phoneNumber</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{phoneNumber}" required />
+        </div>
+        
+        <div>
+            <label th:text="'noRoom = ' + ${roomNumber}"></label>
+        </div>
+        <div>
+            <label>relationshipWithOwner</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{relationshipWithOwner}" required />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+    
+</body>
+</html>

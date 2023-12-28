@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to my world</p2>
+    <br>
+    <a th:href="@{'/user/request/' + ${room.key} + '/add_resident'}">Request Add Resident</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/room_info'}">Request Change Room Information</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/resident_info'}">Request Change Resident Information</a>
+    <a th:href="@{'/user/request/' + ${room.key} + '/update_fee'}">Request Update Fee</a>
+    <table>
+        <thead>
+            <th>No Room</th>
+            <th>ID Owner</th>
+            <th>Name Owner</th>
+            <th>Phone number Owner</th>
+            <th>Key</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <th>[[${room.noRoom}]]</th>
+                    <th>[[${room.idOwner}]]</th>
+                    <th>[[${room.nameOwner}]]</th>
+                    <th>[[${room.numberPhoneOwner}]]</th>
+                    <th>[[${room.key}]]</th>
+                </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <th>No Room</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Birth Date</th>
+            <th>Birth Place</th>
+            <th>Job</th>
+            <th>Phone Number</th>
+            <th>Relationship with Owner</th>
+        </thead>
+        <tbody>
+            <th:block th:each="resident : ${listResident}">
+                <tr>
+                    <th th:text="${resident.noRoom}"></th>
+                    <th th:text="${resident.id}"></th>
+                    <th th:text="${resident.name}"></th>
+                    <th th:text="${resident.gender}"></th>
+                    <th th:text="${resident.birthDate}"></th>
+                    <th th:text="${resident.birthPlace}"></th>
+                    <th th:text="${resident.job}"></th>
+                    <th th:text="${resident.phoneNumber}"></th>
+                    <th th:text="${resident.relationshipWithOwner}"></th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <th>Year</th>
+            <th>Month</th>
+            <th>Room</th>
+            <th>roomFeePaid</th>
+            <th>roomFee</th>
+            <th>waterFeePaid</th>
+            <th>waterFee</th>
+            <th>electricFeePaid</th>
+            <th>electricFee</th>
+            <th>parkingFeePaid</th>
+            <th>parkingFee</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listFees}">
+                <tr>
+                    <th>[[${Fee.year}]]</th>
+                    <th>[[${Fee.month}]]</th>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
+                    <th>[[${Fee.roomFeePaid}]]</th>
+                    <th>[[${Fee.waterFee}]]</th>
+                    <th>[[${Fee.electricFeePaid}]]</th>
+                    <th>[[${Fee.electricFee}]]</th>
+                    <th>[[${Fee.parkingFeePaid}]]</th>
+                    <th>[[${Fee.room.defaultParkingFee}]]</th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <th>Room</th>
+            <th>year</th>
+            <th>month</th>
+            <th>Amount</th>
+            <th>Type</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listDonationFees}">
+                <tr>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.year}]]</th>
+                    <th>[[${Fee.month}]]</th>
+                    <th>[[${Fee.amount}]]</th>
+                    <th>[[${Fee.type}]]</th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+</body>
+</html>
