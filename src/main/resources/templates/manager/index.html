@@ -130,7 +130,7 @@
         </table>
 
         <!-- Đánh số trang -->
-        <div th:if="${totalPage > 0}" class="pagination">
+        <div class="pagination">
             <!-- Link to the first page -->
             <a th:if="${currentPage > 1}"
                 th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>

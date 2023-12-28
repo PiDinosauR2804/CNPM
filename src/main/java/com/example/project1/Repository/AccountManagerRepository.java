@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.project1.entity.DonationFeeHistory;
+import com.example.project1.entity.AccountManager;
 
-public interface DonationFeeHistoryRepository extends JpaRepository<DonationFeeHistory, Integer> {
+public interface AccountManagerRepository extends JpaRepository<AccountManager, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE donation_fee_history", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE account_manager", nativeQuery = true)
     void truncateTable();
 }
