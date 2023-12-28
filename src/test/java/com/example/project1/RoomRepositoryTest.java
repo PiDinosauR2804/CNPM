@@ -9,16 +9,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import com.example.project1.Repository.RoomRepository;
-import com.example.project1.entity.Room;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class RoomRepositoryTest {
+class RoomRepositoryTest {
     @Autowired
     private RoomRepository repo;
+
     @Test
-    public void testCreateCategory() {
+    void createCategory() {
         
     }
 

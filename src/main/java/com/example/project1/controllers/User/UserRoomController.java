@@ -25,14 +25,14 @@ public class UserRoomController {
     private RoomRepository RoomRepo;
 
     @GetMapping("/user/search")
-    public String searchRoom(@RequestParam(name = "key", required = false, defaultValue = "") String key, Model model) {
+    public String searchRoom(@RequestParam(required = false, defaultValue = "") String key, Model model) {
         model.addAttribute("key", key);
         return "user/search";
     }
     
 
     @GetMapping("/user/index/")
-    public String index(@RequestParam("key") String key, Model model) {
+    public String index(@RequestParam String key, Model model) {
         List<Room> rooms = RoomRepo.findByKey(key);
         if (!rooms.isEmpty()) {
             Room room = rooms.get(0);
@@ -48,7 +48,7 @@ public class UserRoomController {
     }
 
     @GetMapping("/user/index/{key}")
-    public String index1(@PathVariable("key") String key, Model model) {
+    public String index1(@PathVariable String key, Model model) {
         List<Room> rooms = RoomRepo.findByKey(key);
         if (!rooms.isEmpty()) {
             Room room = rooms.get(0);

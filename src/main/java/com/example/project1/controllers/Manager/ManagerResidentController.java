@@ -2,9 +2,6 @@ package com.example.project1.controllers.Manager;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -45,8 +42,8 @@ public class ManagerResidentController {
     public int roomNumber = 0;
 
     @GetMapping ("/manager/resident/index")
-    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String index(Model model, @RequestParam(required = false) String keyword,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <Resident> listResident = this.service.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("totalPage",listResident.getTotalPages());
@@ -63,7 +60,7 @@ public class ManagerResidentController {
     }
 
     @PostMapping("/manager/resident/redirect/create")
-    public String redirectToCreateResidentInRoom(@RequestParam("numberRoom") String numberRoom) {
+    public String redirectToCreateResidentInRoom(@RequestParam String numberRoom) {
     	String displayValue = service.extractDisplayValue(numberRoom);
     	try {
             Integer.parseInt(numberRoom);
@@ -177,10 +174,10 @@ public class ManagerResidentController {
   //Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được cả trong 1 khoảng tg
   	@GetMapping ("/manager/resident/his_index")
   	public String index(Model model,
-  	                   @RequestParam(name = "keyword", required = false) String keyword,
-  	                   @RequestParam(name = "startDate", required = false) String startDate,
-  	                   @RequestParam(name = "endDate", required = false) String endDate,
-  	                   @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+  	                   @RequestParam(required = false) String keyword,
+  	                   @RequestParam(required = false) String startDate,
+  	                   @RequestParam(required = false) String endDate,
+  	                   @RequestParam(defaultValue ="1") Integer pageNo) {
   	    Page<ResidentHistory> listResidentHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
   	    model.addAttribute("keyword",keyword);
   	    model.addAttribute("startDate",startDate);

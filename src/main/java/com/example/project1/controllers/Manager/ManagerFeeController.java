@@ -1,8 +1,5 @@
 package com.example.project1.controllers.Manager;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -74,8 +71,8 @@ public class ManagerFeeController {
 
     // Mandatory Fee - đã phân trang + search
     @GetMapping("/manager/fee/index")
-    public String index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <MandatoryFee> listFees = this.serviceMF.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("totalPage",listFees.getTotalPages());
@@ -120,7 +117,7 @@ public class ManagerFeeController {
 
 
     @PostMapping("/manager/fee/save/{no}")
-    public String save(@PathVariable int no ,@ModelAttribute("fee") MandatoryFee fee) {
+    public String save(@PathVariable int no ,@ModelAttribute MandatoryFee fee) {
         MandatoryFee a = MandatoryFeeRepo.findByPK(no).get(0);
         a.setMonth(fee.getMonth());
         a.setYear(fee.getYear());
@@ -181,8 +178,8 @@ public class ManagerFeeController {
 
     // Donation Fee - đã phân trang + search 
     @GetMapping("/manager/fee/donation/index")
-    public String donation_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String donation_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <DonationFee> listFees = serviceDF.listAll(keyword,pageNo);
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
@@ -204,7 +201,7 @@ public class ManagerFeeController {
 
 
     @PostMapping("/manager/fee/donation/save/{no}")
-    public String saveDonation(@PathVariable int no ,@ModelAttribute("fee") DonationFee fee) {
+    public String saveDonation(@PathVariable int no ,@ModelAttribute DonationFee fee) {
         DonationFee a = DonationFeeRepo.findByNo(no).get(0);
         a.setMonth(fee.getMonth());
         a.setYear(fee.getYear());
@@ -216,8 +213,8 @@ public class ManagerFeeController {
     // Type Donation
 
     @GetMapping("/manager/fee/donation/type")
-    public String donation_type_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String donation_type_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <TypeDonation> listTypes = this.serviceTF.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("listTypes", listTypes);
@@ -249,7 +246,7 @@ public class ManagerFeeController {
     }
 
     @PostMapping("/manager/fee/donation/type/save")
-    public String saveType(@ModelAttribute("typeDonation") TypeDonation typeDonation) {
+    public String saveType(@ModelAttribute TypeDonation typeDonation) {
         TypeDonationRepo.save(typeDonation);
         return "redirect:/manager/fee/donation/type";
     }
@@ -267,7 +264,7 @@ public class ManagerFeeController {
 
 
     @PostMapping("/manager/fee/donation/type/save/{no}")
-    public String updateTypeDonation(@PathVariable int no ,@ModelAttribute("new_type") TypeDonation new_type) {
+    public String updateTypeDonation(@PathVariable int no ,@ModelAttribute TypeDonation new_type) {
         TypeDonation a = TypeDonationRepo.findByNo(no).get(0);
         a.setType(new_type.getType());
         TypeDonationRepo.save(a);   
@@ -277,8 +274,8 @@ public class ManagerFeeController {
     // History Fee
     // Mandatory History Fee - phí bắt buộc - đã phân trang + search
     @GetMapping("/manager/fee/his_index")
-    public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String his_mdt_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
     	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("listFees", listFees);
@@ -290,8 +287,8 @@ public class ManagerFeeController {
     
     //Donation history fee - đã phân trang + search
     @GetMapping("/manager/fee/donation/his_index")
-    public String his_dnt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String his_dnt_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <DonationFeeHistory> listFees = serviceDFH.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("listFees", listFees);
