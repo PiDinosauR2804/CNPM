@@ -24,6 +24,7 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.service.serviceHistoryRoom;
 import com.example.project1.service.serviceRoom;
 
 
@@ -36,6 +37,8 @@ public class ManagerRoomController {
 
     @Autowired
     private serviceRoom service;
+    @Autowired
+	private serviceHistoryRoom serviceHR;
 
     @Autowired
     private ManagerFeeController feeController;
@@ -47,6 +50,7 @@ public class ManagerRoomController {
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
         Page <Room> listRoom = this.service.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("totalPage",listRoom.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("listRoom", listRoom);
@@ -163,5 +167,23 @@ public class ManagerRoomController {
         String curDate_string = currentDate.format(dateFormatter);
         return curDate_string;
     }
+    
+    
+	//Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được cả trong 1 khoảng tg
+	@GetMapping ("/manager/room/his_index")
+	public String index(Model model,
+	                   @RequestParam(name = "keyword", required = false) String keyword,
+	                   @RequestParam(name = "startDate", required = false) String startDate,
+	                   @RequestParam(name = "endDate", required = false) String endDate,
+	                   @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+	    Page<RoomHistory> listRoomHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
+	    model.addAttribute("keyword",keyword);
+	    model.addAttribute("startDate",startDate);
+	    model.addAttribute("endDate",endDate);
+	    model.addAttribute("totalPage", listRoomHistory.getTotalPages());
+	    model.addAttribute("currentPage", pageNo);
+	    model.addAttribute("listRoomHistory", listRoomHistory);
+	    return "manager/room/his_index";
+	}
     
 }

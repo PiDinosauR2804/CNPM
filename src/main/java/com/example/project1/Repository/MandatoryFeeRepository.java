@@ -2,6 +2,8 @@ package com.example.project1.Repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +37,7 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
                         @Param("electricFee") int electricFee, 
                         @Param("electricFeePaid") int electricFeePaid,
                         @Param("parkingFeePaid") int parkingFeePaid);
+    
+    @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
+    Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
 }

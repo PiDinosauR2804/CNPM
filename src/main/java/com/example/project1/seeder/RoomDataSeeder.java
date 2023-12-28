@@ -227,7 +227,7 @@ public class RoomDataSeeder implements CommandLineRunner {
 
         roomController.closeRoom(room2);
 
-        // Room 3 Hítory
+        // Room 3 History
 
         Room room3 = new Room(0004, "456789123", "Lê Văn C", "0914567890", 1300000, 270000);
         room3.generateKey();
