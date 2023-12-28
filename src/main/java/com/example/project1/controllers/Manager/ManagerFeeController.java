@@ -255,12 +255,7 @@ public class ManagerFeeController {
     }
     
 
-    // Mandatory History Fee - phí bắt buộc - đã phân trang + search
-    @GetMapping("/manager/fee/his_index")
-    public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-    	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+    
 
     @GetMapping("/manager/fee/donation/type/edit/{no}")
     public String editTypeDonation(@PathVariable int no, Model model) {
@@ -280,16 +275,18 @@ public class ManagerFeeController {
     }
 
     // History Fee
-
-    @GetMapping("/manager/history/fee/index")
-    public String his_mdt_index(Model model) {
-        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
-
+    // Mandatory History Fee - phí bắt buộc - đã phân trang + search
+    @GetMapping("/manager/fee/his_index")
+    public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
+    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         return "manager/fee/his_index";
     }
+    
     
     //Donation history fee - đã phân trang + search
     @GetMapping("/manager/fee/donation/his_index")
