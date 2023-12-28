@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý danh sách tạm trú - Your E-Commerce</title>
+    <title>Quản lý danh sách tạm vắng- Your E-Commerce</title>
     <style>
         /* Simplified styling, you can customize further */
         body {
@@ -116,9 +116,9 @@
 </header>
 
 <main>
-    <h2>Danh sách Tạm trú</h2>
+    <h2>Danh sách Tạm vắng</h2>
 
-    <form th:action="@{/manager/temporary_resident/index}" method="get">
+    <form th:action="@{/manager/absent_resident/index}" method="get">
         <label for="keyword">Tìm kiếm:</label>
         <input type="text" id="keyword" name="keyword" th:value="${keyword}"/>
         
@@ -132,8 +132,8 @@
     </form>
 
     <!-- Button styled as a button -->
-    <button class="create-btn" onclick="window.location.href='/manager/temporary_resident/create'">
-        Create Temporary Resident
+    <button class="create-btn" onclick="window.location.href='/manager/absent_resident/create'">
+        Create Absent Resident
     </button>
 
     <table>
@@ -147,31 +147,30 @@
         </tr>
 
         <!-- Sample data, replace with your dynamic data -->
-        <tr th:each="temporaryResident : ${listTemporaryResident.content}">
-            <td th:text="${temporaryResident.name}"></td>
-            <td th:text="${temporaryResident.id}"></td>
-            <td th:text="${temporaryResident.noRoom}"></td>
-            <td th:text="${temporaryResident.keyRoom}"></td>
-            <td th:text="${temporaryResident.dayIn}"></td>
-            <td th:text="${temporaryResident.dayOut}"></td>
+        <tr th:each="absentResident : ${listAbsentResident.content}">
+            <td th:text="${absentResident.name}"></td>
+            <td th:text="${absentResident.id}"></td>
+            <td th:text="${absentResident.noRoom}"></td>
+            <td th:text="${absentResident.keyRoom}"></td>
+            <td th:text="${absentResident.dayIn}"></td>
+            <td th:text="${absentResident.dayOut}"></td>
         </tr>
     </table>
 
-    <!-- Conditionally hide pagination if no results found -->
- 
-	<div th:if="${listTemporaryResident.totalElements > 0}" class="pagination">
-    <span th:if="${currentPage > 1}">
-        <a th:href="@{/manager/temporary_resident/index(pageNo=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">&laquo; Previous</a>
-    </span>
+   	<!-- Conditionally hide pagination if no results found -->
+	<div th:if="${listAbsentResident.totalElements > 0}" class="pagination">
+    	<span th:if="${currentPage > 1}">
+        	<a th:href="@{/manager/absent_resident/index(pageNo=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">&laquo; Previous</a>
+    	</span>
 
-    <span th:each="i : ${#numbers.sequence(1, listTemporaryResident.totalPages)}">
-        <a th:if="${currentPage != i}" th:href="@{/manager/temporary_resident/index(pageNo=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}" th:text="${i}"></a>
-        <span th:if="${currentPage == i}" th:text="${i}"></span>
-    </span>
+    	<span th:each="i : ${#numbers.sequence(1, listAbsentResident.totalPages)}">
+        	<a th:if="${currentPage != i}" th:href="@{/manager/absent_resident/index(pageNo=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}" th:text="${i}"></a>
+        	<span th:if="${currentPage == i}" th:text="${i}"></span>
+    	</span>
 
-    <span th:if="${currentPage < listTemporaryResident.totalPages}">
-        <a th:href="@{/manager/temporary_resident/index(pageNo=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Next &raquo;</a>
-    </span>
+    	<span th:if="${currentPage < listAbsentResident.totalPages}">
+        	<a th:href="@{/manager/absent_resident/index(pageNo=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Next &raquo;</a>
+    	</span>
 	</div>
 
 </main>

@@ -14,7 +14,18 @@
     
     <div>
     <!-- tìm kiếm -->
+	<form th:action="@{/manager/room/his_index}" method="get">
+    <label for="keyword">Tìm kiếm:</label>
+    <input type="text" id="keyword" name="keyword" th:value="${keyword}"/>
 
+    <label for="startDate">Ngày bắt đầu:</label>
+    <input type="date" id="startDate" name="startDate" th:value="${startDate}"/>
+
+    <label for="endDate">Ngày kết thúc:</label>
+    <input type="date" id="endDate" name="endDate" th:value="${endDate}"/>
+
+    <button type="submit">Tìm kiếm</button>
+	</form>
     </div>
     <div>&nbsp;</div>
     
@@ -30,23 +41,44 @@
             <th>Details</th>
         </thead>
         <tbody>
-                <th:block th:each="Room : ${listRoom}">
-                <tr>
-                    <th>[[${Room.noRoom}]]</th>
-                    <th>[[${Room.idOwner}]]</th>
-                    <th>[[${Room.nameOwner}]]</th>
-                    <th>[[${Room.numberPhoneOwner}]]</th>
-                    <th>[[${Room.key}]]</th>
-                    <th>[[${Room.dayIn}]]</th>
-                    <th>[[${Room.dayOut}]]</th>
-                    <th><a th:href="@{'/manager/history/room/detail/' + ${Room.key}}">Detail</a></th>
-                </tr>
-            </th:block>
+                <th:block th:each="Room : ${listRoomHistory}">
+                    <tr>
+   						 <td th:text="${Room.noRoom}"></td>
+    					<td th:text="${Room.idOwner}"></td>
+    					<td th:text="${Room.nameOwner}"></td>
+    					<td th:text="${Room.numberPhoneOwner}"></td>
+    					<td th:text="${Room.key}"></td>
+    					<td th:text="${Room.dayIn}"></td>
+    					<td th:text="${Room.dayOut}"></td>
+    					<td><a th:href="@{'/manager/room/' + ${Room.noRoom}}">Manager</a></td>
+					</tr>
+              
+          	  </th:block>
         
         </tbody>
     </table>
     <!-- Đánh số trang -->
     
+<div th:if="${totalPage > 0}" class="pagination">
+    <!-- Link to the first page -->
+    <a th:if="${currentPage > 1}" th:href="@{/manager/room/his_index(pageNo=1, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">First</a>
+
+    <!-- Link to the previous page -->
+    <a th:if="${currentPage > 1}" th:href="@{/manager/room/his_index(pageNo=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Previous</a>
+
+    <!-- Links to individual pages -->
+    <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+        <a th:if="${currentPage != i}" th:href="@{/manager/room/his_index(pageNo=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}" th:text="${i}"></a>
+        <span th:if="${currentPage == i}" th:text="${i}"></span>
+    </span>
+
+    <!-- Link to the next page -->
+    <a th:if="${currentPage < totalPage}" th:href="@{/manager/room/his_index(pageNo=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Next</a>
+
+    <!-- Link to the last page -->
+    <a th:if="${currentPage < totalPage}" th:href="@{/manager/room/his_index(pageNo=${totalPage}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Last</a>
+</div>
+
 
 </body>
 </html>

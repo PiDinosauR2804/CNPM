@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Temporary Resident</title>
+    <title>Create Absent Resident</title>
     <style>
         /* Simplified styling, you can customize further */
         body {
@@ -80,9 +80,9 @@
 <body>
 
 <main>
-    <h2>Create Temporary Resident</h2>
+    <h2>Create Absent Resident</h2>
 
-    <form th:action="@{/manager/temporary_resident/create}" th:object="${TemporaryResident}" method="post">
+    <form th:action="@{/manager/absent_resident/create}" th:object="${AbsentResident}" method="post">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" required>
