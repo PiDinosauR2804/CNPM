@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <br>
+    <form th:action="@{'/manager/fee/donation/save/' + ${fee.no}}" th:object="${fee}" method="post">
+    <div>
+        <div>
+            <label>No Room</label>
+        </div>
+        <div>
+            <label th:text="${fee.noRoom}"></label>
+        </div>
+        <div>
+            <label>Month</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{month}" required />
+        </div>
+        <div>
+            <label>Year</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{year}" required />
+        </div>
+        <div>
+            <label>Amount</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{amount}" required />
+        </div>
+        <div>
+            <label>Type</label>
+        </div>
+        <div>
+            <label th:text="${fee.type}"></label>
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+</body>
+</html>
