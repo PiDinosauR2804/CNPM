@@ -1,71 +1,100 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Your Application Name</title>
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ecf4f9; /* Màu nền xanh nước biển nhạt */
+        body, ul {
             margin: 0;
             padding: 0;
-            color: #333;
-            text-align: center;
+            list-style: none;
+            font-family: 'Hubot Sans', sans-serif;
+        }
+
+        .main-content {
+            padding: 70px 60px;
+        }
+
+        .footer {
+            padding: 0px 60px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #5761b4 0%, #756a28 100%);
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .navbar:hover {
+            background: linear-gradient(90deg, #756a28 0%, #5761b4 100%);
+            transition: 0.9;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .logo:hover {
+            background: #ffffff;
+            color: #103da4;
+        }
+
+        .nav-links {
             display: flex;
             align-items: center;
-            justify-content: center;
-            height: 100vh; /* Đặt chiều cao của body là 100% chiều cao của màn hình */
+            padding-right: 100px;
         }
 
-        .container {
-            width: 50%;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+        .nav-links li {
+            margin-left: 20px;
         }
 
-        .header {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #0077cc; /* Màu xanh nước biển */
-        }
-
-        .navigation {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .navigation a {
-            margin: 0 15px;
+        .nav-links li a {
             text-decoration: none;
-            color: #0077cc; /* Màu xanh nước biển */
-            padding: 10px 20px;
-            border: 1px solid #0077cc; /* Viền xanh nước biển */
+            color: white;
+            padding: 5px 10px ;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
 
-        .navigation a:hover {
-            background-color: #0077cc; /* Màu nền khi hover */
-            color: #fff; /* Màu chữ khi hover */
+        .nav-links li a:hover {
+            background: #ffffff;
+            color: #103da4;
         }
+
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <div class="header">
-            <p th:text="|Hello, ${name}!|" />
+    <nav>
+        <div class="navbar">
+            <a href="/greeting" class="logo">Home</a>
+            <ul class="nav-links">
+                <li><a href="/manager/index">Room</a></li>
+                <li><a href="/manager/fee/index">Fee</a></li>
+                <li><a href="/manager/resident/index">Resident</a></li>
+                <th:block th:if="${username}">
+                    <li><a th:text="${username}"></a></li>
+                    <li><a href="/signout">Log Out</a></li>
+                </th:block>
+                <th:block th:unless="${username}">
+                    <li><a href="/signin">Log In</a></li>
+                </th:block>
+            </ul>
         </div>
-        <div class="navigation">
-            <a th:href="@{/manager/index}">Manager</a>
-            <a th:href="@{/user/search}">User</a>
-        </div>
-    </div>
+    </nav>
 </body>
-
 </html>

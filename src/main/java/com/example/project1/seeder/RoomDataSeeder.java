@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.project1.Repository.AccountManagerRepository;
 import com.example.project1.Repository.AbsentResidentRepository;
 import com.example.project1.Repository.DonationFeeHistoryRepository;
 import com.example.project1.Repository.DonationFeeRepository;
@@ -22,10 +23,12 @@ import com.example.project1.Repository.TypeDonationRepository;
 import com.example.project1.controllers.Manager.ManagerFeeController;
 import com.example.project1.controllers.Manager.ManagerResidentController;
 import com.example.project1.controllers.Manager.ManagerRoomController;
+import com.example.project1.entity.AccountManager;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
+import com.example.project1.entity.AccountManager;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.entity.TypeDonation;
 
@@ -62,6 +65,9 @@ public class RoomDataSeeder implements CommandLineRunner {
 
     @Autowired
     TypeDonationRepository TypeDonationRepo;
+
+    @Autowired
+    AccountManagerRepository AccountManagerRepo;
 
     @Autowired
     private ManagerFeeController feeController;
@@ -108,6 +114,9 @@ public class RoomDataSeeder implements CommandLineRunner {
 		RoomRepo.truncateTable();
 
         TypeDonationRepo.truncateTable();
+        enableForeignKeyChecks();
+
+        AccountManagerRepo.truncateTable();
         enableForeignKeyChecks();
     }
 
@@ -331,5 +340,13 @@ public class RoomDataSeeder implements CommandLineRunner {
         i.addResident(m);
         m.setRoom(i);
         ResidentRepo.save(m);
+
+        // Account 1
+        AccountManager account1 = new AccountManager("accc1tuedeptrai", "123456789");
+        AccountManagerRepo.save(account1);
+
+        // Account 2
+        AccountManager account2 = new AccountManager("accc2hihotuee", "32165478");
+        AccountManagerRepo.save(account2);
     }
 }
