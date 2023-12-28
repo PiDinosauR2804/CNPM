@@ -164,7 +164,9 @@ public class RoomDataSeeder implements CommandLineRunner {
         a.addDonationFee(a_dfee);
         a_dfee.setRoom(a);
         a_dfee.setTypeDonation(a_type);
+        a_type.addDonationFee(a_dfee);
         RoomRepo.save(a);
+        TypeDonationRepo.save(a_type);
         DonationFeeRepo.save(a_dfee);
 
         // Room 1 History
