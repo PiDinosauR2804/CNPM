@@ -6,7 +6,7 @@
 </head>
 <body>
     <br>
-    <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
+    <form th:action="@{'/manager/fee/donation/save/' + ${fee.no}}" th:object="${fee}" method="post">
     <div>
         <div>
             <label>No Room</label>
@@ -27,28 +27,16 @@
             <input type="text" th:field="*{year}" required />
         </div>
         <div>
-            <label>Room Fee</label>
+            <label>Amount</label>
         </div>
         <div>
-            <label th:text="${fee.defaultFeeRoom}"></label>
+            <input type="text" th:field="*{amount}" required />
         </div>
         <div>
-            <label>Water Fee</label>
+            <label>Type</label>
         </div>
         <div>
-            <input type="text" th:field="*{waterFee}" required />
-        </div>
-        <div>
-            <label>Electric Fee</label>
-        </div>
-        <div>
-            <input type="text" th:field="*{electricFee}" required />
-        </div>
-        <div>
-            <label>Parking Fee</label>
-        </div>
-        <div>
-            <label th:text="${fee.defaultParkingFee}"></label>
+            <label th:text="${fee.type}"></label>
         </div>
         <div>
             <button type="submit">Save</button>

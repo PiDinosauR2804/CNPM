@@ -41,6 +41,7 @@
             <th>Details</th>
         </thead>
         <tbody>
+
                 <th:block th:each="Room : ${listRoomHistory}">
                     <tr>
    						 <td th:text="${Room.noRoom}"></td>
@@ -54,6 +55,7 @@
 					</tr>
               
           	  </th:block>
+
         
         </tbody>
     </table>

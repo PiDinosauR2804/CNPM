@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>ADD RESIDENT</p2>
+    <br>
+    <form th:action="@{'/user/request/' + ${key} + '/resident_info/save'}" th:object="${request}" method="post">
+    <div>
+        <div>
+            <label>Resident</label>
+        </div>
+        <div>
+            <select th:field="*{object_id}" required>
+                <option th:each="resident : ${residents}" th:value="${resident.id}" th:text="${resident.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label>Type Change</label>
+        </div>
+        <div>
+            <select th:field="*{id_request}" required>
+                <option value="0" disabled selected>Select an option</option>
+                <option value="6">Change ID</option>
+                <option value="7">Change Name</option>
+                <option value="8">Change Phone Number</option>
+                <option value="9">Change Gender</option>
+                <option value="10">Change BirthPlace</option>
+                <option value="11">Change Job</option>
+                <option value="12">Change Relationship With Owner</option>
+                
+            </select>
+        </div>
+        <div>
+            <label>Content Changed</label>
+        </div>
+        <div>
+            <input type="text" th:field="*{content_changed}" required />
+        </div>
+        <div>
+            <button type="submit">Save</button>
+        </div>
+    <div>
+    </form>
+    
+</body>
+</html>

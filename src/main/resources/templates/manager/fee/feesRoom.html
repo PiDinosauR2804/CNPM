@@ -38,5 +38,27 @@
             </th:block>
         </tbody>
     </table>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <th>Room</th>
+            <th>year</th>
+            <th>month</th>
+            <th>Amount</th>
+            <th>Type</th>
+        </thead>
+        <tbody>
+            <th:block th:each="Fee : ${listDonationFees}">
+                <tr>
+                    <th>[[${Fee.room.noRoom}]]</th>
+                    <th>[[${Fee.year}]]</th>
+                    <th>[[${Fee.month}]]</th>
+                    <th>[[${Fee.amount}]]</th>
+                    <th>[[${Fee.type}]]</th>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
 </body>
 </html>

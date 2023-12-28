@@ -20,7 +20,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
     @Query(value = "TRUNCATE TABLE room", nativeQuery = true)
     void truncateTable();
 
-    @Query("SELECT p FROM Room p WHERE p.key LIKE %?1%")
+    @Query("SELECT p FROM Room p WHERE p.key LIKE ?1")
     public List<Room> findByKey(String key);
 
     @Query("SELECT r FROM Room r WHERE r.noRoom = :noRoom")

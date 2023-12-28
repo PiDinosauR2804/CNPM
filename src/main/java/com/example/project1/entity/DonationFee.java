@@ -26,7 +26,7 @@ public class DonationFee {
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "type", referencedColumnName = "type")
     private TypeDonation typeDonation;
 
     public DonationFee() {
@@ -62,12 +62,16 @@ public class DonationFee {
         this.year = year;
     }
 
-    public String getId_money() {
+    public String getType() {
         return typeDonation.getType();
     }
 
-    public void setType_donation(TypeDonation type) {
+    public void setTypeDonation(TypeDonation type) {
         this.typeDonation = type;
+    }
+
+    public TypeDonation getTypeDonation() {
+        return typeDonation;
     }
 
     public int getAmount() {

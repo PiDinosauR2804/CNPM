@@ -104,8 +104,9 @@ public class ManagerFeeController {
     @GetMapping("/manager/room/{roomNumber}/fees")
     public String detail(@PathVariable int roomNumber, Model model) {
         model.addAttribute("roomNumber", roomNumber);
-        List<MandatoryFee> mandatoryFees = MandatoryFeeRepo.findByRoom(roomNumber);
-        model.addAttribute("listFees", mandatoryFees);
+        Room a = RoomRepo.findByRoom(roomNumber).get(0);
+        model.addAttribute("listFees", a.getMandatoryFees());
+        model.addAttribute("listDonationFees", a.getDonationFees());
         return "manager/fee/feesRoom";
     }
 
@@ -118,9 +119,14 @@ public class ManagerFeeController {
     }
 
 
-    @PostMapping("/manager/fee/save")
-    public String save(@ModelAttribute("fee")MandatoryFee fee) {
-        MandatoryFeeRepo.save(fee);
+    @PostMapping("/manager/fee/save/{no}")
+    public String save(@PathVariable int no ,@ModelAttribute("fee") MandatoryFee fee) {
+        MandatoryFee a = MandatoryFeeRepo.findByPK(no).get(0);
+        a.setMonth(fee.getMonth());
+        a.setYear(fee.getYear());
+        a.setElectricFee(fee.getElectricFee());
+        a.setWaterFee(fee.getWaterFee());
+        MandatoryFeeRepo.save(a);   
         return "redirect:/manager/fee/index";
     }
 
@@ -183,8 +189,32 @@ public class ManagerFeeController {
         model.addAttribute("currentPage",pageNo);
         return "manager/fee/donation/index";
     }
+
     
     //Phân trang và hiển thị Type donation
+
+
+    @GetMapping("/manager/fee/donation/edit/{no}")
+    public String editDonation(@PathVariable int no, Model model) {
+        model.addAttribute("no", no);
+        List<DonationFee> fees = DonationFeeRepo.findByNo(no);
+        model.addAttribute("fee", fees.get(0));
+        return "manager/fee/donation/edit";
+    }
+
+
+    @PostMapping("/manager/fee/donation/save/{no}")
+    public String saveDonation(@PathVariable int no ,@ModelAttribute("fee") DonationFee fee) {
+        DonationFee a = DonationFeeRepo.findByNo(no).get(0);
+        a.setMonth(fee.getMonth());
+        a.setYear(fee.getYear());
+        a.setAmount(fee.getAmount());
+        DonationFeeRepo.save(a);   
+        return "redirect:/manager/fee/donation/index";
+    }
+
+    // Type Donation
+
     @GetMapping("/manager/fee/donation/type")
     public String donation_type_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
@@ -224,12 +254,37 @@ public class ManagerFeeController {
         return "redirect:/manager/fee/donation/type";
     }
     
+
     // Mandatory History Fee - phí bắt buộc - đã phân trang + search
     @GetMapping("/manager/fee/his_index")
     public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
     	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
+
+    @GetMapping("/manager/fee/donation/type/edit/{no}")
+    public String editTypeDonation(@PathVariable int no, Model model) {
+        model.addAttribute("no", no);
+        List<TypeDonation> types = TypeDonationRepo.findByNo(no);
+        model.addAttribute("new_type", types.get(0));
+        return "manager/fee/donation/edit_type";
+    }
+
+
+    @PostMapping("/manager/fee/donation/type/save/{no}")
+    public String updateTypeDonation(@PathVariable int no ,@ModelAttribute("new_type") TypeDonation new_type) {
+        TypeDonation a = TypeDonationRepo.findByNo(no).get(0);
+        a.setType(new_type.getType());
+        TypeDonationRepo.save(a);   
+        return "redirect:/manager/fee/donation/type";
+    }
+
+    // History Fee
+
+    @GetMapping("/manager/history/fee/index")
+    public String his_mdt_index(Model model) {
+        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
+
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
@@ -271,7 +326,7 @@ public class ManagerFeeController {
     }
 
     public void createDonationFeeFeeHistory(DonationFee fee) {
-        DonationFeeHistory a = new DonationFeeHistory(fee.getMonth(), fee.getYear(), fee.getAmount(), fee.getId_money());
+        DonationFeeHistory a = new DonationFeeHistory(fee.getMonth(), fee.getYear(), fee.getAmount(), fee.getType());
         RoomHistory b = RoomHistoryRepo.findByKey(fee.getRoom().getKey()).get(0);
         a.setRoom(b);
         b.addDonationFee(a);

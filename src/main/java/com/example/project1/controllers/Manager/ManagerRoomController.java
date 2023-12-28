@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Resident;
+import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.service.serviceHistoryRoom;
@@ -67,6 +69,32 @@ public class ManagerRoomController {
         return "manager/room/create";
     }
 
+    @GetMapping("/manager/room/edit/{key}")
+    public String edit(@PathVariable String key, Model model) {
+        Room room = RoomRepo.findByKey(key).get(0);
+        model.addAttribute("room", room);
+        model.addAttribute("key", key);
+        return "manager/room/edit";
+    }
+
+    @PostMapping("/manager/room/update/{key}")
+    public String update(@PathVariable String key, @ModelAttribute Room room, Model model) {
+        Room a = RoomRepo.findByKey(key).get(0);
+        a.setNoRoom(room.getNoRoom());
+        a.setNumberPhoneOwner(room.getNumberPhoneOwner());
+        a.setNameOwner(room.getNameOwner());
+        a.setIdOwner(room.getIdOwner());
+        a.setDefaultParkingFee(room.getDefaultParkingFee());
+        a.setDefaultFeeRoom(room.getDefaultFeeRoom());
+        int noRoom = a.getNoRoom();
+        RoomRepo.save(a);
+        
+        model.addAttribute("noRoom", noRoom);
+        model.addAttribute("listResidentRoom", a.getResidents());
+        model.addAttribute("listRoom", RoomRepo.findByKey(key));
+        return "manager/room/residentRoom";
+    }
+
     @PostMapping("/manager/save")
     public String save(Room room) {
         Room save = RoomRepo.save(room);
@@ -91,6 +119,16 @@ public class ManagerRoomController {
     public String his_index(Model model) {
         java.util.List<RoomHistory> listRoom = RoomHistoryRepo.findAll();
         model.addAttribute("listRoom", listRoom);
+        return "manager/room/his_index";
+    }
+
+    @GetMapping("/manager/history/room/detail/{key}")
+    public String his_detail(@PathVariable String key ,Model model) {
+        RoomHistory room = RoomHistoryRepo.findByKey(key).get(0);
+        List<ResidentHistory> residents = room.getResidents();
+        model.addAttribute("room", room);
+        model.addAttribute("residents", residents); 
+
         return "manager/room/his_index";
     }
 

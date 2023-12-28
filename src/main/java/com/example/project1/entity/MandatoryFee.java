@@ -60,7 +60,7 @@ public class MandatoryFee {
         return year;
     }
 
-    public int getRoomFee() {
+    public int getDefaultFeeRoom() {
         return room.getDefaultFeeRoom();
     }
 
@@ -84,7 +84,7 @@ public class MandatoryFee {
         return electricFeePaid;
     }
 
-    public int getParkingFee() {
+    public int getDefaultParkingFee() {
         return room.getDefaultParkingFee();
     }
 

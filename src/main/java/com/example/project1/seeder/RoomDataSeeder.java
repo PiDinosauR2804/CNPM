@@ -134,7 +134,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         // Room 1
         Room a = new Room(0001, "123456783", "Ngô Đình Luyện", "0911052884", 1000000, 200000);
         a.generateKey();
-        RoomRepo.save(a);
+        RoomRepo.save(a);        
 
         RoomHistory roomHis = new RoomHistory(a.getKey(), a.getNoRoom(), a.getIdOwner(), a.getNameOwner(), a.getNumberPhoneOwner(), a.getDefaultFeeRoom(), a.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis);
@@ -154,7 +154,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         DonationFee a_dfee = new DonationFee(12, 2023, 100000);
         a.addDonationFee(a_dfee);
         a_dfee.setRoom(a);
-        a_dfee.setType_donation(a_type);
+        a_dfee.setTypeDonation(a_type);
         RoomRepo.save(a);
         DonationFeeRepo.save(a_dfee);
 
@@ -187,7 +187,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         DonationFee dfee1 = new DonationFee(11, 2023, 80000);
         room1.addDonationFee(dfee1);
         dfee1.setRoom(room1);
-        dfee1.setType_donation(a_type);  // Chắc chắn biến a_type đã được khởi tạo
+        dfee1.setTypeDonation(a_type);  // Chắc chắn biến a_type đã được khởi tạo
         RoomRepo.save(room1);
         DonationFeeRepo.save(dfee1);
 
@@ -221,7 +221,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         DonationFee dfee2 = new DonationFee(10, 2023, 90000);
         room2.addDonationFee(dfee2);
         dfee2.setRoom(room2);
-        dfee2.setType_donation(a_type);
+        dfee2.setTypeDonation(a_type);
         RoomRepo.save(room2);
         DonationFeeRepo.save(dfee2);
 
@@ -255,7 +255,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         DonationFee dfee3 = new DonationFee(9, 2023, 95000);
         room3.addDonationFee(dfee3);
         dfee3.setRoom(room3);
-        dfee3.setType_donation(a_type);
+        dfee3.setTypeDonation(a_type);
         RoomRepo.save(room3);
         DonationFeeRepo.save(dfee3);
 

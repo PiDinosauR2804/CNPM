@@ -14,7 +14,7 @@ import jakarta.persistence.OneToMany;
 public class TypeDonation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idMoney;
     private String type;
 
     @OneToMany(mappedBy = "typeDonation", cascade = CascadeType.ALL)
@@ -42,7 +42,7 @@ public class TypeDonation {
         return type;
     }
 
-    public int getId() {
-        return id;
+    public int getIdMoney() {
+        return idMoney;
     }
 }
