@@ -20,7 +20,6 @@ import com.example.project1.entity.Room;
 
 @Controller
 public class UserRoomController {
-
     @Autowired
     private RoomRepository RoomRepo;
 
