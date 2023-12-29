@@ -21,16 +21,16 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
     @Query("SELECT r FROM Resident r WHERE r.room.noRoom = :noRoom")
     List<Resident> findByRoom(@Param("noRoom") int noRoom);
 
-    @Query("SELECT r FROM Resident r WHERE r.id = :id")
-    List<Resident> findByIdResident(@Param("id") String id);
+    @Query("SELECT r FROM Resident r WHERE r.idRes = :idRes")
+    List<Resident> findByIdResident(@Param("idRes") String idRes);
 
     @Query("SELECT r FROM Resident r WHERE concat(r.id, r.name) LIKE %?1%")
     public Page<Resident> findAll(String keyword,Pageable pagaeble);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Resident r SET r.name = :name, r.gender = :gender, r.birthDate = :birthDate, r.birthPlace = :birthPlace, r.job = :job, r.phoneNumber = :phoneNumber, r.relationshipWithOwner = :relationshipWithOwner WHERE r.id = :id")
-    void updateResident(@Param("id") String id, 
+    @Query("UPDATE Resident r SET r.name = :name, r.gender = :gender, r.birthDate = :birthDate, r.birthPlace = :birthPlace, r.job = :job, r.phoneNumber = :phoneNumber, r.relationshipWithOwner = :relationshipWithOwner WHERE r.idRes = :idRes")
+    void updateResident(@Param("idRes") String idRes, 
                         @Param("name") String name, 
                         @Param("gender") String gender,
                         @Param("birthDate") String birthDate, 

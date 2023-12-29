@@ -84,7 +84,7 @@ public class ManagerRequestController {
                 if (!residents.isEmpty()) {
                     Resident resident = residents.get(0);
                     if (a.getIdRequest() == 6) {
-                        resident.setId(a.getContentChanged());
+                        resident.setIdRes(a.getContentChanged());
                     } else if (a.getIdRequest() == 7) {
                         resident.setName(a.getContentChanged());
                     } else if (a.getIdRequest() == 8) {

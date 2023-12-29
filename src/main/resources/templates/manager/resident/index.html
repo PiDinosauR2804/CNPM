@@ -49,7 +49,7 @@
                 <th:block th:each="resident : ${listResident.content}">
                     <tr>
                         <th th:text="${resident.noRoom}"></th>
-                        <th th:text="${resident.id}"></th>
+                        <th th:text="${resident.idRes}"></th>
                         <th th:text="${resident.name}"></th>
                         <th th:text="${resident.gender}"></th>
                         <th th:text="${resident.birthDate}"></th>
@@ -57,7 +57,7 @@
                         <th th:text="${resident.job}"></th>
                         <th th:text="${resident.phoneNumber}"></th>
                         <th th:text="${resident.relationshipWithOwner}"></th>
-                        <th><a th:href="@{'/manager/resident/edit/'  + ${resident.id}}">Edit</a></th>
+                        <th><a th:href="@{'/manager/resident/edit/'  + ${resident.idRes}}">Edit</a></th>
                     </tr>
                 </th:block>
             </tbody>

@@ -59,7 +59,7 @@
         <tbody>
             <th:block th:each="Resident : ${listResidentRoom}">
                 <tr>
-                    <th>[[${Resident.id}]]</th>
+                    <th>[[${Resident.idRes}]]</th>
                     <th>[[${Resident.name}]]</th>
                     <th>[[${Resident.gender}]]</th>
                     <th>[[${Resident.birthDate}]]</th>
@@ -68,7 +68,7 @@
                     <th>[[${Resident.phoneNumber}]]</th>
                     <th>[[${Resident.noRoom}]]</th>
                     <th>[[${Resident.relationshipWithOwner}]]</th>
-                    <td><a th:href="@{'/manager/resident/edit/'  + ${Resident.id}}">Edit</a></td>
+                    <td><a th:href="@{'/manager/resident/edit/'  + ${Resident.idRes}}">Edit</a></td>
                 </tr>
             </th:block>
         </tbody>

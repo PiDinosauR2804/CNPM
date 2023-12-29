@@ -27,7 +27,7 @@
         </thead>
         <tbody>
             <tr>
-                <th th:text="${Resident.id}"></th>
+                <th th:text="${Resident.idRes}"></th>
                 <th>
                     <span id="nameValue" th:utext="${Resident.name}"></span>
                     <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="nameForm">

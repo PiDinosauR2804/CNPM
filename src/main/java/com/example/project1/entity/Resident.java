@@ -13,7 +13,7 @@ public class Resident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
-    private String id;
+    private String idRes;
     private String name;
     private String gender;
     private String birthDate;
@@ -36,9 +36,9 @@ public class Resident {
     }
 
     // Constructor với tham số
-    public Resident(String id, String name, String gender, String birthDate, String birthPlace, String job,
+    public Resident(String idRes, String name, String gender, String birthDate, String birthPlace, String job,
                     String phoneNumber, String relationshipWithOwner) {
-        this.id = id;
+        this.idRes = idRes;
         this.name = name;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -53,12 +53,12 @@ public class Resident {
     }
 
     // Getter and Setter methods for 'id'
-    public String getId() {
-        return id;
+    public String getIdRes() {
+        return idRes;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdRes(String idRes) {
+        this.idRes = idRes;
     }
 
     public void setRoom(Room room) {

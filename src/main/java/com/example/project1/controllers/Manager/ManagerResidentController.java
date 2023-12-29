@@ -80,7 +80,7 @@ public class ManagerResidentController {
         Resident resident = new Resident();
         boolean flag = false;
         for (Resident res : listResident) {
-            if (res.getId().equals(id)) {
+            if (res.getIdRes().equals(id)) {
                 resident = res;
                 flag = true;
                 break;
@@ -157,7 +157,7 @@ public class ManagerResidentController {
   	}
 
     public void saveResidentInHistory(Resident resident) {
-        ResidentHistory resi = new ResidentHistory(resident.getId(), resident.getName(), resident.getGender(), resident.getBirthDate(), resident.getBirthPlace(), resident.getJob(), resident.getPhoneNumber(), resident.getRelationshipWithOwner(), getTime());
+        ResidentHistory resi = new ResidentHistory(resident.getIdRes(), resident.getName(), resident.getGender(), resident.getBirthDate(), resident.getBirthPlace(), resident.getJob(), resident.getPhoneNumber(), resident.getRelationshipWithOwner(), getTime());
         RoomHistory a = roomHistoryRepo.findByKey(resident.getkey()).get(0);
         resi.setRoom(a);
         a.addResident(resi);

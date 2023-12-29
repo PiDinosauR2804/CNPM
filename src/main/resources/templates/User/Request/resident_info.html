@@ -14,7 +14,7 @@
         </div>
         <div>
             <select th:field="*{objectId}" required>
-                <option th:each="resident : ${residents}" th:value="${resident.id}" th:text="${resident.name}"></option>
+                <option th:each="resident : ${residents}" th:value="${resident.idRes}" th:text="${resident.name}"></option>
             </select>
         </div>
         <div>
