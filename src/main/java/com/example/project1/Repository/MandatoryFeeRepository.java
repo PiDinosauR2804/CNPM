@@ -37,7 +37,15 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
                         @Param("electricFee") int electricFee, 
                         @Param("electricFeePaid") int electricFeePaid,
                         @Param("parkingFeePaid") int parkingFeePaid);
+<<<<<<< HEAD
     
     @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
     Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
+=======
+
+    @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
+    Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
+
+    
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 }

@@ -15,7 +15,7 @@ public class serviceTemp {
     private TemporaryResidentRepository repo;
 
     public Page<TemporaryResident> listAll(String keyword, String startDate, String endDate, Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo - 1, 2);
+        Pageable pageable = PageRequest.of(pageNo - 1, 10);
 
         if (keyword != null && !(startDate == "" || startDate==null)&& !(endDate==null||endDate == "")) {
             return repo.findByKeywordAndDateRange(keyword, startDate, endDate, pageable);

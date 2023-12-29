@@ -87,7 +87,7 @@
         </div>
         <div class="navigation">
             <a th:href="@{/manager/temporary_resident/index}">Temporary Resident Manager</a>
-            <a th:href="@{/manager/index}">Absent Resident Manager</a>
+            <a th:href="@{/manager/absent_resident/index}">Absent Resident Manager</a>
             <a th:href="@{/manager/createRoom}">Create Room</a>
             <a th:href="@{/manager/resident/index}">Resident Manage</a>
             <a th:href="@{/manager/fee/index}">Fees Manage</a>
@@ -130,7 +130,7 @@
         </table>
 
         <!-- Đánh số trang -->
-        <div class="pagination">
+        <div th:if="${totalPage > 0}" class="pagination">
             <!-- Link to the first page -->
             <a th:if="${currentPage > 1}"
                 th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
@@ -153,7 +153,7 @@
             <!-- Link to the last page -->
             <a th:if="${currentPage < totalPage}"
                 th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
-        </div>
+        </div>  
     </div>
 </body>
 

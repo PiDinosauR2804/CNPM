@@ -21,7 +21,11 @@ public interface ResidentHistoryRepository extends JpaRepository<ResidentHistory
 
     @Query("SELECT r FROM ResidentHistory r WHERE r.no = :no")
     List<ResidentHistory> findByNo(@Param("no") int no);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
     // tìm kiếm theo idOwner -> phát triển ra concat để tìm được nhiều hơn
     @Query("SELECT r FROM ResidentHistory r WHERE concat(r.id, r.name) LIKE %?1%")
     public Page<ResidentHistory> findAll(String keyword, Pageable pageable);

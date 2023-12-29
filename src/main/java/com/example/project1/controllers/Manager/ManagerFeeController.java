@@ -29,6 +29,11 @@ import com.example.project1.entity.MandatoryFeeHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
 import com.example.project1.entity.TypeDonation;
+import com.example.project1.service.serviceDonationFee;
+import com.example.project1.service.serviceDonationFeeHistory;
+import com.example.project1.service.serviceMandatoryFee;
+import com.example.project1.service.serviceMandatoryFeeHistory;
+import com.example.project1.service.serviceTypeFee;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,9 +49,6 @@ import com.example.project1.service.serviceMandatoryFeeHistory;
 public class ManagerFeeController {
     @Autowired
     MandatoryFeeRepository MandatoryFeeRepo;
-    @Autowired
-    serviceMandatoryFee serviceMF;
-
     @Autowired
     MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
     @Autowired
@@ -69,17 +71,12 @@ public class ManagerFeeController {
 
     @Autowired
     TypeDonationRepository TypeDonationRepo;
-    @Autowired
-    serviceTypeFee serviceTF;
 
-    // Mandatory Fee - đã phân trang + search
+    // Mandatory Fee
+
     @GetMapping("/manager/fee/index")
-    public String index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page <MandatoryFee> listFees = this.serviceMF.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
-        model.addAttribute("totalPage",listFees.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+    public String index(Model model) {
+        List<MandatoryFee> listFees = MandatoryFeeRepo.findAll();
         model.addAttribute("listFees", listFees);
         return "manager/fee/index";
     }
@@ -186,9 +183,8 @@ public class ManagerFeeController {
 
     // Donation Fee - đã phân trang + search 
     @GetMapping("/manager/fee/donation/index")
-    public String donation_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page <DonationFee> listFees = serviceDF.listAll(keyword,pageNo);
+    public String donation_index(Model model) {
+        List<DonationFee> listFees = DonationFeeRepo.findAll();
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
@@ -220,6 +216,13 @@ public class ManagerFeeController {
     }
 
     // Type Donation
+
+    @GetMapping("/manager/fee/donation/type")
+    public String donation_type_index(Model model) {
+        List<TypeDonation> listTypes = TypeDonationRepo.findAll();
+        model.addAttribute("listTypes", listTypes);
+        return "manager/fee/donation/type";
+    }
 
     @GetMapping("/manager/fee/donation/type/{id}/close")
     public String donation_type_close(@PathVariable int id) {
@@ -268,24 +271,18 @@ public class ManagerFeeController {
 
     // History Fee
 
-    // Mandatory History Fee - phí bắt buộc - đã phân trang + search
-    @GetMapping("/manager/fee/his_index")
-    public String his_mdt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-    	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+    @GetMapping("/manager/history/fee/index")
+    public String his_mdt_index(Model model) {
+        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         return "manager/fee/his_index";
     }
 
-    //Donation history fee - đã phân trang + search
-    @GetMapping("/manager/fee/donation/his_index")
-    public String his_dnt_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page <DonationFeeHistory> listFees = serviceDFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+    @GetMapping("/manager/history/fee/donation/index")
+    public String his_dnt_index(Model model) {
+        List<DonationFeeHistory> listFees = DonationFeeHistoryRepo.findAll();
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);

@@ -17,5 +17,8 @@ public interface DonationFeeHistoryRepository extends JpaRepository<DonationFeeH
     void truncateTable();
     @Query("SELECT dh FROM DonationFeeHistory dh JOIN FETCH dh.roomHistory rh WHERE CONCAT(dh.month, dh.year, dh.amount, dh.typeMoney, rh.noRoom) LIKE %:keyword%")
     Page<DonationFeeHistory> findAll(@Param("keyword") String keyword, Pageable pageable);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 }

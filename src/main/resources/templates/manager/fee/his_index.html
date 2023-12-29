@@ -10,6 +10,7 @@
     <a th:href="@{/manager/fee/index}">Return back</a>
     <br>
     <div class="search-form">
+<<<<<<< HEAD
             <!-- tìm kiếm -->
             <form th:action="@{/manager/fee/his_index}" method="get">
                 <label for="searchInput">Search:</label>
@@ -18,6 +19,16 @@
                 <button type="submit">Search</button>
             </form>
         </div>
+=======
+        <!-- tìm kiếm -->
+        <form th:action="@{/manager/history/fee/index}" method="get">
+            <label for="searchInput">Search:</label>
+            <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
+                th:value="${keyword}" />
+            <button type="submit">Search</button>
+        </form>
+    </div>
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
     
     <table>
         <thead>
@@ -51,6 +62,7 @@
             </th:block>
         </tbody>
     </table>
+<<<<<<< HEAD
       <!-- Đánh số trang -->
         <div th:if="${totalPage > 0}" class="pagination">
             <!-- Link to the first page -->
@@ -76,5 +88,31 @@
             <a th:if="${currentPage < totalPage}"
                 th:href="@{/manager/fee/his_index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
         </div>
+=======
+    <div th:if="${totalPage > 0}" class="pagination">
+        <!-- Link to the first page -->
+        <a th:if="${currentPage > 1}"
+            th:href="@{/manager/history/fee/index(pageNo=1, keyword=${keyword})}">First</a>
+
+        <!-- Link to the previous page -->
+        <a th:if="${currentPage > 1}"
+            th:href="@{/manager/history/fee/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+
+        <!-- Links to individual pages -->
+        <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+            <a th:if="${currentPage != i}"
+                th:href="@{/manager/history/fee/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+            <span th:if="${currentPage == i}" th:text="${i}"></span>
+        </span>
+
+        <!-- Link to the next page -->
+        <a th:if="${currentPage < totalPage}"
+            th:href="@{/manager/history/fee/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+
+        <!-- Link to the last page -->
+        <a th:if="${currentPage < totalPage}"
+            th:href="@{/manager/history/fee/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+    </div>
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 </body>
 </html>

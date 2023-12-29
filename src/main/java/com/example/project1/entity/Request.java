@@ -14,7 +14,7 @@ public class Request {
     private int id_request;
     private String object_id;
     private String content_changed;
-    private Boolean approved = false;
+    private int approved = 1;
 
     public Request() {
     }
@@ -25,11 +25,11 @@ public class Request {
         this.content_changed = content_changed;
     } 
 
-    public Boolean getApproved() {
+    public int getApproved() {
         return approved;
     }
 
-    public void setApproved(Boolean approved) {
+    public void setApproved(int approved) {
         this.approved = approved;
     }
 

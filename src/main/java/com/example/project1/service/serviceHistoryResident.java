@@ -15,7 +15,11 @@ public class serviceHistoryResident {
     private ResidentHistoryRepository repo;
 
     public Page<ResidentHistory> listAll(String keyword, String startDate, String endDate, Integer pageNo) {
+<<<<<<< HEAD
         Pageable pageable = PageRequest.of(pageNo - 1, 2);
+=======
+        Pageable pageable = PageRequest.of(pageNo - 1, 10);
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 
         if (keyword != null && !(startDate == "" || startDate==null)&& !(endDate==null||endDate == "")) {
             return repo.findByKeywordAndDateRange(keyword, startDate, endDate, pageable);

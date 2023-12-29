@@ -20,7 +20,14 @@ public interface TypeDonationRepository extends JpaRepository<TypeDonation, Inte
 
     @Query("SELECT r FROM TypeDonation r WHERE r.idMoney = :idMoney")
     List<TypeDonation> findByNo(@Param("idMoney") int idMoney);
+<<<<<<< HEAD
     // tìm kiếm theo id và type
     @Query("SELECT r FROM TypeDonation r WHERE concat(r.id, r.type) LIKE %?1%")
     public Page<TypeDonation> findAll(String keyword,Pageable pageable);
+=======
+
+    // tìm kiếm theo id và type
+    @Query("SELECT r FROM TypeDonation r WHERE concat(r.idMoney, r.type) LIKE %?1%")
+    public Page<TypeDonation> findAll(String keyword, Pageable pageable);
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 }

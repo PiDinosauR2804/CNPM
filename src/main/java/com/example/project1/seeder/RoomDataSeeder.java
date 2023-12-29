@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.project1.Repository.AccountManagerRepository;
+import com.example.project1.Repository.AddResidentRequestRepository;
 import com.example.project1.Repository.AbsentResidentRepository;
 import com.example.project1.Repository.DonationFeeHistoryRepository;
 import com.example.project1.Repository.DonationFeeRepository;
 import com.example.project1.Repository.MandatoryFeeHistoryRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
+import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.ResidentHistoryRepository;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
@@ -24,8 +26,10 @@ import com.example.project1.controllers.Manager.ManagerFeeController;
 import com.example.project1.controllers.Manager.ManagerResidentController;
 import com.example.project1.controllers.Manager.ManagerRoomController;
 import com.example.project1.entity.AccountManager;
+import com.example.project1.entity.AddResidentRequest;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
+import com.example.project1.entity.Request;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
@@ -75,6 +79,12 @@ public class RoomDataSeeder implements CommandLineRunner {
     @Autowired
     private ManagerRoomController roomController;
 
+    @Autowired
+    private RequestRepository RequestRepo;
+
+    @Autowired
+    private AddResidentRequestRepository AddResidentRequestRepo;
+
 	@Override
     @Transactional
 	public void run(String... args) throws Exception {
@@ -113,10 +123,12 @@ public class RoomDataSeeder implements CommandLineRunner {
 		RoomRepo.truncateTable();
 
         TypeDonationRepo.truncateTable();
-        enableForeignKeyChecks();
+        RequestRepo.truncateTable();
+        AddResidentRequestRepo.truncateTable();
 
         AccountManagerRepo.truncateTable();
         enableForeignKeyChecks();
+
     }
 
     public String getTime() {
@@ -153,6 +165,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         residentController.saveResidentInHistory(b);
         ResidentRepo.save(b);
 
+        
         MandatoryFee a_fee = new MandatoryFee(12, 2023, 1000000, 1000000);
         a.addMandatoryFee(a_fee);
         a_fee.setRoom(a);
@@ -168,6 +181,14 @@ public class RoomDataSeeder implements CommandLineRunner {
         TypeDonationRepo.save(a_type);
         DonationFeeRepo.save(a_dfee);
 
+        Request re_a = new Request(1, 1, "123456789");
+        RequestRepo.save(re_a);
+
+        Request re_b = new Request(1, 6, "123456789");
+        RequestRepo.save(re_b);
+
+        AddResidentRequest add_a = new AddResidentRequest("123123123", 1, "Manh" , "Male", "28-11-2023", "Ha Noi", "Pho", "0922374112", "Bo");
+        AddResidentRequestRepo.save(add_a);
         // Room 1 History
 
         Room room1 = new Room(0002, "234567891", "Nguyễn Văn A", "0912345678", 1200000, 250000);

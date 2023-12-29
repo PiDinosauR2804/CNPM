@@ -20,8 +20,13 @@ public interface RoomHistoryRepository extends JpaRepository<RoomHistory, Intege
 
     @Query("SELECT p FROM RoomHistory p WHERE p.key LIKE %?1%")
     public List<RoomHistory> findByKey(String key);
+<<<<<<< HEAD
     
  // tìm kiếm theo
+=======
+
+    // tìm kiếm theo
+>>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
     @Query("SELECT r FROM RoomHistory r WHERE concat(r.nameOwner, r.key, r.idOwner) LIKE %?1%")
     public Page<RoomHistory> findAll(String keyword,Pageable pageable);
     //Tìm kiếm trong một khoảng thời gian

@@ -102,6 +102,6 @@ public class UserRequestController {
         request.setNoRoom(a.getNoRoom());
         RequestRepo.save(request);
         return "redirect:/user/index/{key}";
-    }
+    }    
     
 }
