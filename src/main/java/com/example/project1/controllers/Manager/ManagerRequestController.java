@@ -65,7 +65,7 @@ public class ManagerRequestController {
                 if (!rooms.isEmpty()) {
                     Room room = rooms.get(0);
                     if (a.getIdRequest() == 1) {
-                        room.setIdOwner(a.getContentChanged());
+                        rooms.get(0).setIdOwner(a.getContentChanged());
                     } else if (a.getIdRequest() == 2) {
                         room.setNameOwner(a.getContentChanged());
                     } else if (a.getIdRequest() == 3) {
