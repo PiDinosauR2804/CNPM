@@ -1,5 +1,12 @@
 package com.example.project1.entity;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.project1.Repository.TypeDonationRepository;
+
+import aj.org.objectweb.asm.Type;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,19 +18,37 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
     private int noRoom;
-    private int id_request;
-    private String object_id;
-    private String content_changed;
+    private int idRequest;
+    private String objectId;
+    private String contentChanged;
+    private String objectName;
+    private String donationName;
     private int approved = 1;
 
     public Request() {
     }
 
-    public Request(int noRoom, int id_request, String content_changed) {
+    public Request(int noRoom, int idRequest, String contentChanged) {
         this.noRoom = noRoom;
-        this.id_request = id_request;
-        this.content_changed = content_changed;
+        this.idRequest = idRequest;
+        this.contentChanged = contentChanged;
     } 
+
+    public String getDonationName() {
+        return donationName;
+    }
+
+    public void setDonationName(String donationName) {
+        this.donationName = donationName;
+    }    
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
 
     public int getApproved() {
         return approved;
@@ -45,30 +70,30 @@ public class Request {
         this.noRoom = noRoom;
     }
 
-    // Getter và setter cho id_request
-    public int getId_request() {
-        return id_request;
+    // Getter và setter cho idRequest
+    public int getIdRequest() {
+        return idRequest;
     }
 
-    public void setId_request(int id_request) {
-        this.id_request = id_request;
+    public void setIdRequest(int idRequest) {
+        this.idRequest = idRequest;
     }
 
-    // Getter và setter cho object_id
-    public String getObject_id() {
-        return object_id;
+    // Getter và setter cho objectId
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setObject_id(String object_id) {
-        this.object_id = object_id;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
-    // Getter và setter cho content_changed
-    public String getContent_changed() {
-        return content_changed;
+    // Getter và setter cho contentChanged
+    public String getContentChanged() {
+        return contentChanged;
     }
 
-    public void setContent_changed(String content_changed) {
-        this.content_changed = content_changed;
+    public void setContentChanged(String contentChanged) {
+        this.contentChanged = contentChanged;
     }
 }

@@ -13,7 +13,7 @@
             <label>Resident</label>
         </div>
         <div>
-            <select th:field="*{object_id}" required>
+            <select th:field="*{objectId}" required>
                 <option th:each="resident : ${residents}" th:value="${resident.id}" th:text="${resident.name}"></option>
             </select>
         </div>
@@ -21,7 +21,7 @@
             <label>Type Change</label>
         </div>
         <div>
-            <select th:field="*{id_request}" required>
+            <select th:field="*{idRequest}" required>
                 <option value="0" disabled selected>Select an option</option>
                 <option value="6">Change ID</option>
                 <option value="7">Change Name</option>
@@ -37,7 +37,7 @@
             <label>Content Changed</label>
         </div>
         <div>
-            <input type="text" th:field="*{content_changed}" required />
+            <input type="text" th:field="*{contentChanged}" required />
         </div>
         <div>
             <button type="submit">Save</button>

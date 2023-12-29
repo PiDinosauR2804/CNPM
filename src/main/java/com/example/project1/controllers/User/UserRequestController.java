@@ -83,6 +83,7 @@ public class UserRequestController {
     public String saveResidentInfo(@PathVariable String key, Request request) {
         Room a = RoomRepo.findByKey(key).get(0);
         request.setNoRoom(a.getNoRoom());
+        request.setObjectName(ResidentRepo.findByIdResident(request.getObjectId()).get(0).getName());
         RequestRepo.save(request);
         return "redirect:/user/index/{key}";
     }
@@ -97,9 +98,15 @@ public class UserRequestController {
     }
 
     @PostMapping("/user/request/{key}/update_fee/save")
-    public String sa(@PathVariable String key, Request request) {
+    public String saveUpdateFee(@PathVariable String key, Request request) {
         Room a = RoomRepo.findByKey(key).get(0);
         request.setNoRoom(a.getNoRoom());
+        if (request.getIdRequest() > 18) {
+            List<TypeDonation> types = TypeDonationRepo.findByNo(request.getIdRequest() - 20);
+            if (!types.isEmpty()) {
+                request.setDonationName(types.get(0).getType());
+            }
+        }
         RequestRepo.save(request);
         return "redirect:/user/index/{key}";
     }    

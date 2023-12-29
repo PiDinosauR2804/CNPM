@@ -21,6 +21,9 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
     @Query("SELECT r FROM Resident r WHERE r.room.noRoom = :noRoom")
     List<Resident> findByRoom(@Param("noRoom") int noRoom);
 
+    @Query("SELECT r FROM Resident r WHERE r.id = :id")
+    List<Resident> findByIdResident(@Param("id") String id);
+
     @Query("SELECT r FROM Resident r WHERE concat(r.id, r.name) LIKE %?1%")
     public Page<Resident> findAll(String keyword,Pageable pagaeble);
 

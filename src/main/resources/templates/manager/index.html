@@ -88,12 +88,14 @@
         <div class="navigation">
             <a th:href="@{/manager/temporary_resident/index}">Temporary Resident Manager</a>
             <a th:href="@{/manager/absent_resident/index}">Absent Resident Manager</a>
-            <a th:href="@{/manager/createRoom}">Create Room</a>
+            <a th:href="@{/manager/index}">Room Manager</a>
             <a th:href="@{/manager/resident/index}">Resident Manage</a>
             <a th:href="@{/manager/fee/index}">Fees Manage</a>
-            <a th:href="@{/manager/history/room/index}">Room history</a>
+            <a th:href="@{/manager/request/change_information/index}">Request Manager</a>
         </div>
 
+        <a th:href="@{/manager/createRoom}">Create Room</a>
+        <a th:href="@{/manager/history/room/index}">Room history</a>
         <div class="search-form">
             <!-- tìm kiếm -->
             <form th:action="@{/manager/index}" method="get">

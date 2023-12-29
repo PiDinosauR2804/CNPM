@@ -13,20 +13,20 @@
             <label>Type Change</label>
         </div>
         <div>
-            <select th:field="*{id_request}" required>
+            <select th:field="*{idRequest}" required>
                 <option value="0" disabled selected>Select an option</option>
                 <option value="13">Pay Room Fee</option>
                 <option value="14">Pay Water Fee</option>
                 <option value="15">Pay Electric Fee</option>
                 <option value="16">Pay Parking Fee</option>
-                <option th:each="typeDo : ${list}" th:value="${typeDo.idMoney}" th:text="${typeDo.type}"></option>
+                <option th:each="typeDo : ${list}" th:value="${typeDo.idMoney} + 20" th:text="${typeDo.type}"></option>
             </select>
         </div>
         <div>
             <label>Amount</label>
         </div>
         <div>
-            <input type="text" th:field="*{content_changed}" required />
+            <input type="text" th:field="*{contentChanged}" required />
         </div>
         <div>
             <button type="submit">Save</button>

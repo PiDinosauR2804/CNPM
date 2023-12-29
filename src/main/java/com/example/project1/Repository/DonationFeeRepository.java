@@ -18,6 +18,9 @@ public interface DonationFeeRepository extends JpaRepository<DonationFee, Intege
     @Query(value = "TRUNCATE TABLE donation_fee", nativeQuery = true)
     void truncateTable();
 
+    @Query("SELECT r FROM DonationFee r WHERE r.room.noRoom = :noRoom AND r.typeDonation.type LIKE :type")
+    List<DonationFee> findByRoomAndByType(@Param("noRoom") int noRoom, @Param("type") String type);
+
     @Query("SELECT r FROM DonationFee r WHERE r.typeDonation.id = :id")
     List<DonationFee> findByNo(@Param("id") int id);
 

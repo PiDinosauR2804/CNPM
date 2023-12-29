@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <p2>Welcome to my world</p2>
+    <br>
+    <a th:href="@{/manager/temporary_resident/index}">Temporary Resident Manager</a>
+    <a th:href="@{/manager/absent_resident/index}">Absent Resident Manager</a>
+    <a th:href="@{/manager/index}">Room Manager</a>
+    <a th:href="@{/manager/resident/index}">Resident Manage</a>
+    <a th:href="@{/manager/fee/index}">Fees Manage</a>
+    <a th:href="@{/manager/request/change_information/index}">Request Manager</a>
+    <table>
+        <thead>
+            <th>Số hiệu</th>
+            <th>Nội dung</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr th:each="request : ${requests}">
+                <td th:text="${request.no}"></td>
+                <td th:switch="${request.idRequest}">
+                    <span th:case="'1'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID chủ hộ thành [[${request.contentChanged}]]</span>
+                    <span th:case="'2'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi tên chủ hộ thành [[${request.contentChanged}]]</span>
+                    <span th:case="'3'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại chủ hộ thành [[${request.contentChanged}]]</span>
+                    <span th:case="'4'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí phòng mặc định thành [[${request.contentChanged}]]</span>
+                    <span th:case="'5'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí gửi xe hiện tại thành [[${request.contentChanged}]]</span>
+                    <span th:case="'6'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'7'">hòng số [[${request.noRoom}]] yêu cầu thay đổi tên của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'8'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'9'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi giới tính của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'10'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nơi sinh của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'11'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nghề nghiệp của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'12'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi quan hệ với chủ hộ của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                    <span th:case="'13'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nhà đã đóng thành [[${request.contentChanged}]] VND</span>
+                    <span th:case="'14'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nước đã đóng thành [[${request.contentChanged}]] VND</span>
+                    <span th:case="'15'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền điện đã đóng thành [[${request.contentChanged}]] VND</span>
+                    <span th:case="'16'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật phí đỗ xe đã đóng thành [[${request.contentChanged}]] VND</span>
+                    <span th:if="${request.idRequest > 20}">
+                        Phòng số [[${request.noRoom}]] yêu cầu cập nhật đã ủng hộ [[${request.contentChanged}]] VND cho quỹ [[${request.donationName}]]
+                    </span>
+                </td>
+                <td>
+                    <a th:href="@{'/manager/request/change_information/accept/' + ${request.no}}">Accept</a>
+                    <a th:href="@{'/manager/request/change_information/decline/' + ${request.no}}">Decline</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
