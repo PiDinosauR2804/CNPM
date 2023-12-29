@@ -25,6 +25,7 @@ import com.example.project1.Repository.TypeDonationRepository;
 import com.example.project1.controllers.Manager.ManagerFeeController;
 import com.example.project1.controllers.Manager.ManagerResidentController;
 import com.example.project1.controllers.Manager.ManagerRoomController;
+import com.example.project1.entity.AbsentResident;
 import com.example.project1.entity.AccountManager;
 import com.example.project1.entity.AddResidentRequest;
 import com.example.project1.entity.DonationFee;
@@ -34,6 +35,7 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.AccountManager;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.entity.TemporaryResident;
 import com.example.project1.entity.TypeDonation;
 
 import jakarta.persistence.EntityManager;
@@ -182,7 +184,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         TypeDonationRepo.save(a_type);
         DonationFeeRepo.save(a_dfee);
 
-        Request re_a = new Request(1, 1, "123456789");
+        Request re_a = new Request(1, 1, "012334598");
         RequestRepo.save(re_a);
 
         Request re_b = new Request(2, 6, "123456789");
@@ -295,76 +297,112 @@ public class RoomDataSeeder implements CommandLineRunner {
 
         roomController.closeRoom(room3);
 
+
         // Room 2
-        Room c = new Room(0002, "123456781", "Hoàng Đức Huy", "0911052882", 1000000, 200000);
-        c.generateKey();
-        RoomRepo.save(c);
-
-        Resident d = new Resident("004206000238", "Người Thương Của Huy", "Male", "12/04/2003", "Hà Nội", "Student", "0344859662", "Chủ");
-        c.addResident(d);
-        d.setRoom(c);
-        ResidentRepo.save(d);
-
-        Resident d1 = new Resident("004206000240", "Huy", "Male", "04/12/2003", "Hà Nội", "Dượng", "0344859629", "Phò");
-        c.addResident(d1);
-        d1.setRoom(c);
-        ResidentRepo.save(d1);
-
-        // Room 3
-        Room e = new Room(0003, "123456782", "Lê Đình Trí Tuệ", "0911052883", 1000000, 200000);
-        e.generateKey();
-        RoomRepo.save(e);
-
-        Resident f = new Resident("002304000568", "Lê Đình Trí Tuệ", "Male", "20/09/2003", "Hà Nội", "Student", "0233846110", "Chủ");
-        e.addResident(f);
-        f.setRoom(e);
-        ResidentRepo.save(f);
-
-        Resident f1 = new Resident("002304000570", "Người Thương Của Tuệ", "Female", "09/20/2003", "Hà Nội", "Student", "0233846115", "Con nuôi");
-        e.addResident(f1);
-        f1.setRoom(e);
-        ResidentRepo.save(f1);
-
         // Room 4
-        Room g = new Room(0004, "123456789", "Phan Trọng Cường", "0911052881", 1000000, 200000);
-        g.generateKey();
-        RoomRepo.save(g);
+        Room room4 = new Room(0004, "765432109", "Lê Văn D", "0965432109", 1100000, 210000);
+        room4.generateKey();
+        RoomRepo.save(room4);
 
-        Resident h = new Resident("005602000683", "Phan Trọng Cường", "Male", "31/01/2003", "Hà Nội", "Student", "0344712997", "Chủ");
-        g.addResident(h);
-        h.setRoom(g);
-        ResidentRepo.save(h);
+        // RoomHistory 4
+        RoomHistory roomHis4 = new RoomHistory(room4.getKey(), room4.getNoRoom(), room4.getIdOwner(), room4.getNameOwner(), room4.getNumberPhoneOwner(), room4.getDefaultFeeRoom(), room4.getDefaultParkingFee(), getTime());
+        RoomHistoryRepo.save(roomHis4);
 
-        Resident h1 = new Resident("005602000685", "Người Thương Của Cường", "Female", "01/31/2003", "Hà Nội", "Student", "0344712990", "Vợ");
-        g.addResident(h1);
-        h1.setRoom(g);
-        ResidentRepo.save(h1);
+        // Resident 4
+        Resident resident4 = new Resident("001203000771", "Lê Văn D", "Male", "10/10/1980", "Huế", "Engineer", "0965432110", "Chủ");
+        room4.addResident(resident4);
+        resident4.setRoom(room4);
+        residentController.saveResidentInHistory(resident4);
+        ResidentRepo.save(resident4);
+
+        Resident resident41 = new Resident("001203000888", "Hoàng Đức Huy", "Male", "10/10/1999", "Huế", "Engineer", "0965432110", "Con");
+        room4.addResident(resident41);
+        resident41.setRoom(room4);
+        residentController.saveResidentInHistory(resident41);
+        ResidentRepo.save(resident4);
+
+        // MandatoryFee 4
+        MandatoryFee a_fee4 = new MandatoryFee(6, 2023, 800000, 800000);
+        room4.addMandatoryFee(a_fee4);
+        a_fee4.setRoom(room4);
+        RoomRepo.save(room4);
+        MandatoryFeeRepo.save(a_fee4);
+
+        // DonationFee 4
+        DonationFee a_dfee4 = new DonationFee(6, 2023, 30000);
+        room4.addDonationFee(a_dfee4);
+        a_dfee4.setRoom(room4);
+        a_dfee4.setTypeDonation(b_type);
+        b_type.addDonationFee(a_dfee4);
+        RoomRepo.save(room4);
+        TypeDonationRepo.save(b_type);
+        DonationFeeRepo.save(a_dfee4);
+
+        // Request 4
+        Request re_a4 = new Request(4, 4, "0123456789");
+        RequestRepo.save(re_a4);
+
+        // AddResidentRequest 4
+        AddResidentRequest add_a4 = new AddResidentRequest("456456456", 4, "Linh" , "Female", "15-05-2023", "Quảng Ninh", "Ngách", "0977333444", "Em");
+        AddResidentRequestRepo.save(add_a4);
+
 
         // Room 5
-        Room i = new Room(0005, "123456784", "Nguyễn Xuân Phúc", "0911052885", 1000000, 200000);
-        i.generateKey();
-        RoomRepo.save(i);
+        Room room5 = new Room(0005, "654321098", "Phạm Thị E", "0954321098", 1300000, 230000);
+        room5.generateKey();
+        RoomRepo.save(room5);
 
-        Resident j = new Resident("002305000329", "Nguyễn Xuân Phúc", "Male", "25/11/2003", "Hà Nội", "Student", "03467597002", "Chủ");
-        i.addResident(j);
-        j.setRoom(i);
-        ResidentRepo.save(j);
+        // RoomHistory 5
+        RoomHistory roomHis5 = new RoomHistory(room5.getKey(), room5.getNoRoom(), room5.getIdOwner(), room5.getNameOwner(), room5.getNumberPhoneOwner(), room5.getDefaultFeeRoom(), room5.getDefaultParkingFee(), getTime());
+        RoomHistoryRepo.save(roomHis5);
 
-        // Các cư dân khác trong Room 5
-        Resident k = new Resident("002305000321", "Hồng Nhật", "Female", "11/25/2003", "Hà Nội", "Student", "03467597003", "Vợ cả");
-        i.addResident(k);
-        k.setRoom(i);
-        ResidentRepo.save(k);
+        // Resident 5
+        Resident resident5 = new Resident("001203000772", "Phạm Thị E", "Female", "02/07/1992", "Đồng Tháp", "Nurse", "0954321099", "Chủ");
+        room5.addResident(resident5);
+        resident5.setRoom(room5);
+        residentController.saveResidentInHistory(resident5);
+        ResidentRepo.save(resident5);
 
-        Resident l = new Resident("002305000322", "Minh Quang", "Female", "12/11/2003", "Hà Nội", "Student", "03467597004", "Vợ đáy xã hội");
-        i.addResident(l);
-        l.setRoom(i);
-        ResidentRepo.save(l);
+        // MandatoryFee 5
+        MandatoryFee a_fee5 = new MandatoryFee(4, 2023, 700000, 700000);
+        room5.addMandatoryFee(a_fee5);
+        a_fee5.setRoom(room5);
+        RoomRepo.save(room5);
+        MandatoryFeeRepo.save(a_fee5);
 
-        Resident m = new Resident("002305000323", "Việt Anh", "Female", "14/11/2003", "Hà Nội", "Student", "03467597005", "Vợ hai");
-        i.addResident(m);
-        m.setRoom(i);
-        ResidentRepo.save(m);
+        // DonationFee 5
+        DonationFee a_dfee5 = new DonationFee(4, 2023, 20000);
+        room5.addDonationFee(a_dfee5);
+        a_dfee5.setRoom(room5);
+        a_dfee5.setTypeDonation(b_type);
+        b_type.addDonationFee(a_dfee5);
+        RoomRepo.save(room5);
+        TypeDonationRepo.save(b_type);
+        DonationFeeRepo.save(a_dfee5);
+
+        // Request 5
+        Request re_a5 = new Request(5, 5, "0123456789");
+        RequestRepo.save(re_a5);
+
+        // AddResidentRequest 5
+        AddResidentRequest add_a5 = new AddResidentRequest("567567567", 5, "Quang" , "Male", "10-09-2023", "Bình Dương", "Hẻm", "0988444555", "Anh");
+        AddResidentRequestRepo.save(add_a5);
+
+        // TemporaryResident
+        TemporaryResident temporaryResident = new TemporaryResident("Phan Trọng Cường", "01203000341", "4", "21090", "2023-01-01", "2023-02-01");
+        TemporaryResidentRepo.save(temporaryResident);
+
+        TemporaryResident temporaryResident1 = new TemporaryResident("Phan Trọng Lan", "01203089212", "5", "10980", "2023-01-01", "2023-02-01");
+        TemporaryResidentRepo.save(temporaryResident1);
+
+        // AbsentResident
+        AbsentResident absentResident = new AbsentResident("Nguyễn Văn A", "0123456789", "5", "10980", "2023-03-01", "2023-03-10");
+        AbsentResidentRepo.save(absentResident);
+
+        AbsentResident absentResident1 = new AbsentResident("Ngô Văn Hải", "001204888361", "4", "21090", "2023-03-01", "2023-03-10");
+        AbsentResidentRepo.save(absentResident1);
+
+
 
         // Account 1
         AccountManager account1 = new AccountManager("accc1tuedeptrai", "123456789");

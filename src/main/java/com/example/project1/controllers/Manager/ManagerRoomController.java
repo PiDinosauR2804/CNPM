@@ -19,7 +19,9 @@ import java.util.List;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.DonationFee;
+import com.example.project1.entity.DonationFeeHistory;
 import com.example.project1.entity.MandatoryFee;
+import com.example.project1.entity.MandatoryFeeHistory;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
@@ -175,5 +177,22 @@ public class ManagerRoomController {
         String curDate_string = currentDate.format(dateFormatter);
         return curDate_string;
     }
-    
+
+    @GetMapping("/manager/history/room/full_detail/{key}")
+    public String history_detail_room(@PathVariable("key") String key, Model model) {
+        List<RoomHistory> rooms = RoomHistoryRepo.findByKey(key);
+        if (!rooms.isEmpty()) {
+            RoomHistory room = rooms.get(0);
+            model.addAttribute("room", room);
+            List<ResidentHistory> listResident = room.getResidents();
+            model.addAttribute("listResident", listResident);
+            List<MandatoryFeeHistory> listFees = room.getMandatoryFees();
+            model.addAttribute("listFees", listFees);
+            List<DonationFeeHistory> listDonationFees = room.getDonationFees();
+            model.addAttribute("listDonationFees", listDonationFees);
+            return "manager/room/history_detail";
+        } else {
+            return "404";
+        }
+    }    
 }

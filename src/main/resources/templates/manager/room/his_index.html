@@ -8,8 +8,7 @@
 <body>
 <div align = "center">
     <p>Welcome to my world</p>
-    <a th:href="@{/manager/createRoom}">CreateRoom</a>
-    <a th:href="@{/manager/fee/index}">Fees Manage</a>
+    <a th:href="@{/manager/index}">Return Back</a>
     <div>&nbsp;</div>
     
     <div>
@@ -50,7 +49,7 @@
                     <th>[[${Room.key}]]</th>
                     <th>[[${Room.dayIn}]]</th>
                     <th>[[${Room.dayOut}]]</th>
-                    <th><a th:href="@{'/manager/history/room/detail/' + ${Room.key}}">Detail</a></th>
+                    <th><a th:href="@{'/manager/history/room/full_detail/' + ${Room.key}}">Detail</a></th>
                 </tr>
             </th:block>
         
