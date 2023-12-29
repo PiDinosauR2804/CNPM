@@ -19,6 +19,9 @@ public interface RequestRepository extends JpaRepository<Request, Integer>{
     @Query("SELECT r FROM Request r WHERE r.approved = :approved")
     List<Request> findRequestByApproved(@Param("approved") int approved);
 
+    @Query("SELECT r FROM Request r WHERE r.approved != 1")
+    List<Request> findHistoryRequest();
+
     @Query("SELECT r FROM Request r WHERE r.no = :no")
     List<Request> findByNo(@Param("no") int no);
 }

@@ -14,8 +14,7 @@
     <a th:href="@{/manager/fee/index}">Fees Manage</a>
     <a th:href="@{/manager/request/change_information/index}">Request Manager</a>
     <br>
-    <a th:href="@{/manager/request/change_information/index}">Return Back</a>
-    <a th:href="@{/manager/request/add_resident/history}">History Request</a>
+    <a th:href="@{/manager/request/add_resident/index}">Return Back</a>
     <table>
         <thead>
             <th>Số hiệu</th>
@@ -28,7 +27,7 @@
             <th>Job</th>
             <th>Phone Number</th>
             <th>Relationship with Owner</th>
-            <th>Action</th>
+            <th>Status</th>
         </thead>
         <tbody>
             <th:block th:each="request : ${requests}">
@@ -43,9 +42,10 @@
                         <th th:text="${request.job}"></th>
                         <th th:text="${request.phoneNumber}"></th>
                         <th th:text="${request.relationshipWithOwner}"></th>
-                        <td>
-                            <a th:href="@{'/manager/request/add_resident/accept/' + ${request.no}}">Accept</a>
-                            <a th:href="@{'/manager/request/add_resident/decline/' + ${request.no}}">Decline</a>
+                        <td th:switch="${request.approved}">
+                            <span th:case="'0'">DECLINE</span>
+                            <span th:case="'1'">WAITING</span>
+                            <span th:case="'2'">APPROVED</span>
                         </td>
                     </tr>
                 </th:block>

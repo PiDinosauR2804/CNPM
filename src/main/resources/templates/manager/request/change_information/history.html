@@ -14,13 +14,12 @@
     <a th:href="@{/manager/fee/index}">Fees Manage</a>
     <a th:href="@{/manager/request/change_information/index}">Request Manager</a>
     <br>
-    <a th:href="@{/manager/request/add_resident/index}">Request Add Resident Manager</a>
-    <a th:href="@{/manager/request/change_information/history}">History Request</a>
+    <a th:href="@{/manager/request/change_information/index}">Return Back</a>
     <table>
         <thead>
             <th>Số hiệu</th>
             <th>Nội dung</th>
-            <th>Action</th>
+            <th>Status</th>
         </thead>
         <tbody>
             <tr th:each="request : ${requests}">
@@ -46,9 +45,10 @@
                         Phòng số [[${request.noRoom}]] yêu cầu cập nhật đã ủng hộ [[${request.contentChanged}]] VND cho quỹ [[${request.donationName}]]
                     </span>
                 </td>
-                <td>
-                    <a th:href="@{'/manager/request/change_information/accept/' + ${request.no}}">Accept</a>
-                    <a th:href="@{'/manager/request/change_information/decline/' + ${request.no}}">Decline</a>
+                <td th:switch="${request.approved}">
+                    <span th:case="'0'">DECLINE</span>
+                    <span th:case="'1'">WAITING</span>
+                    <span th:case="'2'">APPROVED</span>
                 </td>
             </tr>
         </tbody>

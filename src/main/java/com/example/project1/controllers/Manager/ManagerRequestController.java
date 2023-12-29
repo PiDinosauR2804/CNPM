@@ -14,6 +14,7 @@ import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.Repository.TypeDonationRepository;
+import com.example.project1.entity.AddResidentRequest;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
 import com.example.project1.entity.Request;
@@ -65,7 +66,7 @@ public class ManagerRequestController {
                 if (!rooms.isEmpty()) {
                     Room room = rooms.get(0);
                     if (a.getIdRequest() == 1) {
-                        rooms.get(0).setIdOwner(a.getContentChanged());
+                        room.setIdOwner(a.getContentChanged());
                     } else if (a.getIdRequest() == 2) {
                         room.setNameOwner(a.getContentChanged());
                     } else if (a.getIdRequest() == 3) {
@@ -163,4 +164,55 @@ public class ManagerRequestController {
         return "redirect:/manager/request/change_information/index";
     }
     
+    @GetMapping("/manager/request/change_information/history")
+    public String change_info_history(Model model) {
+        List<Request> requests = RequestRepo.findHistoryRequest();
+        model.addAttribute("requests", requests);
+        return "manager/request/change_information/history";
+    }
+
+    @GetMapping("/manager/request/add_resident/index")
+    public String add_resident_index(Model model) {
+        List<AddResidentRequest> requests = AddResidentRequestRepo.findRequestByApproved(1);
+        model.addAttribute("requests", requests);
+        return "manager/request/add_resident/index";
+    }
+
+    @GetMapping("/manager/request/add_resident/accept/{no}")
+    public String add_resident_accept(@PathVariable int no) {
+        List<AddResidentRequest> requests = AddResidentRequestRepo.findByNo(no);
+        if (!requests.isEmpty()) {
+            AddResidentRequest request = requests.get(0);
+            request.setApproved(2);
+            AddResidentRequestRepo.save(request);
+            List<Room> rooms = RoomRepo.findByRoom(request.getNoRoom());
+            if (!rooms.isEmpty()) {
+                Room room = rooms.get(0);
+                Resident new_resident = new Resident(request.getId(), request.getName(), request.getGender(), request.getBirthDate(), request.getBirthPlace(), request.getJob(), request.getPhoneNumber(), request.getRelationshipWithOwner());
+                new_resident.setRoom(room);
+                room.addResident(new_resident);
+                RoomRepo.save(room);
+                ResidentRepo.save(new_resident);
+            }
+        }
+        return "redirect:/manager/request/add_resident/index";
+    }
+
+    @GetMapping("/manager/request/add_resident/decline/{no}")
+    public String add_resident_decline(@PathVariable int no) {
+        List<AddResidentRequest> requests = AddResidentRequestRepo.findByNo(no);
+        if (!requests.isEmpty()) {
+            AddResidentRequest request = requests.get(0);
+            request.setApproved(0);
+            AddResidentRequestRepo.save(request);
+        }
+        return "redirect:/manager/request/add_resident/index";
+    }
+
+    @GetMapping("/manager/request/add_resident/history")
+    public String add_resident_history(Model model) {
+        List<AddResidentRequest> requests = AddResidentRequestRepo.findHistoryRequest();
+        model.addAttribute("requests", requests);
+        return "manager/request/add_resident/history";
+    }
 }

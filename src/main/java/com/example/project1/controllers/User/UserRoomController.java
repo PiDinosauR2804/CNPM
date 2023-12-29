@@ -42,8 +42,10 @@ public class UserRoomController {
             model.addAttribute("listFees", listFees);
             List<DonationFee> listDonationFees = room.getDonationFees();
             model.addAttribute("listDonationFees", listDonationFees);
+            return "user/Room/index";
+        } else {
+            return "404";
         }
-        return "user/Room/index";
     }
 
     @GetMapping("/user/index/{key}")

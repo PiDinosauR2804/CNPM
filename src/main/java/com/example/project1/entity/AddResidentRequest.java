@@ -19,6 +19,7 @@ public class AddResidentRequest {
     private String job;
     private String phoneNumber;
     private String relationshipWithOwner;
+    private int approved  = 1;
 
     // Constructor mặc định
     public AddResidentRequest() {
@@ -38,6 +39,14 @@ public class AddResidentRequest {
         this.relationshipWithOwner = relationshipWithOwner;
     }
 
+    public int getApproved(){
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
+    }
+    
     public int getNo() {
         return no;
     }

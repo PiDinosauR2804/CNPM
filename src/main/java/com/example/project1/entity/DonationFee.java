@@ -1,6 +1,7 @@
 package com.example.project1.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,15 +19,16 @@ public class DonationFee {
 
     private int amount;
 
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
+    // @JoinColumns({
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
+    // })
     private Room room;
 
     @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "type")
+    @JoinColumn(name = "idMoney", referencedColumnName = "idMoney")
     private TypeDonation typeDonation;
 
     public DonationFee() {

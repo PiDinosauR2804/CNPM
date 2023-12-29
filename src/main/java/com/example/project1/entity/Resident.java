@@ -1,6 +1,7 @@
 package com.example.project1.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
@@ -22,12 +23,13 @@ public class Resident {
     private String phoneNumber;
     private String relationshipWithOwner;
 
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
+    // @JoinColumns({
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
+    //     @JoinColumn(name = "idOwner", referencedColumnName = "idOwner", updatable = true)
+    // })
     private Room room;
 
 

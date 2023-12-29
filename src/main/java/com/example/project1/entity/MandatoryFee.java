@@ -1,6 +1,7 @@
 package com.example.project1.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,13 +24,14 @@ public class MandatoryFee {
     private int electricFeePaid;
     private int parkingFeePaid;
 
-    @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "defaultParkingFee", referencedColumnName = "defaultParkingFee"),
-        @JoinColumn(name = "defaultFeeRoom", referencedColumnName = "defaultFeeRoom"),
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
+    // @JoinColumns({
+    //     @JoinColumn(name = "defaultParkingFee", referencedColumnName = "defaultParkingFee", updatable = true),
+    //     @JoinColumn(name = "defaultFeeRoom", referencedColumnName = "defaultFeeRoom", updatable = true),
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
+    // })
     private Room room;
     
     public MandatoryFee() {};

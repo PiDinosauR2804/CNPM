@@ -173,9 +173,11 @@ public class ManagerResidentController {
     }
     
     public void updateCloseTimeInResidentHistory(Resident resi) {
-        ResidentHistory a = residentHistoryRepo.findByNo(resi.getNo()).get(0);
-        a.setDayOut(getTime());
-        residentHistoryRepo.save(a);
+        java.util.List<ResidentHistory> a = residentHistoryRepo.findByNo(resi.getNo());
+        if (!a.isEmpty()) {
+            a.get(0).setDayOut(getTime());
+            residentHistoryRepo.save(a.get(0));
+        }
     }
 
     public void eraseResident(Resident resi) {
