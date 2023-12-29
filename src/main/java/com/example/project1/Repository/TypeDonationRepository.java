@@ -2,6 +2,8 @@ package com.example.project1.Repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +20,8 @@ public interface TypeDonationRepository extends JpaRepository<TypeDonation, Inte
 
     @Query("SELECT r FROM TypeDonation r WHERE r.idMoney = :idMoney")
     List<TypeDonation> findByNo(@Param("idMoney") int idMoney);
+
+    // tìm kiếm theo id và type
+    @Query("SELECT r FROM TypeDonation r WHERE concat(r.idMoney, r.type) LIKE %?1%")
+    public Page<TypeDonation> findAll(String keyword, Pageable pageable);
 }

@@ -5,16 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import com.example.project1.entity.TemporaryResident;
-import com.example.project1.Repository.TemporaryResidentRepository;
+import com.example.project1.entity.AbsentResident;
+import com.example.project1.Repository.AbsentResidentRepository;
 
 @Service
-public class serviceTemp {
+public class serviceAbsent{
 
     @Autowired
-    private TemporaryResidentRepository repo;
+    private AbsentResidentRepository repo;
 
-    public Page<TemporaryResident> listAll(String keyword, String startDate, String endDate, Integer pageNo) {
+    public Page<AbsentResident> listAll(String keyword, String startDate, String endDate, Integer pageNo) {
         Pageable pageable = PageRequest.of(pageNo - 1, 10);
 
         if (keyword != null && !(startDate == "" || startDate==null)&& !(endDate==null||endDate == "")) {

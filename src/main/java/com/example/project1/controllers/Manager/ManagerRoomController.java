@@ -24,6 +24,7 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.service.serviceHistoryRoom;
 import com.example.project1.service.serviceRoom;
 
 
@@ -36,6 +37,8 @@ public class ManagerRoomController {
 
     @Autowired
     private serviceRoom service;
+    @Autowired
+	private serviceHistoryRoom serviceHR;
 
     @Autowired
     private ManagerFeeController feeController;
@@ -112,11 +115,20 @@ public class ManagerRoomController {
     // Room History
 
     @GetMapping("/manager/history/room/index")
-    public String his_index(Model model) {
-        java.util.List<RoomHistory> listRoom = RoomHistoryRepo.findAll();
-        model.addAttribute("listRoom", listRoom);
-        return "manager/room/his_index";
-    }
+    public String his_index(Model model,
+	                   @RequestParam(required = false) String keyword,
+	                   @RequestParam(required = false) String startDate,
+	                   @RequestParam(required = false) String endDate,
+	                   @RequestParam(defaultValue ="1") Integer pageNo) {
+	    Page<RoomHistory> listRoomHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
+	    model.addAttribute("keyword",keyword);
+	    model.addAttribute("startDate",startDate);
+	    model.addAttribute("endDate",endDate);
+	    model.addAttribute("totalPage", listRoomHistory.getTotalPages());
+	    model.addAttribute("currentPage", pageNo);
+	    model.addAttribute("listRoomHistory", listRoomHistory);
+	    return "manager/room/his_index";
+	}
 
     @GetMapping("/manager/history/room/detail/{key}")
     public String his_detail(@PathVariable String key ,Model model) {

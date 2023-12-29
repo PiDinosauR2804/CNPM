@@ -22,6 +22,7 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.service.serviceHistoryResident;
 import com.example.project1.service.serviceResident;
 
 @Controller
@@ -38,13 +39,16 @@ public class ManagerResidentController {
 
     @Autowired
     private serviceResident service;
+    @Autowired
+    private serviceHistoryResident serviceHR;
 
     public int roomNumber = 0;
 
     @GetMapping ("/manager/resident/index")
-    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+    public String index(Model model, @RequestParam(required = false) String keyword,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
         Page <Resident> listResident = this.service.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("totalPage",listResident.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("listResident", listResident);
@@ -137,11 +141,20 @@ public class ManagerResidentController {
     // Resident History
 
     @GetMapping ("/manager/history/resident/index")
-    public String hí_index(Model model) {
-        java.util.List <ResidentHistory> listResident = residentHistoryRepo.findAll();
-        model.addAttribute("listResident", listResident);
-        return "manager/resident/his_index";
-    }
+    public String his_ndex(Model model,
+  	                   @RequestParam(required = false) String keyword,
+  	                   @RequestParam(required = false) String startDate,
+  	                   @RequestParam(required = false) String endDate,
+  	                   @RequestParam(defaultValue ="1") Integer pageNo) {
+  	    Page<ResidentHistory> listResidentHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
+  	    model.addAttribute("keyword",keyword);
+  	    model.addAttribute("startDate",startDate);
+  	    model.addAttribute("endDate",endDate);
+  	    model.addAttribute("totalPage", listResidentHistory.getTotalPages());
+  	    model.addAttribute("currentPage", pageNo);
+  	    model.addAttribute("listResidentHistory", listResidentHistory);
+  	    return "manager/resident/his_index";
+  	}
 
     public void saveResidentInHistory(Resident resident) {
         ResidentHistory resi = new ResidentHistory(resident.getId(), resident.getName(), resident.getGender(), resident.getBirthDate(), resident.getBirthPlace(), resident.getJob(), resident.getPhoneNumber(), resident.getRelationshipWithOwner(), getTime());
