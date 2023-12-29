@@ -182,21 +182,4 @@ public class ManagerResidentController {
         updateCloseTimeInResidentHistory(resi);
         residentRepo.delete(resi);
     }
-    
-  //Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được cả trong 1 khoảng tg
-    @GetMapping ("/manager/resident/his_index")
-    public String index(Model model,
-                       @RequestParam(name = "keyword", required = false) String keyword,
-                       @RequestParam(name = "startDate", required = false) String startDate,
-                       @RequestParam(name = "endDate", required = false) String endDate,
-                       @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page<ResidentHistory> listResidentHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
-        model.addAttribute("keyword",keyword);
-        model.addAttribute("startDate",startDate);
-        model.addAttribute("endDate",endDate);
-        model.addAttribute("totalPage", listResidentHistory.getTotalPages());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("listResidentHistory", listResidentHistory);
-        return "manager/resident/his_index";
-    }
 }

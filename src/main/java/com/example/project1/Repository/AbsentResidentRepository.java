@@ -20,16 +20,6 @@ public interface AbsentResidentRepository extends JpaRepository<AbsentResident, 
     @Query("SELECT r FROM AbsentResident r WHERE concat(r.id, r.name) LIKE %?1%")
     public Page<AbsentResident> findAll(String keyword,Pageable pagaeble);
     //Tìm kiếm trong một khoảng thời gian
-<<<<<<< HEAD
-    @Query(value = "SELECT * FROM absent_resident WHERE (STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')) "
-    		+ "AND (STR_TO_DATE(day_out, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d'))", nativeQuery = true)
-    public Page<AbsentResident> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
-    
-    // Tìm kiếm theo keyword và khoảng thời gian
-    @Query(value = "SELECT * FROM absent_resident WHERE concat(id, name) LIKE %:keyword% "
-    		+ "AND (STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')) "
-    		+ "AND (STR_TO_DATE(day_out, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d'))", nativeQuery = true)
-=======
     @Query(value = """
             SELECT * FROM absent_resident WHERE (STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')) \
             AND (STR_TO_DATE(day_out, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d'))\
@@ -42,7 +32,6 @@ public interface AbsentResidentRepository extends JpaRepository<AbsentResident, 
             AND (STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')) \
             AND (STR_TO_DATE(day_out, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d'))\
             """, nativeQuery = true)
->>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
     public Page<AbsentResident> findByKeywordAndDateRange(@Param("keyword") String keyword, @Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và ngày bắt đầu
@@ -59,8 +48,4 @@ public interface AbsentResidentRepository extends JpaRepository<AbsentResident, 
     // Tìm kiếm theo ngày kết thúc
     @Query(value = "SELECT * FROM absent_resident WHERE STR_TO_DATE(day_out, '%Y-%m-%d') <= STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
     public Page <AbsentResident> findByendDate(@Param("endDate") String endDate, Pageable pageable);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0

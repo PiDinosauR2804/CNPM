@@ -175,22 +175,5 @@ public class ManagerRoomController {
         String curDate_string = currentDate.format(dateFormatter);
         return curDate_string;
     }
-
-    //Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được cả trong 1 khoảng tg
-	@GetMapping ("/manager/room/his_index")
-	public String index(Model model,
-	                   @RequestParam(name = "keyword", required = false) String keyword,
-	                   @RequestParam(name = "startDate", required = false) String startDate,
-	                   @RequestParam(name = "endDate", required = false) String endDate,
-	                   @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-	    Page<RoomHistory> listRoomHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
-	    model.addAttribute("keyword",keyword);
-	    model.addAttribute("startDate",startDate);
-	    model.addAttribute("endDate",endDate);
-	    model.addAttribute("totalPage", listRoomHistory.getTotalPages());
-	    model.addAttribute("currentPage", pageNo);
-	    model.addAttribute("listRoomHistory", listRoomHistory);
-	    return "manager/room/his_index";
-	}
     
 }

@@ -90,6 +90,8 @@
                 <th:block th:if="${username}">
                     <li><a th:text="${username}"></a></li>
                     <li><a href="/signout">Log Out</a></li>
+                    <li><a href="/account/changepassword">Đổi mật khẩu</a></li>
+                    <li><a href="/account/createaccount">Tạo tài khoản</a></li>
                 </th:block>
                 <th:block th:unless="${username}">
                     <li><a href="/signin">Log In</a></li>

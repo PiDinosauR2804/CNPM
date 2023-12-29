@@ -36,19 +36,17 @@ import com.example.project1.service.serviceMandatoryFeeHistory;
 import com.example.project1.service.serviceTypeFee;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.project1.service.serviceTypeFee;
-import com.example.project1.service.serviceDonationFee;
-import com.example.project1.service.serviceDonationFeeHistory;
-import com.example.project1.service.serviceMandatoryFee;
-import com.example.project1.service.serviceMandatoryFeeHistory;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 public class ManagerFeeController {
     @Autowired
     MandatoryFeeRepository MandatoryFeeRepo;
+    @Autowired
+    serviceMandatoryFee serviceMF;
+    
     @Autowired
     MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
     @Autowired
@@ -71,12 +69,17 @@ public class ManagerFeeController {
 
     @Autowired
     TypeDonationRepository TypeDonationRepo;
-
+    @Autowired
+    serviceTypeFee serviceTF;  
     // Mandatory Fee
 
     @GetMapping("/manager/fee/index")
-    public String index(Model model) {
-        List<MandatoryFee> listFees = MandatoryFeeRepo.findAll();
+    public String index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
+        Page <MandatoryFee> listFees = this.serviceMF.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("totalPage",listFees.getTotalPages());
+        model.addAttribute("currentPage",pageNo);
         model.addAttribute("listFees", listFees);
         return "manager/fee/index";
     }
@@ -115,11 +118,6 @@ public class ManagerFeeController {
         return "manager/fee/edit";
     }
 
-    @PostMapping("/manager/fee/save")
-    public String save(@ModelAttribute("fee")MandatoryFee fee) {
-        MandatoryFeeRepo.save(fee);
-        return "redirect:/manager/fee/index";
-    }
 
     @PostMapping("/manager/fee/save/{no}")
     public String save(@PathVariable int no ,@ModelAttribute("fee") MandatoryFee fee) {
@@ -181,28 +179,24 @@ public class ManagerFeeController {
         return "redirect:/manager/fee/mandatory/multiple_edit";
     }
 
-    // Donation Fee - đã phân trang + search 
+    // Donation Fee
     @GetMapping("/manager/fee/donation/index")
-    public String donation_index(Model model) {
-        List<DonationFee> listFees = DonationFeeRepo.findAll();
+    public String donation_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
+        Page <DonationFee> listFees = serviceDF.listAll(keyword,pageNo);
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         return "manager/fee/donation/index";
     }
 
-    //Phân trang và hiển thị Type donation
-    @GetMapping("/manager/fee/donation/type")
-    public String donation_type_index(@RequestParam(name = "keyword", required = false) String keyword, Model model,
-    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
-        Page <TypeDonation> listTypes = this.serviceTF.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
-        model.addAttribute("listTypes", listTypes);
-        model.addAttribute("totalPage",listTypes.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
-        return "manager/fee/donation/type";
+    @GetMapping("/manager/fee/donation/edit/{no}")
+    public String editDonation(@PathVariable int no, Model model) {
+        model.addAttribute("no", no);
+        List<DonationFee> fees = DonationFeeRepo.findByNo(no);
+        model.addAttribute("fee", fees.get(0));
+        return "manager/fee/donation/edit";
     }
-
 
 
     @PostMapping("/manager/fee/donation/save/{no}")
@@ -218,9 +212,13 @@ public class ManagerFeeController {
     // Type Donation
 
     @GetMapping("/manager/fee/donation/type")
-    public String donation_type_index(Model model) {
-        List<TypeDonation> listTypes = TypeDonationRepo.findAll();
+    public String donation_type_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
+        Page <TypeDonation> listTypes = this.serviceTF.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("listTypes", listTypes);
+        model.addAttribute("totalPage",listTypes.getTotalPages());
+        model.addAttribute("currentPage",pageNo);
         return "manager/fee/donation/type";
     }
 
@@ -267,13 +265,13 @@ public class ManagerFeeController {
         return "redirect:/manager/fee/donation/type";
     }
 
-    
-
     // History Fee
 
     @GetMapping("/manager/history/fee/index")
-    public String his_mdt_index(Model model) {
-        List<MandatoryFeeHistory> listFees = MandatoryFeeHistoryRepo.findAll();
+    public String his_mdt_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
+    	Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);
@@ -281,8 +279,10 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/history/fee/donation/index")
-    public String his_dnt_index(Model model) {
-        List<DonationFeeHistory> listFees = DonationFeeHistoryRepo.findAll();
+    public String his_dnt_index(@RequestParam(required = false) String keyword, Model model,
+    		@RequestParam(defaultValue ="1") Integer pageNo) {
+        Page <DonationFeeHistory> listFees = serviceDFH.listAll(keyword,pageNo);
+        model.addAttribute("keyword",keyword);
         model.addAttribute("listFees", listFees);
         model.addAttribute("totalPage",listFees.getTotalPages());
         model.addAttribute("currentPage",pageNo);

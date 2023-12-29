@@ -90,4 +90,74 @@ public class ManageSigninController {
         return "redirect:/greeting";
     }
 
+    @GetMapping("/account/changepassword")
+    public String changePassword(Model model)  {
+        model.addAttribute("AccountManager", new AccountManager());
+        return "manager/account/changePassword";
+    }
+
+    @PostMapping("/account/changepassword/save")
+    public String changePasswordSave(String currentPassword, String newPassword, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes)  {
+        Cookie[] cookies = request.getCookies();
+        boolean flag = false;
+        AccountManager account_N = new AccountManager();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    java.util.List<AccountManager> listAccount = AccountManagerRepo.findAll();
+                    for (AccountManager acc : listAccount) {
+                        if (acc.getUsername().equals(cookie.getValue())) {
+                            if (acc.getPassword().equals(currentPassword)) {
+                                account_N = acc;
+                                flag = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (flag == true){
+            account_N.setPassword(newPassword);
+            AccountManagerRepo.save(account_N);
+            String message = "Thay đổi mật khẩu thành công";
+            redirectAttributes.addFlashAttribute("message", message);
+        } else {
+            String message = "Mật khẩu hiện tại không đúng";
+            redirectAttributes.addFlashAttribute("message", message);
+        }
+
+        return "redirect:/account/changepassword";
+    }
+
+    @GetMapping("/account/createaccount")
+    public String createAccount(Model model)  {
+        model.addAttribute("AccountManager", new AccountManager());
+        return "manager/account/createAccount";
+    }
+
+    @GetMapping("/account/createaccount/save")
+    public String createAccountSave(@ModelAttribute AccountManager account, Model model, HttpServletResponse response, RedirectAttributes redirectAttributes)  {
+        java.util.List<AccountManager> listAccount = AccountManagerRepo.findAll();
+        boolean flag = false;
+        for (AccountManager acc : listAccount) {
+            if (acc.getUsername().equals(account.getUsername())) {
+                flag = true;
+            }
+        }
+        if (flag == true){
+            String message = "Tên đăng nhập đã tồn tại, vui lòng chọn tên khác";
+            redirectAttributes.addFlashAttribute("message", message);
+        } else {
+            AccountManager account_New = new AccountManager();
+            account_New.setUsername(account.getUsername());
+            account_New.setPassword(account.getPassword());
+            AccountManagerRepo.save(account_New);
+            String message = "Tạo tài khoản mới thành công";
+            redirectAttributes.addFlashAttribute("message", message);
+        }
+        return "redirect:/account/createaccount";
+    }
+
+
+
 }

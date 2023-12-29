@@ -15,7 +15,7 @@ import com.example.project1.entity.MandatoryFee;
 public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Integer>{
     @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE mandatory_fee", nativeQuery = true)
+    @Query(value = "TRUNCATE TABLE Mandatory_Fee", nativeQuery = true)
     void truncateTable();
 
     @Query("SELECT r FROM MandatoryFee r WHERE r.room.noRoom = :noRoom")
@@ -37,15 +37,9 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
                         @Param("electricFee") int electricFee, 
                         @Param("electricFeePaid") int electricFeePaid,
                         @Param("parkingFeePaid") int parkingFeePaid);
-<<<<<<< HEAD
-    
-    @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
-    Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
-=======
 
     @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
     Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
 
     
->>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
 }

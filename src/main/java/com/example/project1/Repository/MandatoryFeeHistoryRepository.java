@@ -15,10 +15,7 @@ public interface MandatoryFeeHistoryRepository extends JpaRepository<MandatoryFe
     @Transactional
     @Query(value = "TRUNCATE TABLE mandatory_fee_history", nativeQuery = true)
     void truncateTable();
-<<<<<<< HEAD
-=======
 
->>>>>>> 174339fcce31fa19dc4e24efa2aeb7f327170cd0
     @Query("SELECT mfh FROM MandatoryFeeHistory mfh JOIN FETCH mfh.roomHistory rh WHERE CONCAT(mfh.month, mfh.year, rh.key, rh.noRoom) LIKE %:keyword%")
     Page<MandatoryFeeHistory> findAll(@Param("keyword") String keyword, Pageable pageable);
 }
