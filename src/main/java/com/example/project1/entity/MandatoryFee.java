@@ -65,7 +65,7 @@ public class MandatoryFee {
     public int getDefaultFeeRoom() {
         return room.getDefaultFeeRoom();
     }
-
+    
     public int getRoomFeePaid() {
         return roomFeePaid;
     }

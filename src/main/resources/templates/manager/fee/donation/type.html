@@ -3,29 +3,232 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+        h2 {
+            color: #2b589f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 0px;
+        }
+
+        input {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2b589f;
+            color: white;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2b589f;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #2879b3;
+            color: white;
+        }
+        
+        .suggestion-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-link:hover {
+            background-color: #2980b9;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+    </style>
 </head>
 <body>
-    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
-    <br>
-    <a th:href="@{/manager/fee/donation/index}">Return back</a>
-    <br>
-    <a th:href="@{/manager/fee/donation/type/create}">Add Type</a>
-    
-    <table>
-        <thead>
-            <th>Name of Type</th>
-            <th>Action</th>
-            <th>Close</th>
-        </thead>
-        <tbody>
-            <th:block th:each="Type : ${listTypes}">
-                <tr>
-                    <th>[[${Type.type}]]</th>
-                    <td><a th:href="@{'/manager/fee/donation/type/edit/' + ${Type.idMoney}}">Edit</a></td>
-                    <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.idMoney})}">Close</a></td>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+    </div>
+    <div class = "content">
+        <h2>Các Loại Phí</h2>
+        <a th:href="@{/manager/fee/donation/type/create}" class="suggestion-link">Thêm Khoản Phí</a>
+        
+        <table>
+            <thead>
+                <th>Tên Khoản Phí</th>
+                <th>Sửa</th>
+                <th>Đóng Khoản Phí</th>
+            </thead>
+            <tbody>
+                <th:block th:each="Type : ${listTypes}">
+                    <tr>
+                        <td>[[${Type.type}]]</th>
+                        <td><a th:href="@{'/manager/fee/donation/type/edit/' + ${Type.idMoney}}">Edit</a></td>
+                        <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.idMoney})}">Close</a></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -1,44 +1,209 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
+
+<head>
+    <title>Thêm Cư Dân</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            overflow: auto;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+            color: white;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .form-container {
+            max-width: 400px;
+            max-height: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #2b589f;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2b589f;
+        }
+
+        .form-container input,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input:focus,
+        .form-container select:focus {
+            border-color: #2b589f;
+        }
+
+        .form-container button {
+            background-color: #2b589f;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .form-container button:hover {
+            background-color: #2879b3;
+        }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .content {
+            height: 50px;
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            margin-right: 50px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+    </style>
 </head>
+
 <body>
-    <p2>ADD RESIDENT</p2>
-    <br>
-    <form th:action="@{'/user/request/' + ${key} + '/room_info/save'}" th:object="${request}" method="post">
-    <div>
-        <div>
-            <label>No Room</label>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+    </div>
+
+    <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{'/user/index/' + ${key}}" onclick="showTab('x1')" >Thông Tin</a>
+            <a th:href="@{'/user/request/' + ${key} + '/add_resident'}" onclick="showTab('x2')">Yêu Cầu Thêm Cư Dân</a>
+            <a th:href="@{'/user/request/' + ${key} + '/room_info'}" onclick="showTab('x3')" class="active">Yêu Cầu Đổi Thông Tin Phòng</a>
+            <a th:href="@{'/user/request/' + ${key} + '/resident_info'}" onclick="showTab('x4')">Yêu Cầu Đổi Thông Tin Người Dân</a>
+            <a th:href="@{'/user/request/' + ${key} + '/update_fee'}" onclick="showTab('x5')">Yêu Cầu Đổi Thông Tin Các Khoản Phí</a>
         </div>
-        <div>
-            <input type="text" th:field="*{noRoom}" required />
+        <div class="form-container">
+            <h2>Thay Đổi Thông Tin Phòng</h2>
+            <form th:action="@{'/user/request/' + ${key} + '/room_info/save'}" th:object="${request}" method="post">
+                <label for="noRoom">Số Phòng</label>
+                <input type="text" id="noRoom" th:field="*{noRoom}" required />
+
+                <label for="idRequest">Loại Thay Đổi</label>
+                <select id="idRequest" th:field="*{idRequest}" required>
+                    <option value="0" disabled selected>Chọn một lựa chọn</option>
+                    <option value="1">Thay Đổi ID Chủ Phòng</option>
+                    <option value="2">Tên Chủ Phòng</option>
+                    <option value="3">Số Điện Thoại Chủ Phòng</option>
+                    <option value="4">Tiền Phòng</option>
+                    <option value="5">Tiền Gửi Xe</option>
+                </select>
+
+                <label for="contentChanged">Nội Dung Thay Đổi</label>
+                <input type="text" id="contentChanged" th:field="*{contentChanged}" required />
+
+                <button type="submit">Lưu</button>
+            </form>
         </div>
-        <div>
-            <label>Type Change</label>
-        </div>
-        <div>
-            <select th:field="*{idRequest}" required>
-                <option value="0" disabled selected>Select an option</option>
-                <option value="1">Change ID Owner</option>
-                <option value="2">Name Owner</option>
-                <option value="3">Number Phone Owner</option>
-                <option value="4">Default Fee Room</option>
-                <option value="5">Default Fee Parking</option>
-            </select>
-        </div>
-        <div>
-            <label>Content Changed</label>
-        </div>
-        <div>
-            <input type="text" th:field="*{contentChanged}" required />
-        </div>
-        <div>
-            <button type="submit">Save</button>
-        </div>
-    <div>
-    </form>
-    
+    </div>
 </body>
+
 </html>

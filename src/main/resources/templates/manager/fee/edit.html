@@ -1,59 +1,163 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
+
+<head>
+    <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* New styles for the form */
+        form {
+            margin: 20px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #2b589f;
+            width: 100px; /* Đặt chiều rộng mong muốn */
+        }
+
+        .room-info {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: calc(100% - 120px); /* 100% trừ đi chiều rộng của label */
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .save {
+            margin-left: 280px;
+        }
+    </style>
 </head>
+
 <body>
-    <br>
-    <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
-    <div>
-        <div>
-            <label>No Room</label>
-        </div>
-        <div>
-            <label th:text="${fee.noRoom}"></label>
-        </div>
-        <div>
-            <label>Month</label>
-        </div>
-        <div>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+    </div>
+
+    <div class="container">
+        <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
+            <div class="room-info">
+                <label>Phòng số:</label>
+                <label th:text="${fee.noRoom}"></label>
+            </div>
+
+            <label>Tháng:</label>
             <input type="text" th:field="*{month}" required />
-        </div>
-        <div>
-            <label>Year</label>
-        </div>
-        <div>
+
+            <label>Năm:</label>
             <input type="text" th:field="*{year}" required />
-        </div>
-        <div>
-            <label>Room Fee</label>
-        </div>
-        <div>
-            <label th:text="${fee.defaultFeeRoom}"></label>
-        </div>
-        <div>
-            <label>Water Fee</label>
-        </div>
-        <div>
+
+            <label>Tiền nước:</label>
             <input type="text" th:field="*{waterFee}" required />
-        </div>
-        <div>
-            <label>Electric Fee</label>
-        </div>
-        <div>
+
+            <label>Tiền điện:</label>
             <input type="text" th:field="*{electricFee}" required />
-        </div>
-        <div>
-            <label>Parking Fee</label>
-        </div>
-        <div>
-            <label th:text="${fee.defaultParkingFee}"></label>
-        </div>
-        <div>
-            <button type="submit">Save</button>
-        </div>
-    <div>
-    </form>
+            <div class="save">
+                <button type="submit">Lưu</button>
+            </div>
+            
+        </form>
+    </div>
 </body>
+
 </html>

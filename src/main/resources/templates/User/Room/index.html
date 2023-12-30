@@ -1,119 +1,308 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
+
+<head>
+    <title>Room Information</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            overflow: auto;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px; /* Khoảng cách giữa icon và văn bản */
+            font-size: 18px; /* Kích thước của icon */
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            height: 50px;
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            margin-right: 50px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 0px;
+            color: #2b589f;
+        }
+
+        .table-container {
+            margin-bottom: 15px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2b589f;
+            color: white;
+        }
+
+        .suggestion-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .suggestion-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-link:hover {
+            background-color: #2980b9;
+        }
+
+        .navbar1 {
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <p2>Welcome to my world</p2>
-    <br>
-    <a th:href="@{'/user/request/' + ${room.key} + '/add_resident'}">Request Add Resident</a>
-    <a th:href="@{'/user/request/' + ${room.key} + '/room_info'}">Request Change Room Information</a>
-    <a th:href="@{'/user/request/' + ${room.key} + '/resident_info'}">Request Change Resident Information</a>
-    <a th:href="@{'/user/request/' + ${room.key} + '/update_fee'}">Request Update Fee</a>
-    <table>
-        <thead>
-            <th>No Room</th>
-            <th>ID Owner</th>
-            <th>Name Owner</th>
-            <th>Phone number Owner</th>
-            <th>Key</th>
-        </thead>
-        <tbody>
-                <tr>
-                    <th>[[${room.noRoom}]]</th>
-                    <th>[[${room.idOwner}]]</th>
-                    <th>[[${room.nameOwner}]]</th>
-                    <th>[[${room.numberPhoneOwner}]]</th>
-                    <th>[[${room.key}]]</th>
-                </tr>
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <table>
-        <thead>
-            <th>No Room</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Birth Date</th>
-            <th>Birth Place</th>
-            <th>Job</th>
-            <th>Phone Number</th>
-            <th>Relationship with Owner</th>
-        </thead>
-        <tbody>
-            <th:block th:each="resident : ${listResident}">
-                <tr>
-                    <th th:text="${resident.noRoom}"></th>
-                    <th th:text="${resident.idRes}"></th>
-                    <th th:text="${resident.name}"></th>
-                    <th th:text="${resident.gender}"></th>
-                    <th th:text="${resident.birthDate}"></th>
-                    <th th:text="${resident.birthPlace}"></th>
-                    <th th:text="${resident.job}"></th>
-                    <th th:text="${resident.phoneNumber}"></th>
-                    <th th:text="${resident.relationshipWithOwner}"></th>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <table>
-        <thead>
-            <th>Year</th>
-            <th>Month</th>
-            <th>Room</th>
-            <th>roomFeePaid</th>
-            <th>roomFee</th>
-            <th>waterFeePaid</th>
-            <th>waterFee</th>
-            <th>electricFeePaid</th>
-            <th>electricFee</th>
-            <th>parkingFeePaid</th>
-            <th>parkingFee</th>
-        </thead>
-        <tbody>
-            <th:block th:each="Fee : ${listFees}">
-                <tr>
-                    <th>[[${Fee.year}]]</th>
-                    <th>[[${Fee.month}]]</th>
-                    <th>[[${Fee.room.noRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.waterFee}]]</th>
-                    <th>[[${Fee.electricFeePaid}]]</th>
-                    <th>[[${Fee.electricFee}]]</th>
-                    <th>[[${Fee.parkingFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultParkingFee}]]</th>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
-    <br>
-    <br>
-    <table>
-        <thead>
-            <th>Room</th>
-            <th>year</th>
-            <th>month</th>
-            <th>Amount</th>
-            <th>Type</th>
-        </thead>
-        <tbody>
-            <th:block th:each="Fee : ${listDonationFees}">
-                <tr>
-                    <th>[[${Fee.room.noRoom}]]</th>
-                    <th>[[${Fee.year}]]</th>
-                    <th>[[${Fee.month}]]</th>
-                    <th>[[${Fee.amount}]]</th>
-                    <th>[[${Fee.type}]]</th>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+    </div>
+      
+
+    <div class="content">
+        <div class="navbar1">
+            <a th:href="@{'/user/index/' + ${room.key}}" onclick="showTab('x1')" class="active">Thông Tin</a>
+            <a th:href="@{'/user/request/' + ${room.key} + '/add_resident'}" onclick="showTab('x2')">Yêu Cầu Thêm Cư Dân</a>
+            <a th:href="@{'/user/request/' + ${room.key} + '/room_info'}" onclick="showTab('x3')">Yêu Cầu Đổi Thông Tin Phòng</a>
+            <a th:href="@{'/user/request/' + ${room.key} + '/resident_info'}" onclick="showTab('x4')">Yêu Cầu Đổi Thông Tin Người Dân</a>
+            <a th:href="@{'/user/request/' + ${room.key} + '/update_fee'}" onclick="showTab('x5')">Yêu Cầu Đổi Thông Tin Các Khoản Phí</a>
+        </div>
+        <!-- Room Information Table -->
+        <div class="section-title">Thông Tin Phòng</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Số Phòng</th>
+                    <th>ID Chủ Hộ</th>
+                    <th>Tên Chủ Hộ</th>
+                    <th>SĐT Chủ Hộ</th>
+                    <th>Mã Phòng</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${room.noRoom}"></td>
+                        <td th:text="${room.idOwner}"></td>
+                        <td th:text="${room.nameOwner}"></td>
+                        <td th:text="${room.numberPhoneOwner}"></td>
+                        <td th:text="${room.key}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- List of Residents Table -->
+        <div class="section-title">Danh Sách Các Thành Viên</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Số Phòng</th>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Giới Tính</th>
+                    <th>Ngày Sinh</th>
+                    <th>Nơi Sinh</th>
+                    <th>Nghề Nghiệp</th>
+                    <th>SĐT</th>
+                    <th>Quan Hệ Với Chủ Hộ</th>
+                </thead>
+                <tbody>
+                    <th:block th:each="resident : ${listResident}">
+                        <tr>
+                            <td th:text="${resident.noRoom}"></td>
+                            <td th:text="${resident.idRes}"></td>
+                            <td th:text="${resident.name}"></td>
+                            <td th:text="${resident.gender}"></td>
+                            <td th:text="${resident.birthDate}"></td>
+                            <td th:text="${resident.birthPlace}"></td>
+                            <td th:text="${resident.job}"></td>
+                            <td th:text="${resident.phoneNumber}"></td>
+                            <td th:text="${resident.relationshipWithOwner}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- List of Fees Table -->
+        <div class="section-title">Danh Sách Các Khoản Phí Bắt Buộc</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Năm</th>
+                    <th>Tháng</th>
+                    <th>Mã Phòng</th>
+                    <th>Tiền Phòng Đã Đóng</th>
+                    <th>Tiền Phòng Cần Phải Đóng</th>
+                    <th>Tiền Nước Đã Đóng</th>
+                    <th>Tiền Nước Cần Phải Đóng</th>
+                    <th>Tiền Điện Đã Đóng</th>
+                    <th>Tiền Điện Cần Phải Đóng</th>
+                    <th>Tiền Gửi Xe Đã Đóng</th>
+                    <th>Tiền Gửi Xe Cần Phải Đóng</th>
+                </thead>
+                <tbody>
+                    <th:block th:each="Fee : ${listFees}">
+                        <tr>
+                            <td th:text="${Fee.year}"></td>
+                            <td th:text="${Fee.month}"></td>
+                            <td th:text="${Fee.room.noRoom}"></td>
+                            <td th:text="${Fee.roomFeePaid}"></td>
+                            <td th:text="${Fee.room.defaultFeeRoom}"></td>
+                            <td th:text="${Fee.roomFeePaid}"></td>
+                            <td th:text="${Fee.waterFee}"></td>
+                            <td th:text="${Fee.electricFeePaid}"></td>
+                            <td th:text="${Fee.electricFee}"></td>
+                            <td th:text="${Fee.parkingFeePaid}"></td>
+                            <td th:text="${Fee.room.defaultParkingFee}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- List of Donation Fees Table -->
+        <div class="section-title">Danh Sách Các Khoản Phí Ủng Hộ</div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Số Phòng</th>
+                    <th>Năm</th>
+                    <th>Tháng</th>
+                    <th>Số Tiền</th>
+                    <th>Loại Phí</th>
+                </thead>
+                <tbody>
+                    <th:block th:each="Fee : ${listDonationFees}">
+                        <tr>
+                            <td th:text="${Fee.room.noRoom}"></td>
+                            <td th:text="${Fee.year}"></td>
+                            <td th:text="${Fee.month}"></td>
+                            <td th:text="${Fee.amount}"></td>
+                            <td th:text="${Fee.type}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
+
 </html>
