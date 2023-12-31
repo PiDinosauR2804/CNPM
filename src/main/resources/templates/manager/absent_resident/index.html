@@ -1,179 +1,287 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý danh sách tạm vắng- Your E-Commerce</title>
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
     <style>
-        /* Simplified styling, you can customize further */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background: #232f3e;
-            color: #ffffff;
-            padding: 10px;
-            text-align: center;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
         }
 
         main {
+            margin-left: 200px;
             padding: 20px;
-            position: relative;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        h2 {
+            color: #2b589f;
+            margin-bottom: 20px;
         }
 
         form {
-            background-color: #ffffff;
-            border: 1px solid #dddddd;
-            padding: 20px;
-            margin-bottom: 20px;
+            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             align-items: center;
-            position: relative;
         }
 
         label {
-            flex: 1;
-            min-width: 150px;
-            text-align: right; /* Adjusted to align text to the right */
+            margin-right: 0px;
         }
 
         input {
-            flex: 3;
+            flex: 2;
             padding: 8px;
-            border: 1px solid #dddddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         button {
-            flex: 1;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #ffffff;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        th, td {
-            border: 1px solid #dddddd;
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
             text-align: left;
-            padding: 8px;
         }
 
         th {
-            background-color: #f2f2f2;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination a {
-            color: #000000;
-            padding: 8px 16px;
-            text-decoration: none;
-            border: 1px solid #ddd;
-            margin: 0 4px;
-        }
-
-        .pagination a:hover {
-            background-color: #ddd;
-        }
-
-        .pagination .active {
-            background-color: #4CAF50;
+            background-color: #2b589f;
             color: white;
         }
 
-        /* Position the button at the top right */
-        .create-btn {
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2b589f;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #2879b3;
+            color: white;
+        }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
             position: absolute;
-            top: 0;
-            right: 0;
-            margin: 10px;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .content {
+            height: 50px;
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            margin-right: 50px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Your E-Commerce</h1>
-</header>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+    </div>
 
-<main>
-    <h2>Danh sách Tạm vắng</h2>
+    <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/temporary_resident/index}" onclick="showTab('x1')">Danh Sách Tạm Trú </a>
+            <a th:href="@{/manager/absent_resident/index}" onclick="showTab('x3')" class="active">Danh Sách Tạm Vắng</a>
+            <a th:href="@{/manager/temporary_resident/create}" onclick="showTab('x2')">Thêm Người Dân Tạm Trú</a>
+            <a th:href="@{/manager/absent_resident/create}" onclick="showTab('x4')">Thêm Người Dân Tạm Vắng</a>
+        </div>
 
-    <form th:action="@{/manager/absent_resident/index}" method="get">
-        <label for="keyword">Tìm kiếm:</label>
-        <input type="text" id="keyword" name="keyword" th:value="${keyword}"/>
-        
-        <label for="startDate">Ngày bắt đầu:</label>
-        <input type="date" id="startDate" name="startDate" th:value="${startDate}"/>
+        <h2>Danh sách Tạm vắng</h2>
 
-        <label for="endDate">Ngày kết thúc:</label>
-        <input type="date" id="endDate" name="endDate" th:value="${endDate}"/>
+        <form th:action="@{/manager/absent_resident/index}" method="get">
+            <label for="keyword">Tìm kiếm:</label>
+            <input type="text" id="keyword" name="keyword" th:value="${keyword}" />
 
-        <button type="submit">Tìm kiếm</button>
-    </form>
+            <label for="startDate">Ngày bắt đầu:</label>
+            <input type="date" id="startDate" name="startDate" th:value="${startDate}" />
 
-    <!-- Button styled as a button -->
-    <button class="create-btn" onclick="window.location.href='/manager/absent_resident/create'">
-        Create Absent Resident
-    </button>
+            <label for="endDate">Ngày kết thúc:</label>
+            <input type="date" id="endDate" name="endDate" th:value="${endDate}" />
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>ID</th>
-            <th>No Room</th>
-            <th>Key Room</th>
-            <th>Day In</th>
-            <th>Day Out</th>
-        </tr>
+            <button type="submit">Tìm kiếm</button>
+        </form>
 
-        <!-- Sample data, replace with your dynamic data -->
-        <tr th:each="absentResident : ${listAbsentResident.content}">
-            <td th:text="${absentResident.name}"></td>
-            <td th:text="${absentResident.id}"></td>
-            <td th:text="${absentResident.noRoom}"></td>
-            <td th:text="${absentResident.keyRoom}"></td>
-            <td th:text="${absentResident.dayIn}"></td>
-            <td th:text="${absentResident.dayOut}"></td>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <th>Tên</th>
+                <th>ID</th>
+                <th>Số Phòng</th>
+                <th>Mã Phòng</th>
+                <th>Ngày Vào</th>
+                <th>Ngày Ra</th>
+            </tr>
 
-   	<!-- Conditionally hide pagination if no results found -->
-	<div th:if="${listAbsentResident.totalElements > 0}" class="pagination">
-    	<span th:if="${currentPage > 1}">
-        	<a th:href="@{/manager/absent_resident/index(pageNo=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">&laquo; Previous</a>
-    	</span>
+            <!-- Sample data, replace with your dynamic data -->
+            <tr th:each="absentResident : ${listAbsentResident.content}">
+                <td th:text="${absentResident.name}"></td>
+                <td th:text="${absentResident.id}"></td>
+                <td th:text="${absentResident.noRoom}"></td>
+                <td th:text="${absentResident.keyRoom}"></td>
+                <td th:text="${absentResident.dayIn}"></td>
+                <td th:text="${absentResident.dayOut}"></td>
+            </tr>
+        </table>
 
-    	<span th:each="i : ${#numbers.sequence(1, listAbsentResident.totalPages)}">
-        	<a th:if="${currentPage != i}" th:href="@{/manager/absent_resident/index(pageNo=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}" th:text="${i}"></a>
-        	<span th:if="${currentPage == i}" th:text="${i}"></span>
-    	</span>
+        <div th:if="${listAbsentResident.totalElements > 0}" class="pagination">
+            <span th:if="${currentPage > 1}">
+                <a th:href="@{/manager/absent_resident/index(pageNo=${currentPage - 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">&laquo; Previous</a>
+            </span>
 
-    	<span th:if="${currentPage < listAbsentResident.totalPages}">
-        	<a th:href="@{/manager/absent_resident/index(pageNo=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Next &raquo;</a>
-    	</span>
-	</div>
+            <span th:each="i : ${#numbers.sequence(1, listAbsentResident.totalPages)}">
+                <a th:if="${currentPage != i}" th:href="@{/manager/absent_resident/index(pageNo=${i}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
 
-</main>
+            <span th:if="${currentPage < listAbsentResident.totalPages}">
+                <a th:href="@{/manager/absent_resident/index(pageNo=${currentPage + 1}, keyword=${keyword}, startDate=${startDate}, endDate=${endDate})}">Next &raquo;</a>
+            </span>
+        </div>
+    </div>
 
 </body>
+
 </html>

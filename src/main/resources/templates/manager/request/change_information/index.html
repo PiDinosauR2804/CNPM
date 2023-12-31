@@ -3,55 +3,314 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+        h2 {
+            color: #2b589f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2b589f;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2b589f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2b589f;
+            color: white;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2b589f;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #2879b3;
+            color: white;
+        }
+        
+        .suggestion-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-link:hover {
+            background-color: #2980b9;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .content {
+            height: 50px;
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            margin-right: 50px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+    </style>
 </head>
 <body>
-    <p2>Welcome to my world</p2>
-    <br>
-    <a th:href="@{/manager/temporary_resident/index}">Temporary Resident Manager</a>
-    <a th:href="@{/manager/absent_resident/index}">Absent Resident Manager</a>
-    <a th:href="@{/manager/index}">Room Manager</a>
-    <a th:href="@{/manager/resident/index}">Resident Manage</a>
-    <a th:href="@{/manager/fee/index}">Fees Manage</a>
-    <a th:href="@{/manager/request/change_information/index}">Request Manager</a>
-    <br>
-    <a th:href="@{/manager/request/add_resident/index}">Request Add Resident Manager</a>
-    <a th:href="@{/manager/request/change_information/history}">History Request</a>
-    <table>
-        <thead>
-            <th>Số hiệu</th>
-            <th>Nội dung</th>
-            <th>Action</th>
-        </thead>
-        <tbody>
-            <tr th:each="request : ${requests}">
-                <td th:text="${request.no}"></td>
-                <td th:switch="${request.idRequest}">
-                    <span th:case="'1'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID chủ hộ thành [[${request.contentChanged}]]</span>
-                    <span th:case="'2'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi tên chủ hộ thành [[${request.contentChanged}]]</span>
-                    <span th:case="'3'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại chủ hộ thành [[${request.contentChanged}]]</span>
-                    <span th:case="'4'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí phòng mặc định thành [[${request.contentChanged}]]</span>
-                    <span th:case="'5'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí gửi xe hiện tại thành [[${request.contentChanged}]]</span>
-                    <span th:case="'6'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'7'">hòng số [[${request.noRoom}]] yêu cầu thay đổi tên của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'8'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'9'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi giới tính của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'10'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nơi sinh của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'11'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nghề nghiệp của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'12'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi quan hệ với chủ hộ của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
-                    <span th:case="'13'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nhà đã đóng thành [[${request.contentChanged}]] VND</span>
-                    <span th:case="'14'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nước đã đóng thành [[${request.contentChanged}]] VND</span>
-                    <span th:case="'15'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền điện đã đóng thành [[${request.contentChanged}]] VND</span>
-                    <span th:case="'16'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật phí đỗ xe đã đóng thành [[${request.contentChanged}]] VND</span>
-                    <span th:if="${request.idRequest > 20}">
-                        Phòng số [[${request.noRoom}]] yêu cầu cập nhật đã ủng hộ [[${request.contentChanged}]] VND cho quỹ [[${request.donationName}]]
-                    </span>
-                </td>
-                <td>
-                    <a th:href="@{'/manager/request/change_information/accept/' + ${request.no}}">Accept</a>
-                    <a th:href="@{'/manager/request/change_information/decline/' + ${request.no}}">Decline</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+    </div>
+    <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/request/change_information/index}" class="active">Yêu Cầu Chờ Phê Duyệt</a>
+            <a th:href="@{/manager/request/add_resident/index}">Yêu Cầu Thêm Người Dân Chờ Phê Duyệt</a>
+            <a th:href="@{/manager/request/change_information/history}">Lịch Sử Yêu Cầu</a>
+            <a th:href="@{/manager/request/add_resident/history}">Lịch Sử Yêu Cầu Thêm Người Dân</a>
+        </div>
+        <h2>Yêu Cầu Chờ Phê Duyệt</h2>
+        <table>
+            <thead>
+                <th>Số Hiệu</th>
+                <th>Nội Dung</th>
+                <th>Hàng Động</th>
+            </thead>
+            <tbody>
+                <tr th:each="request : ${requests}">
+                    <td th:text="${request.no}"></td>
+                    <td th:switch="${request.idRequest}">
+                        <span th:case="'1'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID chủ hộ thành [[${request.contentChanged}]]</span>
+                        <span th:case="'2'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi tên chủ hộ thành [[${request.contentChanged}]]</span>
+                        <span th:case="'3'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại chủ hộ thành [[${request.contentChanged}]]</span>
+                        <span th:case="'4'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí phòng mặc định thành [[${request.contentChanged}]]</span>
+                        <span th:case="'5'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi phí gửi xe hiện tại thành [[${request.contentChanged}]]</span>
+                        <span th:case="'6'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi ID của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'7'">hòng số [[${request.noRoom}]] yêu cầu thay đổi tên của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'8'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi số điện thoại của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'9'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi giới tính của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'10'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nơi sinh của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'11'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi nghề nghiệp của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'12'">Phòng số [[${request.noRoom}]] yêu cầu thay đổi quan hệ với chủ hộ của thành viên [[${request.objectName}]] thành [[${request.contentChanged}]]</span>
+                        <span th:case="'13'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nhà đã đóng thành [[${request.contentChanged}]] VND</span>
+                        <span th:case="'14'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền nước đã đóng thành [[${request.contentChanged}]] VND</span>
+                        <span th:case="'15'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật tiền điện đã đóng thành [[${request.contentChanged}]] VND</span>
+                        <span th:case="'16'">Phòng số [[${request.noRoom}]] yêu cầu cập nhật phí đỗ xe đã đóng thành [[${request.contentChanged}]] VND</span>
+                        <span th:if="${request.idRequest > 20}">
+                            Phòng số [[${request.noRoom}]] yêu cầu cập nhật đã ủng hộ [[${request.contentChanged}]] VND cho quỹ [[${request.donationName}]]
+                        </span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/manager/request/change_information/accept/' + ${request.no}}">Chấp Nhận</a>
+                        <br>
+                        <a th:href="@{'/manager/request/change_information/decline/' + ${request.no}}">Từ Chối</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

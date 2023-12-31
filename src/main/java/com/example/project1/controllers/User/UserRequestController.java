@@ -42,7 +42,9 @@ public class UserRequestController {
 
     @GetMapping("/user/request/{key}/add_resident")
     public String requestAddResident(@PathVariable String key ,Model model) {
+        Room aa = RoomRepo.findByKey(key).get(0);
         AddResidentRequest resident = new AddResidentRequest();
+        resident.setRoom(aa.getNoRoom());
         model.addAttribute("key", key);
         model.addAttribute("resident", resident);
         return "user/Request/add_resident";

@@ -3,77 +3,331 @@
 <head> 
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+        h2 {
+            color: #2b589f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            margin-right: 0px;
+        }
+
+        input {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #2b589f;
+            color: white;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2b589f;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #2879b3;
+            color: white;
+        }
+        
+        .suggestion-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-link:hover {
+            background-color: #2980b9;
+        }
+
+        .container {
+            margin: auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <p2>Welcome to tue dep trai = "${noRoom}"</p2>
-    <br>
-    <a th:href="@{/manager/fee/index}">Return back</a>
-    <br>
-    <div class="search-form">
-        <!-- tìm kiếm -->
-        <form th:action="@{/manager/history/fee/index}" method="get">
-            <label for="searchInput">Search:</label>
-            <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
-                th:value="${keyword}" />
-            <button type="submit">Search</button>
-        </form>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
     </div>
-    
-    <table>
-        <thead>
-            <th>Year</th>
-            <th>Month</th>
-            <th>Room</th>
-            <th>roomFeePaid</th>
-            <th>roomFee</th>
-            <th>waterFeePaid</th>
-            <th>waterFee</th>
-            <th>electricFeePaid</th>
-            <th>electricFee</th>
-            <th>parkingFeePaid</th>
-            <th>parkingFee</th>
-        </thead>
-        <tbody>
-            <th:block th:each="Fee : ${listFees}">
-                <tr>
-                    <th>[[${Fee.year}]]</th>
-                    <th>[[${Fee.month}]]</th>
-                    <th>[[${Fee.room.noRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultFeeRoom}]]</th>
-                    <th>[[${Fee.roomFeePaid}]]</th>
-                    <th>[[${Fee.waterFee}]]</th>
-                    <th>[[${Fee.electricFeePaid}]]</th>
-                    <th>[[${Fee.electricFee}]]</th>
-                    <th>[[${Fee.parkingFeePaid}]]</th>
-                    <th>[[${Fee.room.defaultParkingFee}]]</th>
-                </tr>
-            </th:block>
-        </tbody>
-    </table>
-    <div th:if="${totalPage > 0}" class="pagination">
-        <!-- Link to the first page -->
-        <a th:if="${currentPage > 1}"
-            th:href="@{/manager/history/fee/index(pageNo=1, keyword=${keyword})}">First</a>
+    <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
+            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
+            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
+            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
+            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
+            <a th:href="@{/manager/history/fee/index}" class = "active">Lịch Sử Phí Bắt Buộc</a>
+        </div>
+        <h2>Lịch Sử Chi Phí Bắt Buộc</h2>
+        <div class="search-form">
+            <!-- tìm kiếm -->
+            <form th:action="@{/manager/history/fee/index}" method="get">
+                <label for="searchInput">Tìm Kiếm</label>
+                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
+                    th:value="${keyword}" />
+                <button type="submit">Tìm Kiếm</button>
+            </form>
+        </div>
+        
+        <table>
+            <thead>
+                <th>Năm</th>
+                <th>Tháng</th>
+                <th>Mã Phòng</th>
+                <th>Tiền Phòng Đã Đóng</th>
+                <th>Tiền Phòng Cần Phải Đóng</th>
+                <th>Tiền Nước Đã Đóng</th>
+                <th>Tiền Nước Cần Phải Đóng</th>
+                <th>Tiền Điện Đã Đóng</th>
+                <th>Tiền Điện Cần Phải Đóng</th>
+                <th>Tiền Gửi Xe Đã Đóng</th>
+                <th>Tiền Gửi Xe Cần Phải Đóng</th>
+            </thead>
+            <tbody>
+                <th:block th:each="Fee : ${listFees}">
+                    <tr>
+                        <td>[[${Fee.year}]]</th>
+                        <td>[[${Fee.month}]]</th>
+                        <td>[[${Fee.room.noRoom}]]</th>
+                        <td>[[${Fee.roomFeePaid}]]</th>
+                        <td>[[${Fee.room.defaultFeeRoom}]]</th>
+                        <td>[[${Fee.roomFeePaid}]]</th>
+                        <td>[[${Fee.waterFee}]]</th>
+                        <td>[[${Fee.electricFeePaid}]]</th>
+                        <td>[[${Fee.electricFee}]]</th>
+                        <td>[[${Fee.parkingFeePaid}]]</th>
+                        <td>[[${Fee.room.defaultParkingFee}]]</th>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+        <div th:if="${totalPage > 0}" class="pagination">
+            <!-- Link to the first page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/history/fee/index(pageNo=1, keyword=${keyword})}">First</a>
 
-        <!-- Link to the previous page -->
-        <a th:if="${currentPage > 1}"
-            th:href="@{/manager/history/fee/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+            <!-- Link to the previous page -->
+            <a th:if="${currentPage > 1}"
+                th:href="@{/manager/history/fee/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
 
-        <!-- Links to individual pages -->
-        <span th:each="i : ${#numbers.sequence(1, totalPage)}">
-            <a th:if="${currentPage != i}"
-                th:href="@{/manager/history/fee/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
-            <span th:if="${currentPage == i}" th:text="${i}"></span>
-        </span>
+            <!-- Links to individual pages -->
+            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                <a th:if="${currentPage != i}"
+                    th:href="@{/manager/history/fee/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}"></span>
+            </span>
 
-        <!-- Link to the next page -->
-        <a th:if="${currentPage < totalPage}"
-            th:href="@{/manager/history/fee/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+            <!-- Link to the next page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/history/fee/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
 
-        <!-- Link to the last page -->
-        <a th:if="${currentPage < totalPage}"
-            th:href="@{/manager/history/fee/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+            <!-- Link to the last page -->
+            <a th:if="${currentPage < totalPage}"
+                th:href="@{/manager/history/fee/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+        </div>
     </div>
 </body>
 </html>
