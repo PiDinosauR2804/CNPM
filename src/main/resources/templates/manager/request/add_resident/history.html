@@ -257,13 +257,13 @@
     <div class="navbar">
         <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
         <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
         <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
-        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-door-open"></i> Quản lý tạm vắng</a>
         <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
         <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
         <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+        <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
     <div class = "content">
         <div class="navbar1">
@@ -277,7 +277,7 @@
             <thead>
                 <th>Số Thứ Tự</th>
                 <th>Số Phòng</th>
-                <th>ID</th>
+                <th>CCCD</th>
                 <th>Tên</th>
                 <th>Giới Tính</th>
                 <th>Ngày Sinh</th>
@@ -301,9 +301,9 @@
                             <td th:text="${request.phoneNumber}"></th>
                             <td th:text="${request.relationshipWithOwner}"></th>
                             <td th:switch="${request.approved}">
-                                <span th:case="'0'">DECLINE</span>
-                                <span th:case="'1'">WAITING</span>
-                                <span th:case="'2'">APPROVED</span>
+                                <span th:case="'0'">Từ Chối</span>
+                                <span th:case="'1'">Đang Xử Lý</span>
+                                <span th:case="'2'">Chấp Nhận</span>
                             </td>
                         </tr>
                     </th:block>
