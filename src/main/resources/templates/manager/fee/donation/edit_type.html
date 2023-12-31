@@ -204,6 +204,49 @@
             position: relative;
         }
 
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -228,7 +271,7 @@
                 <input type="text" th:field="*{type}" required />
             </div>
             <div>
-                <button type="submit">Save</button>
+                <button type="submit">Lưu</button>
             </div>
         <div>
         </form>

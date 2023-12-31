@@ -195,6 +195,49 @@
             position: relative;
         }
 
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -212,19 +255,29 @@
     
 
     <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
+            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
+            <a th:href="@{/manager/fee/mandatory/multiple_edit}" class = "active">Sửa Tất Cả</a>
+            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
+            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
+            <a th:href="@{/manager/history/fee/index}">Lịch Sử Phí Bắt Buộc</a>
+        </div>
         <h2>Sửa Đổi Thông Tin Chi Phí</h2>
         <form th:action="@{/manager/fee/mandatory/saveAll}" method="post">
             <table>
                 <thead>
-                    <th>Room</th>
-                    <th>roomFeePaid</th>
-                    <th>roomFee</th>
-                    <th>waterFeePaid</th>
-                    <th>waterFee</th>
-                    <th>electricFeePaid</th>
-                    <th>electricFee</th>
-                    <th>parkingFeePaid</th>
-                    <th>parkingFee</th>
+                    <th>Năm</th>
+                    <th>Tháng</th>
+                    <th>Mã Phòng</th>
+                    <th>Tiền Phòng Đã Đóng</th>
+                    <th>Tiền Phòng Cần Phải Đóng</th>
+                    <th>Tiền Nước Đã Đóng</th>
+                    <th>Tiền Nước Cần Phải Đóng</th>
+                    <th>Tiền Điện Đã Đóng</th>
+                    <th>Tiền Điện Cần Phải Đóng</th>
+                    <th>Tiền Gửi Xe Đã Đóng</th>
+                    <th>Tiền Gửi Xe Cần Phải Đóng</th>
                 </thead>
                 <tbody>
                     <th:block th:each="Fee, rowStat : ${listFees}">

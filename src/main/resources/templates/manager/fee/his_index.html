@@ -195,6 +195,49 @@
             position: relative;
         }
 
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -210,30 +253,38 @@
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
     </div>
     <div class = "content">
-        <h2>Lịch Sử Chi Phí</h2>
+        <div class="navbar1">
+            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
+            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
+            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
+            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
+            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
+            <a th:href="@{/manager/history/fee/index}" class = "active">Lịch Sử Phí Bắt Buộc</a>
+        </div>
+        <h2>Lịch Sử Chi Phí Bắt Buộc</h2>
         <div class="search-form">
             <!-- tìm kiếm -->
             <form th:action="@{/manager/history/fee/index}" method="get">
-                <label for="searchInput">Search:</label>
+                <label for="searchInput">Tìm Kiếm</label>
                 <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
                     th:value="${keyword}" />
-                <button type="submit">Search</button>
+                <button type="submit">Tìm Kiếm</button>
             </form>
         </div>
         
         <table>
             <thead>
-                <th>Year</th>
-                <th>Month</th>
-                <th>Room</th>
-                <th>roomFeePaid</th>
-                <th>roomFee</th>
-                <th>waterFeePaid</th>
-                <th>waterFee</th>
-                <th>electricFeePaid</th>
-                <th>electricFee</th>
-                <th>parkingFeePaid</th>
-                <th>parkingFee</th>
+                <th>Năm</th>
+                <th>Tháng</th>
+                <th>Mã Phòng</th>
+                <th>Tiền Phòng Đã Đóng</th>
+                <th>Tiền Phòng Cần Phải Đóng</th>
+                <th>Tiền Nước Đã Đóng</th>
+                <th>Tiền Nước Cần Phải Đóng</th>
+                <th>Tiền Điện Đã Đóng</th>
+                <th>Tiền Điện Cần Phải Đóng</th>
+                <th>Tiền Gửi Xe Đã Đóng</th>
+                <th>Tiền Gửi Xe Cần Phải Đóng</th>
             </thead>
             <tbody>
                 <th:block th:each="Fee : ${listFees}">

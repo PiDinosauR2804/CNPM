@@ -118,6 +118,49 @@
         .save {
             margin-left: 280px;
         }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -134,29 +177,39 @@
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
     </div>
 
-    <div class="container">
-        <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
-            <div class="room-info">
-                <label>Phòng số:</label>
-                <label th:text="${fee.noRoom}"></label>
-            </div>
+    <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
+            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
+            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
+            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
+            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
+            <a th:href="@{/manager/history/fee/index}">Lịch Sử Phí Bắt Buộc</a>
+        </div>
+        <div class="container">
+            <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
+                <div class="room-info">
+                    <label>Phòng số:</label>
+                    <label th:text="${fee.noRoom}"></label>
+                </div>
 
-            <label>Tháng:</label>
-            <input type="text" th:field="*{month}" required />
+                <label>Tháng:</label>
+                <input type="text" th:field="*{month}" required />
 
-            <label>Năm:</label>
-            <input type="text" th:field="*{year}" required />
+                <label>Năm:</label>
+                <input type="text" th:field="*{year}" required />
 
-            <label>Tiền nước:</label>
-            <input type="text" th:field="*{waterFee}" required />
+                <label>Tiền nước:</label>
+                <input type="text" th:field="*{waterFee}" required />
 
-            <label>Tiền điện:</label>
-            <input type="text" th:field="*{electricFee}" required />
-            <div class="save">
-                <button type="submit">Lưu</button>
-            </div>
-            
-        </form>
+                <label>Tiền điện:</label>
+                <input type="text" th:field="*{electricFee}" required />
+                <div class="save">
+                    <button type="submit">Lưu</button>
+                </div>
+                
+            </form>
+        </div>
     </div>
 </body>
 
