@@ -8,12 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.RequestRepository;
+import com.example.project1.Repository.AddResidentRequestRepository;
 import com.example.project1.Repository.DonationFeeRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
 import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.Repository.TypeDonationRepository;
+import com.example.project1.entity.AddResidentRequest;
+import com.example.project1.entity.Request;
 import com.example.project1.entity.AddResidentRequest;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.MandatoryFee;
@@ -50,6 +54,18 @@ public class ManagerRequestController {
 
     @GetMapping("/manager/request/change_information/index")
     public String change_info_index(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         List<Request> requests = RequestRepo.findRequestByApproved(1);
         model.addAttribute("requests", requests);
         return "manager/request/change_information/index";
@@ -166,6 +182,18 @@ public class ManagerRequestController {
     
     @GetMapping("/manager/request/change_information/history")
     public String change_info_history(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         List<Request> requests = RequestRepo.findHistoryRequest();
         model.addAttribute("requests", requests);
         return "manager/request/change_information/history";
@@ -173,6 +201,18 @@ public class ManagerRequestController {
 
     @GetMapping("/manager/request/add_resident/index")
     public String add_resident_index(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         List<AddResidentRequest> requests = AddResidentRequestRepo.findRequestByApproved(1);
         model.addAttribute("requests", requests);
         return "manager/request/add_resident/index";
@@ -211,6 +251,18 @@ public class ManagerRequestController {
 
     @GetMapping("/manager/request/add_resident/history")
     public String add_resident_history(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         List<AddResidentRequest> requests = AddResidentRequestRepo.findHistoryRequest();
         model.addAttribute("requests", requests);
         return "manager/request/add_resident/history";

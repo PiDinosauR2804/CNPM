@@ -22,7 +22,8 @@
     <style>
         /* Add this style for the buttons */
         input[type="button"] {
-            background-color: #5dbfdd;
+            margin-bottom: 10px;
+            background-color: #3093b1;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -34,7 +35,7 @@
 
         /* Add this style for the button hover effect */
         input[type="button"]:hover {
-            background-color: #2879b3;
+            background-color: #2852b3;
         }
     </style>
 </head>
@@ -53,8 +54,8 @@
                     <form action="">
                         <div class="">
                             <!-- Apply the inline style to the buttons -->
-                            <input type="button" value="Ban Quản lý" onclick="navigateTo('/signin')" style="margin-bottom: 10px; background-color: #3093b1;" /><br>
-                            <input type="button" value="Cư dân" onclick="navigateTo('/user/search')" style="background-color: #3093b1;" />
+                            <a><input type="button" value="Ban Quản lý" onclick="navigateTo('/signin')" /></a> <br>
+                            <a><input type="button" value="Cư dân" onclick="navigateTo('/user/search')" /></a>
 
                             <script>
                                 function navigateTo(url) {
@@ -70,5 +71,4 @@
         </div>
     </div>
 </body>
-
 </html>

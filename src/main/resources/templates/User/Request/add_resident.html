@@ -177,7 +177,7 @@
             <h2>Thêm Cư Dân</h2>
             <form th:action="@{'/user/request/' + ${key} + '/save_resident'}" th:object="${resident}" method="post">
                 <div class="form-group">
-                    <label>ID</label>
+                    <label>CCCD</label>
                     <input type="text" th:field="*{id}" required="required" />
                 </div>
 

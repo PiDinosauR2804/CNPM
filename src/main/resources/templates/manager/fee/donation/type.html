@@ -4,6 +4,7 @@
     <title>Getting Started: Serving Web Content</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -43,13 +44,11 @@
 
         .navbar a {
             display: block;
-            padding: 15px;
+            padding: 5px;
             text-decoration: none;
             color: white;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            margin-left: 10px;
-            margin-right: 10px;
+            border-radius: 1px;
+            margin: 2px 0;
             transition: background 0.3s ease;
         }
 
@@ -242,15 +241,14 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
-        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/index"><i class="fas fa-home"></i> Trang chủ</a>
         <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
-        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
-        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
-        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
-        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
-        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-door-open"></i> Quản lý tạm vắng </span></a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân </span></a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</span></a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
+        <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
     <div class = "content">
         <div class="navbar1">
@@ -278,5 +276,21 @@
             </tbody>
         </table>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var badgeCount = document.getElementById("badgeCount").textContent;
+            var badgeElement = document.getElementById("badgeCount");
+
+            if (badgeCount > 0) {
+                badgeElement.textContent = badgeCount;
+            } else {
+                badgeElement.style.display = "none";
+            }            
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
