@@ -84,6 +84,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
+            margin-top: 20px;
         }
 
         button:hover {
@@ -92,7 +93,7 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            max-width: 600px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -193,10 +194,10 @@
                 <label for="keyRoom">Mã Phòng</label>
                 <input type="text" id="keyRoom" th:field="*{keyRoom}" required>
 
-                <label for="dayIn">Ngày Vào</label>
+                <label for="dayIn">Ngày chuyển tới</label>
                 <input type="date" id="dayIn" th:field="*{dayIn}" required>
 
-                <label for="dayOut">Ngày Ra</label>
+                <label for="dayOut">Ngày chuyển đi</label>
                 <input type="date" id="dayOut" th:field="*{dayOut}" required>
                 <button type="submit">Lưu</button>
             </form>

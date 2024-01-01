@@ -91,6 +91,8 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
+            width: calc(100%);
+            margin-top: 20px;
         }
 
         button:hover {
@@ -107,7 +109,7 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            max-width: 600px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -116,7 +118,9 @@
         }
 
         .save {
-            margin-left: 280px;
+            width: calc(100%);
+            text-align: center;
+            padding: auto;
         }
 
         .navbar1 {
@@ -189,6 +193,7 @@
         </div>
         <div class="container">
             <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
+                <h2 style="text-align: center;color: #102a76; margin-bottom: 20px;">Chỉnh sửa các khoản phí</h2>
                 <div class="room-info">
                     <label>Phòng số:</label>
                     <label th:text="${fee.noRoom}"></label>
