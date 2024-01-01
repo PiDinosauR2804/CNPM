@@ -129,12 +129,21 @@
         <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
     </div>
     <div class="content">
-        <div class="return-back"><a th:href="@{/greeting}" style="text-decoration: none; color: #3498db;">Quay lại</a></div>
+        
         <form th:action="@{'/user/index/' + ${key}}" method="get">
             <label style="font-size: 18px;">Mã Phòng</label>
             <input type="text" name="key" required />
             <button type="submit">Tìm kiếm</button>
         </form>
+        <style>
+            .return-back {
+                margin-top: 20px; /* Adjust the value according to your needs */
+            }
+        </style>
+        
+        <div class="return-back">
+            <a th:href="@{/greeting}" style="text-decoration: none; color: #3498db;">Quay lại</a>
+        </div>
     </div>
 </body>
 

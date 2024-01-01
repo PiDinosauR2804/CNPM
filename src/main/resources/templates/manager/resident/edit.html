@@ -1,168 +1,248 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit Resident</title>
+    <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
     <style>
-        .hidden {
-            display: none;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .navbar {
+            height: 100%;
+            width: 210px;
+            position: fixed;
+            background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
+            padding-top: 50px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: width 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .navbar:hover {
+            width: 230px;
+        }
+
+        .navbar a i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* New styles for the form */
+        form {
+            margin: 20px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #2b589f;
+            width: 150px; /* Đặt chiều rộng mong muốn */
+        }
+
+        .room-info {
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: calc(100% - 150px); /* 100% trừ đi chiều rộng của label */
+            padding: 15px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: medium;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2879b3;
+        }
+
+
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .container {
+            margin: auto;
+            padding: 50px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .save {
+            margin-left: 280px;
+        }
+
+        .navbar1 {
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .navbar1 a {
+            float: left;
+            display: block;
+            color: #333;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            position: relative;
+        } 
+
+        .navbar1 a:hover {
+            background-color: #ddd;
+        }
+
+        .active::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #3498db; /* Màu xanh dương */
+            bottom: 0;
+            left: 0;
+            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+        }
+
+        @keyframes slideIn {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <p2>Welcome to my changeee</p2>
-    <br>
-    <a th:href="@{/manager/resident/index}">Return Back</a>
+    <div class="navbar">
+        <a href="/greeting"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="#about"><i class="fas fa-info-circle"></i> Về chúng tôi</a>
+        <a href="#contact"><i class="fas fa-envelope"></i> Liên hệ</a>
+        <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
+        <a href="/manager/absent_resident/index"><i class="fas fa-sign-out-alt"></i> Quản lý tạm vắng</a>
+        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng</a>
+        <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân</a>
+        <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân</a>
+    </div>
+    <div class="content">
+        <div class="navbar1">
+            <a th:href="@{/manager/resident/index}" onclick="showTab('x1')" class="active">Quản lý cư dân</a>
+            <a th:href="@{/manager/history/resident/index}" onclick="showTab('x2')">Lịch sử quản lý cư dân</a>
+        </div>
+        <div class="container">
+            <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post">
+                <label style="width: auto;">ID:</label>
+                <td th:text="${Resident.idRes}"></td><br>
+                <label>Họ và tên</label>
+                <input type="text" name="name" th:field="*{name}" required /><br>
+                <label>Giới tính</label>
+                <select name="gender" th:field="*{gender}" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select><br>
+                <label style="width: auto; margin-right: 10px;">Ngày sinh: </label><td th:text="${Resident.birthDate}"></td>
+                <input type="date" name="birthDate" th:field="*{birthDate}" required /><br>
 
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Sex</th>
-            <th>Birth Date</th>
-            <th>Birth Place</th>
-            <th>Job</th>
-            <th>Phone Number</th>
-            <th>Relationship with Owner</th>
-        </thead>
-        <tbody>
-            <tr>
-                <th th:text="${Resident.idRes}"></th>
-                <th>
-                    <span id="nameValue" th:utext="${Resident.name}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="nameForm">
-                        <input type="text" name="name" th:field="*{name}" required />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('name')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('name')">Edit</button>
-                </th>
-                <th>
-                    <span id="genderValue" th:text="${Resident.gender}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="genderForm">
-                        <select name="gender" th:field="*{gender}" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('gender')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('gender')">Edit</button>
-                </th>
-                <th>
-                    <span id="birthdateValue" th:text="${Resident.birthDate}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="birthdateForm">
-                        <input type="date" name="birthDate" th:field="*{birthDate}" required />
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('birthdate')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('birthdate')">Edit</button>
-                </th>
-                <th>
-                    <span id="birthplaceValue" th:text="${Resident.birthPlace}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="birthplaceForm">
-                        <input type="text" name="birthPlace" th:field="*{birthPlace}" required />
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('birthplace')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('birthplace')">Edit</button>
-                </th>
-                <th>
-                    <span id="jobValue" th:text="${Resident.job}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="jobForm">
-                        <input type="text" name="job" th:field="*{job}" required />
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('job')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('job')">Edit</button>
-                </th>
-                <th>
-                    <span id="phoneNumberValue" th:text="${Resident.phoneNumber}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="phoneNumberForm">
-                        <input type="tel" name="phoneNumber" th:field="*{phoneNumber}" required />
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" th:value="${Resident.relationshipWithOwner}" />
-                        <button type="submit" onclick="updateField('phoneNumber')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('phoneNumber')">Edit</button>
-                    <span id="relationshipValue" th:text="${Resident.relationshipWithOwner}"></span>
-                    <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" class="hidden" id="relationshipForm">
-                        <input type="text" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" required />
-                        <input type="hidden" name="name" th:field="*{name}" th:value="${Resident.name}" />
-                        <input type="hidden" name="gender" th:field="*{gender}" th:value="${Resident.gender}" />
-                        <input type="hidden" name="birthDate" th:field="*{birthDate}" th:value="${Resident.birthDate}" />
-                        <input type="hidden" name="birthPlace" th:field="*{birthPlace}" th:value="${Resident.birthPlace}" />
-                        <input type="hidden" name="job" th:field="*{job}" th:value="${Resident.job}" />
-                        <input type="hidden" name="phoneNumber" th:field="*{phoneNumber}" th:value="${Resident.phoneNumber}" />
-                        <button type="submit" onclick="updateField('relationship')">Update</button>
-                    </form>
-                    <button onclick="toggleForm('relationship')">Edit</button>
-                </th>
-            </tr>
-        </tbody>
-    </table>
+                <label>Nơi sinh</label>
+                <input type="text" name="birthPlace" th:field="*{birthPlace}" required /><br>
 
-    <script>
-        function toggleForm(field) {
-            var valueSpan = document.getElementById(field + 'Value');
-            var form = document.getElementById(field + 'Form');
+                <label>Nghề nghiệp</label>
+                <input type="text" name="job" th:field="*{job}" required /><br>
 
-            if (valueSpan && form) {
-                valueSpan.classList.toggle('hidden');
-                form.classList.toggle('hidden');
-            }
+                <label>Số điện thoại</label>
+                <input type="tel" name="phoneNumber" th:field="*{phoneNumber}" required /><br>
 
-            if (!form.classList.contains('hidden')) {
-                var fieldsToUpdate = ['gender', 'birthdate', 'birthplace', 'job', 'phoneNumber', 'noRoom', 'relationship'];
-                fieldsToUpdate.forEach(function (otherField) {
-                    if (otherField !== field) {
-                        var otherForm = document.getElementById(otherField + 'Form');
-                        var residentValue = document.getElementById(otherField + 'Value').innerText;
-                        otherForm.querySelector('input').value = residentValue;
+                <label style="margin-top: 5px;">Quan hệ với chủ hộ</label>
+                <input type="text" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" required style="margin-top: -5px;"/>
+                
+            </form>
+            <div style="text-align: center;">
+                <button onclick="updateAndGoBack()">Lưu & Quay lại</button>
+            </div>
+            
+        </div>
+        
+        <script>
+            function updateField(field) {
+                var otherFields = fieldsToUpdate.filter(function (otherField) {
+                    return otherField !== field;
+                });
+        
+                otherFields.forEach(function (otherField) {
+                    var otherInput = document.getElementsByName(otherField)[0]; // Assuming each input has a unique name attribute
+        
+                    if (otherInput) {
+                        var otherValueElement = document.getElementById(otherField + 'Value');
+                        otherInput.value = otherValueElement.innerText;
                     }
                 });
             }
-        }
-
-        function updateField(field) {
-            var fieldsToUpdate = ['name', 'gender', 'birthdate', 'birthplace', 'job', 'phoneNumber', 'noRoom', 'relationship'];
-            fieldsToUpdate.forEach(function (otherField) {
-                if (otherField !== field) {
-                    var otherForm = document.getElementById(otherField + 'Form');
-                    otherForm.querySelector('input').value = document.getElementById(otherField + 'Value').innerText;
-                }
-            });
-        }
-    </script>
+        
+            function updateAllFields() {
+                var fieldsToUpdate = ['name', 'gender', 'birthDate', 'birthPlace', 'job', 'phoneNumber', 'relationshipWithOwner'];
+                fieldsToUpdate.forEach(function (field) {
+                    updateField(field);
+                });
+            }
+        
+            function updateAndGoBack() {
+                updateAllFields(); // Call your update function
+                document.forms[0].submit(); // Submit the form
+            }
+        </script>
+        
+        <br>
+    </div>
 </body>
 </html>
