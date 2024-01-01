@@ -16,8 +16,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
+import com.example.project1.entity.AddResidentRequest;
+import com.example.project1.entity.Request;
 import com.example.project1.entity.DonationFee;
 import com.example.project1.entity.DonationFeeHistory;
 import com.example.project1.entity.MandatoryFee;
@@ -38,6 +42,12 @@ public class ManagerRoomController {
     private RoomHistoryRepository RoomHistoryRepo;
 
     @Autowired
+    private RequestRepository RequestRepo;
+
+    @Autowired
+    private AddResidentRequestRepository AddResidentRequestRepo;
+
+    @Autowired
     private serviceRoom service;
     @Autowired
 	private serviceHistoryRoom serviceHR;
@@ -52,6 +62,18 @@ public class ManagerRoomController {
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
         Page <Room> listRoom = this.service.listAll(keyword,pageNo);
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("totalPage",listRoom.getTotalPages());
         model.addAttribute("currentPage",pageNo);
         model.addAttribute("listRoom", listRoom);
@@ -66,12 +88,36 @@ public class ManagerRoomController {
     
     @GetMapping("/manager/createRoom")
     public String create(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("room", new Room());
         return "manager/room/create";
     }
 
     @GetMapping("/manager/room/edit/{key}")
     public String edit(@PathVariable String key, Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         Room room = RoomRepo.findByKey(key).get(0);
         model.addAttribute("room", room);
         model.addAttribute("key", key);
@@ -89,7 +135,18 @@ public class ManagerRoomController {
         a.setDefaultFeeRoom(room.getDefaultFeeRoom());
         int noRoom = a.getNoRoom();
         RoomRepo.save(a);
-        
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("noRoom", noRoom);
         model.addAttribute("listResidentRoom", a.getResidents());
         model.addAttribute("listRoom", RoomRepo.findByKey(key));
@@ -129,6 +186,18 @@ public class ManagerRoomController {
 	    model.addAttribute("totalPage", listRoomHistory.getTotalPages());
 	    model.addAttribute("currentPage", pageNo);
 	    model.addAttribute("listRoomHistory", listRoomHistory);
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
 	    return "manager/room/his_index";
 	}
 
@@ -138,7 +207,18 @@ public class ManagerRoomController {
         List<ResidentHistory> residents = room.getResidents();
         model.addAttribute("room", room);
         model.addAttribute("residents", residents); 
-
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         return "manager/room/his_index";
     }
 
@@ -181,6 +261,18 @@ public class ManagerRoomController {
     @GetMapping("/manager/history/room/full_detail/{key}")
     public String history_detail_room(@PathVariable("key") String key, Model model) {
         List<RoomHistory> rooms = RoomHistoryRepo.findByKey(key);
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         if (!rooms.isEmpty()) {
             RoomHistory room = rooms.get(0);
             model.addAttribute("room", room);

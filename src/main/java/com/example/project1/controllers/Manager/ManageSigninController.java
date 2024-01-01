@@ -19,10 +19,14 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.AccountManagerRepository;
 import com.example.project1.Repository.ResidentHistoryRepository;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomRepository;
+import com.example.project1.entity.AddResidentRequest;
+import com.example.project1.entity.Request;
 import com.example.project1.entity.AccountManager;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Resident;
@@ -41,6 +45,12 @@ public class ManageSigninController {
     private AccountManagerRepository AccountManagerRepo;
     @Autowired
     private serviceRoom service;
+
+    @Autowired
+	private RequestRepository RequestRepo;
+
+	@Autowired
+	private AddResidentRequestRepository AddResidentRequestRepo;
     
     public String username_public;
 
@@ -70,7 +80,7 @@ public class ManageSigninController {
             response.addCookie(cookie);
             model.addAttribute("username", account_N.getUsername());
             redirectAttributes.addFlashAttribute("username", account_N.getUsername());
-            return "redirect:/greeting";
+            return "redirect:/manager/index";
         } else {
             String message = "Thông tin tên đăng nhập hoặc mật khẩu sai";
             model.addAttribute("AccountManager", new AccountManager());
@@ -92,6 +102,18 @@ public class ManageSigninController {
 
     @GetMapping("/account/changepassword")
     public String changePassword(Model model)  {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("AccountManager", new AccountManager());
         return "manager/account/changePassword";
     }
@@ -131,21 +153,50 @@ public class ManageSigninController {
 
     @GetMapping("/account/createaccount")
     public String createAccount(Model model)  {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("AccountManager", new AccountManager());
         return "manager/account/createAccount";
     }
 
     @GetMapping("/account/createaccount/save")
     public String createAccountSave(@ModelAttribute AccountManager account, Model model, HttpServletResponse response, RedirectAttributes redirectAttributes)  {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         java.util.List<AccountManager> listAccount = AccountManagerRepo.findAll();
         boolean flag = false;
+        if ((account.getUsername().length() == 0) || account.getUsername().contains(" ") || (account.getPassword().length() == 0)){
+            String message = "Tên tài khoản hoặc mật khẩu không được trống hoặc có dấu cách";
+            redirectAttributes.addFlashAttribute("message", message);
+            return "redirect:/account/createaccount";
+        }
         for (AccountManager acc : listAccount) {
             if (acc.getUsername().equals(account.getUsername())) {
                 flag = true;
             }
         }
         if (flag == true){
-            String message = "Tên đăng nhập đã tồn tại, vui lòng chọn tên khác";
+            String message = "Tên tài khoản đã tồn tại, vui lòng chọn tên khác";
             redirectAttributes.addFlashAttribute("message", message);
         } else {
             AccountManager account_New = new AccountManager();

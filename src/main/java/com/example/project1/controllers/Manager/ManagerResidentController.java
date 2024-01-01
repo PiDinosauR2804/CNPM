@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.ResidentHistoryRepository;
 import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
+import com.example.project1.entity.AddResidentRequest;
+import com.example.project1.entity.Request;
 import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
@@ -42,11 +46,29 @@ public class ManagerResidentController {
     @Autowired
     private serviceHistoryResident serviceHR;
 
+    @Autowired
+	private RequestRepository RequestRepo;
+
+	@Autowired
+	private AddResidentRequestRepository AddResidentRequestRepo;
+
     public int roomNumber = 0;
 
     @GetMapping ("/manager/resident/index")
     public String index(Model model, @RequestParam(required = false) String keyword,
     		@RequestParam(defaultValue ="1") Integer pageNo) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         Page <Resident> listResident = this.service.listAll(keyword,pageNo);
         model.addAttribute("keyword",keyword);
         model.addAttribute("totalPage",listResident.getTotalPages());
@@ -57,6 +79,18 @@ public class ManagerResidentController {
 
     @GetMapping("/manager/resident/create_in_index")
     public String addResident(Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
     	java.util.List<Room> rooms = roomRepo.findAll();
     	model.addAttribute("rooms", rooms);
     	return "manager/resident/create_in_index";
@@ -76,6 +110,18 @@ public class ManagerResidentController {
 
     @GetMapping("/manager/resident/edit/{id}")
     public String changeInfo(@PathVariable String id, Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         java.util.List<Resident> listResident = residentRepo.findAll();
         Resident resident = new Resident();
         boolean flag = false;
@@ -87,7 +133,7 @@ public class ManagerResidentController {
             }
         }
         if (!flag) {
-            return "Error/error";
+            return "404";
         }
         model.addAttribute("Resident", resident);
         return "manager/resident/edit";
@@ -107,6 +153,18 @@ public class ManagerResidentController {
 
     @GetMapping("/manager/room/{noRoom}")
     public String viewRoomDetails(@PathVariable String noRoom, Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         roomNumber = Integer.parseInt(noRoom);
         java.util.List<Resident> listResidentRoom = residentRepo.findByRoom(roomNumber);
         java.util.List<Room> listRoom = roomRepo.findByRoom(roomNumber);
@@ -118,6 +176,18 @@ public class ManagerResidentController {
 
     @GetMapping("/manager/room/{roomNumber}/addresident")
     public String viewRoomDetails(@PathVariable int roomNumber, Model model) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
         model.addAttribute("roomNumber", roomNumber);
         model.addAttribute("Resident", new Resident());
         return "manager/resident/create";
@@ -146,6 +216,18 @@ public class ManagerResidentController {
   	                   @RequestParam(required = false) String startDate,
   	                   @RequestParam(required = false) String endDate,
   	                   @RequestParam(defaultValue ="1") Integer pageNo) {
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
   	    Page<ResidentHistory> listResidentHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
   	    model.addAttribute("keyword",keyword);
   	    model.addAttribute("startDate",startDate);
