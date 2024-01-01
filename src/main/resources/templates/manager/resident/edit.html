@@ -204,14 +204,12 @@
 
                 <label style="margin-top: 5px;">Quan hệ với chủ hộ</label>
                 <input type="text" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" required style="margin-top: -5px;"/>
-                
+                <div style="text-align: center;">
+                    <button type="submit" onclick="updateAndGoBack()">Lưu & Quay lại</button>
+                </div>
             </form>
-            <div style="text-align: center;">
-                <button onclick="updateAndGoBack()">Lưu & Quay lại</button>
-            </div>
             
         </div>
-        
         <script>
             function updateField(field) {
                 var otherFields = fieldsToUpdate.filter(function (otherField) {

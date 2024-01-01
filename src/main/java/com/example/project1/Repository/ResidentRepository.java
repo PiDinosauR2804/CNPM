@@ -37,6 +37,5 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
                         @Param("birthPlace") String birthPlace,
                         @Param("job") String job, 
                         @Param("phoneNumber") String phoneNumber,
-                        @Param("relationshipWithOwner") String relationshipWithOwner);
-                        
+                        @Param("relationshipWithOwner") String relationshipWithOwner);                    
 }
