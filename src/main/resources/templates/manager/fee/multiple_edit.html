@@ -269,7 +269,7 @@
                 <thead>
                     <th>Năm</th>
                     <th>Tháng</th>
-                    <th>Mã Phòng</th>
+                    <th>Số Phòng</th>
                     <th>Tiền Phòng Đã Đóng</th>
                     <th>Tiền Phòng Cần Phải Đóng</th>
                     <th>Tiền Nước Đã Đóng</th>
@@ -282,6 +282,8 @@
                 <tbody>
                     <th:block th:each="Fee, rowStat : ${listFees}">
                         <tr>
+                            <td><input th:type="${Fee.year}" th:value="${Fee.year}" name="year" readonly></td>
+                            <td><input th:type="${Fee.month}" th:value="${Fee.month}" name="month" readonly></td>
                             <td><input th:type="${Fee.room.noRoom}" th:value="${Fee.room.noRoom}" name="noRooms" readonly></td>
                             <td><input th:type="${Fee.roomFeePaid}" th:value="${Fee.roomFeePaid}" name="roomFeePaids"></td>
                             <td><input th:type="${Fee.DefaultFeeRoom}" th:value="${Fee.DefaultFeeRoom}" name="roomFees" readonly></td>

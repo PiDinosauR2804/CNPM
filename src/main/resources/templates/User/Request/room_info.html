@@ -185,7 +185,7 @@
             <h2>Thay Đổi Thông Tin Phòng</h2>
             <form th:action="@{'/user/request/' + ${key} + '/room_info/save'}" th:object="${request}" method="post">
                 <label for="noRoom">Số Phòng</label>
-                <input type="text" id="noRoom" th:field="*{noRoom}" required />
+                <input type="text" id="noRoom" th:field="*{noRoom}" readonly/>
 
                 <label for="idRequest">Loại Thay Đổi</label>
                 <select id="idRequest" th:field="*{idRequest}" required>
