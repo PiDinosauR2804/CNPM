@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -94,13 +95,11 @@
         button {
             background-color: #2b589f;
             color: white;
-            padding: 15px 50px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-top: 50px;
-            font-size: medium;
         }
 
         button:hover {
@@ -130,7 +129,7 @@
         }
 
         table {
-            width: 100%;
+            width: 120%;
             border-collapse: collapse;
             margin-top: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -144,6 +143,7 @@
             padding: 10px;
             text-align: center;
         }
+
         th {
             background-color: #2b589f;
             color: white;
@@ -254,6 +254,8 @@
 <body>
     <div class="navbar">
         <a href="/manager/index"><i class="fas fa-home"></i> Trang chủ</a>
+        <a href="/account/changepassword"><i class="fas fa-key"></i> Đổi Mật Khẩu</a>
+        <a href="/account/createaccount"><i class="fas fa-user-plus"></i> Tạo Tài Khoản Mới</a>
         <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
         <a href="/manager/absent_resident/index"><i class="fas fa-door-open"></i> Quản lý tạm vắng </span></a>
         <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
@@ -285,11 +287,11 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        
+    <h2>Lịch sử phòng</h2>
     <table>
         <thead>
             <th>Số phòng</th>
-            <th>ID Chủ hộ</th>
+            <th>CCCD Chủ hộ</th>
             <th>Tên chủ hộ</th>
             <th>Số điện thoại chủ hộ</th>
             <th>Mã phòng</th>
@@ -305,11 +307,11 @@
         </tbody>
     </table>
     <br>
-    <br>
+    <h2>Lịch sử thành viên trong phòng</h2>
     <table>
         <thead>
             <th>Số phòng</th>
-            <th>ID</th>
+            <th>CCCD</th>
             <th>Họ và tên</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
@@ -335,7 +337,7 @@
         </tbody>
     </table>
     <br>
-    <br>
+    <h2>Lịch sử các khoản phí bắt buộc</h2>
     <table>
         <thead>
             <th>Năm</th>
@@ -353,23 +355,23 @@
         <tbody>
             <th:block th:each="Fee : ${listFees}">
                 <tr>
-                    <td th:text ="${Fee.year}"></td>
-                    <td th:text ="${Fee.month}"></td>
-                    <td th:text ="${Fee.room.noRoom}"></td>
-                    <td th:text ="${Fee.room.roomFeePaid}"></td>
-                    <td th:text ="${Fee.room.defaultFeeRoom}"></td>
-                    <td th:text ="${Fee.room.waterFeePaid}"></td>
-                    <td th:text ="${Fee.room.waterFee}"></td>
-                    <td th:text ="${Fee.room.electricFeePaid}"></td>
-                    <td th:text ="${Fee.room.electricFee}"></td>
-                    <td th:text ="${Fee.room.parkingFeePaid}"></td>
-                    <td th:text ="${Fee.room.defaultParkingFee}"></td>
+                    <td>[[${Fee.year}]]</th>
+                    <td>[[${Fee.month}]]</th>
+                    <td>[[${Fee.room.noRoom}]]</th>
+                    <td>[[${Fee.roomFeePaid}]]</th>
+                    <td>[[${Fee.room.defaultFeeRoom}]]</th>
+                    <td>[[${Fee.roomFeePaid}]]</th>
+                    <td>[[${Fee.waterFee}]]</th>
+                    <td>[[${Fee.electricFeePaid}]]</th>
+                    <td>[[${Fee.electricFee}]]</th>
+                    <td>[[${Fee.parkingFeePaid}]]</th>
+                    <td>[[${Fee.room.defaultParkingFee}]]</th>
                 </tr>
             </th:block>
         </tbody>
     </table>
     <br>
-    <br>
+    <h2>Lịch sử các khoản phí tự nguyện</h2>
     <table>
         <thead>
             <th>Phòng</th>
@@ -382,14 +384,15 @@
             <th:block th:each="Fee : ${listDonationFees}">
                 <tr>
                     <td th:text="${Fee.room.noRoom}"></td>
-                    <td th:text="${Fee.room.month}"></td>
-                    <td th:text="${Fee.room.year}"></td>
-                    <td th:text="${Fee.room.amount}"></td>
-                    <td th:text="${Fee.room.type}"></td>
+                    <td th:text="${Fee.month}"></td>
+                    <td th:text="${Fee.year}"></td>
+                    <td th:text="${Fee.amount}"></td>
+                    <td th:text="${Fee.typeMoney}"></td>
                 </tr>
             </th:block>
         </tbody>
     </table>
+    <br>
     <button th:href="@{/manager/history/room/index}">Quay lại</button>
 </body>
 </html>
