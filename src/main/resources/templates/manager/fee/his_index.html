@@ -256,13 +256,10 @@
     <div class = "content">
         <div class="navbar1">
             <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
-            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
-            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
-            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
             <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
             <a th:href="@{/manager/history/fee/index}" class = "active">Lịch Sử Phí Bắt Buộc</a>
         </div>
-        <h2>Lịch Sử Chi Phí Bắt Buộc</h2>
+        <h2>Lịch Sử Phí Bắt Buộc</h2>
         <div class="search-form">
             <!-- tìm kiếm -->
             <form th:action="@{/manager/history/fee/index}" method="get">

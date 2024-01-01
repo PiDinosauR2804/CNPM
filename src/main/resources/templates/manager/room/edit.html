@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12,6 +13,12 @@
             display: flex;
             min-height: 100vh;
             background-color: #f5f5f5;
+        }
+
+        main {
+            margin-left: 200px;
+            padding: 20px;
+            flex: 1;
         }
 
         .navbar {
@@ -31,7 +38,7 @@
         }
 
         .navbar a i {
-            margin-right: 8px;
+            margin-right: 5px;
             font-size: 18px;
         }
 
@@ -49,58 +56,151 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
         h2 {
             color: #2b589f;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
         form {
+            margin-top: 20px;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         label {
-            display: block;
-            margin-top: 10px;
-            margin-bottom: 5px;
-            color: #000000;
-            font-size: large;
+            margin-right: 0px;
+            margin-top: 20px;
         }
 
         input {
-            width: 100%;
+            width: calc(100%);
+            flex: 2;
             padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: medium;
+            margin-top: 10px;
+        }
+
+        .button-container {
+            text-align: center;
         }
 
         button {
-            padding: 15px 40px;
             background-color: #2b589f;
             color: white;
+            padding: 10px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-right: 10px;
-            margin-top: 10px;
+            display: inline-block; /* Ensure the button doesn't take the full width */
         }
 
         button:hover {
             background-color: #2879b3;
         }
 
+        .content {
+            flex-grow: 1;
+            padding: 16px;
+            margin-left: 230px;
+            position: relative;
+        }
+
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
+        }
+
+        table {
+            width: 120%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2b589f;
+            color: white;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination a {
+            padding: 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #2b589f;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination a:hover {
+            background-color: #2879b3;
+            color: white;
+        }
+        
+        .suggestion-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 15px 30px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-link:hover {
+            background-color: #2980b9;
+        }
+
         .container {
             margin: auto;
-            max-width: 400px;
+            max-width: 600px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: -20px;
+            margin-top: 50px;
         }
 
         .navbar1 {
@@ -156,6 +256,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
+
     </style>
 </head>
 <body>
@@ -178,25 +279,31 @@
             <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
             <a th:href="@{/manager/history/room/index}" onclick="showTab('x4')">Lịch sử</a>
         </div>
-        <h2>Chỉnh sửa thông tin phòng</h2>
+        
         <br>
 
         <form th:action="@{'/manager/room/update/' + ${key}}" th:object="${room}" method="post">
         <div class ="container">
-            <label>Số phòng</label>
-            <input type="text" th:value="${noRoom}" th:field="*{noRoom}" required />
-            <label>CCCD Chủ hộ</label>
-            <input type="text" th:field="*{idOwner}" required />
-            <label>Tên chủ hộ</label>
-            <input type="text" th:field="*{nameOwner}" required />
-            <label>Số điện thoại chủ hộ</label>
-            <input type="text" th:field="*{numberPhoneOwner}" required />
-            <label>Tiền phòng</label>
-            <input type="text" th:field="*{defaultFeeRoom}" required />
-            <label>Tiền gửi xe</label>
+            <h2 style="text-align: center;">Chỉnh sửa thông tin phòng</h2>
+            <label>Số phòng</label><br>
+            <input type="text" th:value="${noRoom}" th:field="*{noRoom}" required /><br>
+            <label>CCCD Chủ hộ</label><br>
+            <input type="text" th:field="*{idOwner}" required /><br>
+            <label>Tên chủ hộ</label><br>
+            <input type="text" th:field="*{nameOwner}" required /><br>
+            <label>Số điện thoại chủ hộ</label><br>
+            <input type="text" th:field="*{numberPhoneOwner}" required /><br>
+            <label>Tiền phòng</label><br>
+            <input type="text" th:field="*{defaultFeeRoom}" required /><br>
+            <label>Tiền gửi xe</label><br>
             <input type="text" th:field="*{defaultParkingFee}" required />
-            <button type="submit">Lưu</button>
-            <button th:href="@{/manager/index}">Quay lại</button>
+            <br>
+            <br>
+            <div class="button-container">
+                <button type="submit">Lưu</button>
+                <button th:href="@{/manager/index}">Quay lại</button>
+            </div>
+
         </div>
         </form>
     </div>
