@@ -58,7 +58,9 @@ public class UserRequestController {
 
     @GetMapping("/user/request/{key}/room_info")
     public String changeRoomInfo(@PathVariable String key, Model model) {
+        Room aa = RoomRepo.findByKey(key).get(0);
         Request request = new Request();
+        request.setNoRoom(aa.getNoRoom());
         model.addAttribute("request", request);
         return "user/Request/room_info";
     }
