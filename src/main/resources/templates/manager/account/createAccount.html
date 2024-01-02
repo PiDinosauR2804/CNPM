@@ -62,6 +62,9 @@
             color: #2b589f;
             text-decoration: none;
         }
+        p {
+            color: red;
+        }
         h2 {
             color: #2b589f;
             margin-bottom: 20px;
@@ -89,6 +92,8 @@
         }
 
         input {
+            width: 100%;
+            margin-bottom: 10px;
             flex: 2;
             padding: 8px;
             border: 1px solid #ddd;
@@ -97,9 +102,6 @@
         }
 
         button {
-            margin-left: 230px;
-            margin-top: 20px;
-            display: block;
             background-color: #2b589f;
             color: white;
             padding: 10px 15px;
@@ -116,7 +118,8 @@
         .content {
             flex-grow: 1;
             padding: 16px;
-            margin-left: 230px;
+            margin-top: 230px;
+            margin-left: 250px;
             position: relative;
         }
 
@@ -139,7 +142,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -193,14 +196,11 @@
         }
 
         .container {
-            flex-direction: column;
-            margin: auto;
             max-width: 400px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
         }
 
         .navbar1 {
@@ -208,6 +208,9 @@
             background-color: #f1f1f1;
             overflow: hidden;
             margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {
@@ -246,18 +249,6 @@
             }
         }
 
-        .content {
-            margin-top: 150px;
-            flex-grow: 1;
-            padding: 16px;
-            margin-left: 230px;
-            position: relative;
-        }
-
-        .show-text {
-            color: red;
-        }
-
     </style>
 </head>
 
@@ -279,14 +270,15 @@
         <div class="container">
             <h2>Tạo tài khoản</h2>
             <form method="get" th:object="${AccountManager}" th:action="@{/account/createaccount/save}">
-
-                <input type="text" id="textUsername" th:field="*{username}" placeholder="Tên Tài Khoản">
-                <input type="password" id="textPassword" th:field="*{password}" placeholder="Mật Khẩu">
-            
-                <button type="submit" id="loginButton">Tạo Tài Khoản</button>
-                <div class="show-text" th:if="${message}">
-                    <p th:text="${message}"></p>
-                </div>
+                <p>
+                    <input type="text" id="textUsername" th:field="*{username}" placeholder="Tên Tài Khoản">
+                    <input type="password" id="textPassword" th:field="*{password}" placeholder="Mật Khẩu">
+                
+                    <button type="submit" id="loginButton">Tạo Tài Khoản</button>
+                    <div class="show-text" th:if="${message}">
+                        <p th:text="${message}"></p>
+                    </div>
+                </p>
             </form>
         </div>
     </div>

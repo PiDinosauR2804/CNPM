@@ -43,14 +43,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class ManagerFeeController {
     @Autowired
     MandatoryFeeRepository MandatoryFeeRepo;
     @Autowired
     serviceMandatoryFee serviceMF;
-    
+
     @Autowired
     MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
     @Autowired
@@ -72,36 +71,40 @@ public class ManagerFeeController {
     serviceDonationFeeHistory serviceDFH;
 
     @Autowired
-	private RequestRepository RequestRepo;
+    private RequestRepository RequestRepo;
 
-	@Autowired
-	private AddResidentRequestRepository AddResidentRequestRepo;
+    @Autowired
+    private AddResidentRequestRepository AddResidentRequestRepo;
 
     @Autowired
     TypeDonationRepository TypeDonationRepo;
     @Autowired
-    serviceTypeFee serviceTF;  
+    serviceTypeFee serviceTF;
     // Mandatory Fee
 
     @GetMapping("/manager/fee/index")
     public String index(@RequestParam(required = false) String keyword, Model model,
-    		@RequestParam(defaultValue ="1") Integer pageNo) {
-        Page <MandatoryFee> listFees = this.serviceMF.listAll(keyword,pageNo);
+            @RequestParam(defaultValue = "1") Integer pageNo) {
+        Page<MandatoryFee> listFees = this.serviceMF.listAll(keyword, pageNo);
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
-        model.addAttribute("keyword",keyword);
-        model.addAttribute("totalPage",listFees.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("totalPage", listFees.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         model.addAttribute("listFees", listFees);
         return "manager/fee/index";
     }
@@ -124,22 +127,25 @@ public class ManagerFeeController {
         }
         return "redirect:/manager/fee/index";
     }
-    
-    
+
     @GetMapping("/manager/room/{roomNumber}/fees")
     public String detail(@PathVariable int roomNumber, Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         model.addAttribute("roomNumber", roomNumber);
         Room a = RoomRepo.findByRoom(roomNumber).get(0);
         model.addAttribute("listFees", a.getMandatoryFees());
@@ -150,32 +156,35 @@ public class ManagerFeeController {
     @GetMapping("/manager/fee/edit/{no}")
     public String edit(@PathVariable int no, Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         model.addAttribute("no", no);
         List<MandatoryFee> fees = MandatoryFeeRepo.findByPK(no);
         model.addAttribute("fee", fees.get(0));
         return "manager/fee/edit";
     }
 
-
     @PostMapping("/manager/fee/save/{no}")
-    public String save(@PathVariable int no ,@ModelAttribute("fee") MandatoryFee fee) {
+    public String save(@PathVariable int no, @ModelAttribute("fee") MandatoryFee fee) {
         MandatoryFee a = MandatoryFeeRepo.findByPK(no).get(0);
         a.setMonth(fee.getMonth());
         a.setYear(fee.getYear());
         a.setElectricFee(fee.getElectricFee());
         a.setWaterFee(fee.getWaterFee());
-        MandatoryFeeRepo.save(a);   
+        MandatoryFeeRepo.save(a);
         return "redirect:/manager/fee/index";
     }
 
@@ -193,17 +202,21 @@ public class ManagerFeeController {
     @GetMapping("/manager/fee/mandatory/multiple_edit")
     public String multipleEditMandatoryFee(Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         List<MandatoryFee> listFees = MandatoryFeeRepo.findAll();
         model.addAttribute("listFees", listFees);
         return "manager/fee/multiple_edit";
@@ -220,7 +233,6 @@ public class ManagerFeeController {
         String[] electricFees = request.getParameterValues("electricFees");
         String[] parkingFeePaids = request.getParameterValues("parkingFeePaids");
 
-
         for (int i = 0; i < noRooms.length; i++) {
             for (MandatoryFee fee_check : listFee_check) {
                 if (noRooms[i].equals(String.valueOf(fee_check.getNoRoom()))) {
@@ -236,53 +248,55 @@ public class ManagerFeeController {
             }
         }
 
-
         return "redirect:/manager/fee/mandatory/multiple_edit";
     }
 
     // Donation Fee
     @GetMapping("/manager/fee/donation/index")
     public String donation_index(@RequestParam(required = false) String keyword, Model model,
-    		@RequestParam(defaultValue ="1") Integer pageNo) {
+            @RequestParam(defaultValue = "1") Integer pageNo) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int numNoti = listRequest1.size() + listRequest2.size();
         model.addAttribute("numNoti", numNoti);
-        Page <DonationFee> listFees = serviceDF.listAll(keyword,pageNo);
+        Page<DonationFee> listFees = serviceDF.listAll(keyword, pageNo);
         model.addAttribute("listFees", listFees);
-        model.addAttribute("totalPage",listFees.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPage", listFees.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "manager/fee/donation/index";
     }
 
     @GetMapping("/manager/fee/donation/edit/{no}")
     public String editDonation(@PathVariable int no, Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         model.addAttribute("no", no);
         List<DonationFee> fees = DonationFeeRepo.findByNo(no);
         model.addAttribute("fee", fees.get(0));
         return "manager/fee/donation/edit";
     }
 
-
     @PostMapping("/manager/fee/donation/save/{no}")
-    public String saveDonation(@PathVariable int no ,@ModelAttribute("fee") DonationFee fee) {
+    public String saveDonation(@PathVariable int no, @ModelAttribute("fee") DonationFee fee) {
         DonationFee a = DonationFeeRepo.findByNo(no).get(0);
         a.setMonth(fee.getMonth());
         a.setYear(fee.getYear());
         a.setAmount(fee.getAmount());
-        DonationFeeRepo.save(a);   
+        DonationFeeRepo.save(a);
         return "redirect:/manager/fee/donation/index";
     }
 
@@ -290,16 +304,16 @@ public class ManagerFeeController {
 
     @GetMapping("/manager/fee/donation/type")
     public String donation_type_index(@RequestParam(required = false) String keyword, Model model,
-    		@RequestParam(defaultValue ="1") Integer pageNo) {
+            @RequestParam(defaultValue = "1") Integer pageNo) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int numNoti = listRequest1.size() + listRequest2.size();
         model.addAttribute("numNoti", numNoti);
-        Page <TypeDonation> listTypes = this.serviceTF.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+        Page<TypeDonation> listTypes = this.serviceTF.listAll(keyword, pageNo);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("listTypes", listTypes);
-        model.addAttribute("totalPage",listTypes.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPage", listTypes.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "manager/fee/donation/type";
     }
 
@@ -319,17 +333,21 @@ public class ManagerFeeController {
     @GetMapping("/manager/fee/donation/type/create")
     public String createType(Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         TypeDonation new_type = new TypeDonation();
         model.addAttribute("new_type", new_type);
         return "manager/fee/donation/createType";
@@ -340,33 +358,36 @@ public class ManagerFeeController {
         TypeDonationRepo.save(typeDonation);
         return "redirect:/manager/fee/donation/type";
     }
-    
+
     @GetMapping("/manager/fee/donation/type/edit/{no}")
     public String editTypeDonation(@PathVariable int no, Model model) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
         model.addAttribute("no", no);
         List<TypeDonation> types = TypeDonationRepo.findByNo(no);
         model.addAttribute("new_type", types.get(0));
         return "manager/fee/donation/edit_type";
     }
 
-
     @PostMapping("/manager/fee/donation/type/save/{no}")
-    public String updateTypeDonation(@PathVariable int no ,@ModelAttribute("new_type") TypeDonation new_type) {
+    public String updateTypeDonation(@PathVariable int no, @ModelAttribute("new_type") TypeDonation new_type) {
         TypeDonation a = TypeDonationRepo.findByNo(no).get(0);
         a.setType(new_type.getType());
-        TypeDonationRepo.save(a);   
+        TypeDonationRepo.save(a);
         return "redirect:/manager/fee/donation/type";
     }
 
@@ -374,39 +395,55 @@ public class ManagerFeeController {
 
     @GetMapping("/manager/history/fee/index")
     public String his_mdt_index(@RequestParam(required = false) String keyword, Model model,
-    		@RequestParam(defaultValue ="1") Integer pageNo) {
+            @RequestParam(defaultValue = "1") Integer pageNo) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-        int numNoti = listRequest1.size() + listRequest2.size();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
         model.addAttribute("numNoti", numNoti);
-        Page <MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+        Page<MandatoryFeeHistory> listFees = serviceMFH.listAll(keyword, pageNo);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("listFees", listFees);
-        model.addAttribute("totalPage",listFees.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPage", listFees.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "manager/fee/his_index";
     }
 
     @GetMapping("/manager/history/fee/donation/index")
     public String his_dnt_index(@RequestParam(required = false) String keyword, Model model,
-    		@RequestParam(defaultValue ="1") Integer pageNo) {
+            @RequestParam(defaultValue = "1") Integer pageNo) {
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
-		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
-		int num1 = 0;
-		for (Request req : listRequest1) {
-			if (req.getApproved() == 1) {num1 ++;}
-		}
-		int num2 = 0;
-		for (AddResidentRequest Addreq : listRequest2) {
-			if (Addreq.getApproved() == 1) {num2 ++;}
-		}
-		int numNoti = num1 + num2;
-		model.addAttribute("numNoti", numNoti);
-        Page <DonationFeeHistory> listFees = serviceDFH.listAll(keyword,pageNo);
-        model.addAttribute("keyword",keyword);
+        java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+        int num1 = 0;
+        for (Request req : listRequest1) {
+            if (req.getApproved() == 1) {
+                num1++;
+            }
+        }
+        int num2 = 0;
+        for (AddResidentRequest Addreq : listRequest2) {
+            if (Addreq.getApproved() == 1) {
+                num2++;
+            }
+        }
+        int numNoti = num1 + num2;
+        model.addAttribute("numNoti", numNoti);
+        Page<DonationFeeHistory> listFees = serviceDFH.listAll(keyword, pageNo);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("listFees", listFees);
-        model.addAttribute("totalPage",listFees.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("totalPage", listFees.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "manager/fee/donation/his_index";
     }
 
@@ -418,7 +455,9 @@ public class ManagerFeeController {
     }
 
     public void createMandatoryFeeHistory(MandatoryFee fee) {
-        MandatoryFeeHistory a = new MandatoryFeeHistory(fee.getMonth(), fee.getYear(), fee.getWaterFeePaid(), fee.getWaterFee(), fee.getElectricFeePaid(), fee.getElectricFee(), fee.getParkingFeePaid(), fee.getRoomFeePaid());
+        MandatoryFeeHistory a = new MandatoryFeeHistory(fee.getMonth(), fee.getYear(), fee.getWaterFeePaid(),
+                fee.getWaterFee(), fee.getElectricFeePaid(), fee.getElectricFee(), fee.getParkingFeePaid(),
+                fee.getRoomFeePaid());
         RoomHistory b = RoomHistoryRepo.findByKey(fee.getKey()).get(0);
         a.setRoom(b);
         b.addMandatoryFee(a);
@@ -426,7 +465,7 @@ public class ManagerFeeController {
         RoomHistoryRepo.save(b);
     }
 
-        // Donation History Fee
+    // Donation History Fee
     public void eraseDonationFee(DonationFee fee) {
         createDonationFeeFeeHistory(fee);
         DonationFeeRepo.delete(fee);
