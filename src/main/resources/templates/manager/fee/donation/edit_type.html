@@ -63,6 +63,7 @@
             text-decoration: none;
         }
         h2 {
+            text-align: center;
             color: #2b589f;
             margin-bottom: 20px;
         }
@@ -88,6 +89,7 @@
         }
 
         input {
+            width: 300px;
             margin-bottom: 10px;
             flex: 2;
             padding: 8px;
@@ -110,7 +112,6 @@
         }
 
         .content {
-            margin-top: 200px;
             flex-grow: 1;
             padding: 16px;
             margin-left: 230px;
@@ -191,8 +192,9 @@
 
         .container {
             margin: auto;
-            width: 250px;
-            height: 200px;
+            margin-top: 150px;
+            width: 350px;
+            height: 250px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -261,7 +263,13 @@
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
     <div class = "content">
+        <div class="navbar1">
+            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
+            <a th:href="@{/manager/fee/donation/type}">Các Loại Phí</a>
+            <a th:href="@{/manager/history/fee/donation/index}">Lịch Sử Quyên Góp</a>
+        </div>
         <div class = "container">
+            <h2>Sửa Tên Khoản Phí</h2>
             <form th:action="@{'/manager/fee/donation/type/save/' + ${no}}" th:object="${new_type}" method="post">
             <div>
                 <div>
@@ -270,7 +278,8 @@
                 <div>
                     <input type="text" th:field="*{type}" required />
                 </div>
-                <div>
+
+                <div style="text-align: center; margin-top: 10px;">
                     <button type="submit">Lưu</button>
                 </div>
             <div>

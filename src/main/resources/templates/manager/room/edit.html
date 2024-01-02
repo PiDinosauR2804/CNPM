@@ -87,6 +87,7 @@
         }
 
         input {
+            width: 100%;
             flex: 2;
             padding: 8px;
             border: 1px solid #ddd;
@@ -193,14 +194,13 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
-            margin-top: 50px;
+            margin-top: 0px;
         }
 
         .navbar1 {
             border-radius: 4px;
             background-color: #f1f1f1;
             overflow: hidden;
-            margin-bottom: 50px;
             box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
             border-radius: 8px;
             flex-grow: 1;
@@ -284,7 +284,7 @@
             <input type="text" th:field="*{defaultParkingFee}" required />
             <br>
             <br>
-            <div class="button-container">
+            <div style="text-align: center;">
                 <button type="submit">Lưu</button>
                 <button th:href="@{/manager/index}">Quay lại</button>
             </div>

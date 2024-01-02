@@ -3,27 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 Not Found</title>
+    <title>Error Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- Custom Styles -->
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            margin: 100px;
-        }
-
-        h1 {
-            font-size: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
         }
 
-        p {
-            font-size: 18px;
+        .error-container {
+            text-align: center;
+        }
+
+        .error-container i {
+            font-size: 120px;
+            color: #dc3545;
+            animation: bounce 1s infinite;
+        }
+
+        .error-message {
+            font-size: 36px;
+            color: #dc3545;
             margin-top: 20px;
+        }
+
+        .back-home {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
         }
     </style>
 </head>
 <body>
-    <h1>404</h1>
-    <p>Not Found</p>
+
+<div class="error-container">
+    <i class="fas fa-exclamation-circle"></i>
+    <h1 class="error-message">Oops! Something went wrong.</h1>
+    <p class="back-home"><a href="/greeting">Back to Home</a></p>
+</div>
+
 </body>
 </html>

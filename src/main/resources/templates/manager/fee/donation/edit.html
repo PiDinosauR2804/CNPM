@@ -87,6 +87,8 @@
         }
 
         input {
+            width: 350px;
+            margin-bottom: 5px;
             flex: 2;
             padding: 8px;
             border: 1px solid #ddd;
@@ -264,44 +266,44 @@
             <a th:href="@{/manager/fee/donation/type}">Các Loại Phí</a>
             <a th:href="@{/manager/history/fee/donation/index}">Lịch Sử Quyên Góp</a>
         </div>
-        <h2>Sửa Thông Tin Tiền Quyên Góp</h2>
-        <form th:action="@{'/manager/fee/donation/save/' + ${fee.no}}" th:object="${fee}" method="post">
-        <div>
-            <div>
-                <label>Số Phòng</label>
+        <div class = "container">
+            <div style="text-align: center;">
+            <h2>Sửa Thông Tin Tiền Quyên Góp</h2>
             </div>
+            <form th:action="@{'/manager/fee/donation/save/' + ${fee.no}}" th:object="${fee}" method="post">
             <div>
-                <label th:text="${fee.noRoom}"></label>
-            </div>
+                <div>
+                    <label>Số Phòng: </label>
+                    <label th:text="${fee.noRoom}"></label>
+                </div>
+                <div>
+                    <label>Tháng</label>
+                </div>
+                <div>
+                    <input type="text" th:field="*{month}" required />
+                </div>
+                <div>
+                    <label>Năm</label>
+                </div>
+                <div>
+                    <input type="text" th:field="*{year}" required />
+                </div>
+                <div>
+                    <label>Số Tiền</label>
+                </div>
+                <div>
+                    <input type="text" th:field="*{amount}" required />
+                </div>
+                <div>
+                    <label>Loại Tiền: </label>
+                    <label th:text="${fee.type}"></label>
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit">Lưu</button>
+                </div>
             <div>
-                <label>Tháng</label>
-            </div>
-            <div>
-                <input type="text" th:field="*{month}" required />
-            </div>
-            <div>
-                <label>Năm</label>
-            </div>
-            <div>
-                <input type="text" th:field="*{year}" required />
-            </div>
-            <div>
-                <label>Số Tiền</label>
-            </div>
-            <div>
-                <input type="text" th:field="*{amount}" required />
-            </div>
-            <div>
-                <label>Loại Tiền</label>
-            </div>
-            <div>
-                <label th:text="${fee.type}"></label>
-            </div>
-            <div>
-                <button type="submit">Lưu</button>
-            </div>
-        <div>
-        </form>
+            </form>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

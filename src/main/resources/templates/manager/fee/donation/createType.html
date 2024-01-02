@@ -87,6 +87,7 @@
         }
 
         input {
+            width: 350px;
             flex: 2;
             padding: 8px;
             border: 1px solid #ddd;
@@ -265,6 +266,7 @@
             <a th:href="@{/manager/history/fee/donation/index}">Lịch Sử Quyên Góp</a>
         </div>
         <div class = "container">
+            <h2>Tạo Khoản Phí</h2>
             <form th:action="@{/manager/fee/donation/type/save}" th:object="${new_type}" method="post">
             <div>
                 <div>
@@ -273,7 +275,7 @@
                 <div>
                     <input type="text" th:field="*{type}" required />
                 </div>
-                <div>
+                <div style="text-align: center; margin-top: 10px;">
                     <button type="submit">Lưu</button>
                 </div>
             </div>

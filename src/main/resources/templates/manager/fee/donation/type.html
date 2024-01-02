@@ -183,6 +183,7 @@
 
         .suggestion-link:hover {
             background-color: #2879b3;
+            color: white;
         }
 
         .container {
@@ -275,8 +276,8 @@
                 <th:block th:each="Type : ${listTypes}">
                     <tr>
                         <td>[[${Type.type}]]</th>
-                        <td><a th:href="@{'/manager/fee/donation/type/edit/' + ${Type.idMoney}}">Edit</a></td>
-                        <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.idMoney})}">Close</a></td>
+                        <td><a th:href="@{'/manager/fee/donation/type/edit/' + ${Type.idMoney}}">Sửa</a></td>
+                        <td><a th:href="@{/manager/fee/donation/type/{id}/close(id=${Type.idMoney})}">Đóng</a></td>
                     </tr>
                 </th:block>
             </tbody>

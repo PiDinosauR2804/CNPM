@@ -15,6 +15,10 @@ import com.example.project1.entity.Request;
 import com.example.project1.entity.AbsentResident;
 import com.example.project1.service.serviceAbsent;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
+
 @Controller
 public class ManagerAbsentResident {
 	@Autowired
@@ -31,11 +35,22 @@ public class ManagerAbsentResident {
 	// Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được
 	// cả trong 1 khoảng tg
 	@GetMapping("/manager/absent_resident/index")
-	public String index(Model model,
+	public String index(Model model, HttpServletRequest request,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false) String startDate,
 			@RequestParam(required = false) String endDate,
 			@RequestParam(defaultValue = "1") Integer pageNo) {
+		boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
+		
 		java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -60,7 +75,17 @@ public class ManagerAbsentResident {
 
 	// Thêm người vào tạm trú
 	@GetMapping("/manager/absent_resident/create")
-	public String create(Model model) {
+	public String create(Model model, HttpServletRequest request) {
+		boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
 		java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
