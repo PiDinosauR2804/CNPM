@@ -24,6 +24,9 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
     @Query("SELECT r FROM MandatoryFee r WHERE r.no = :no")
     List<MandatoryFee> findByPK(@Param("no") int no);
 
+    @Query("SELECT r FROM MandatoryFee r WHERE r.month = :month AND r.year = :year AND r.room.noRoom = :noRoom")
+    List<MandatoryFee> findIfExist(@Param("month") int month, @Param("year") int year, @Param("noRoom") int noRoom);
+
     @Query("SELECT r FROM MandatoryFee r WHERE r.waterFeePaid = r.waterFee AND r.electricFee = r.electricFeePaid AND r.roomFeePaid = r.room.defaultFeeRoom AND r.parkingFeePaid = r.room.defaultParkingFee")
     List<MandatoryFee> findIfFeeComplete();
 

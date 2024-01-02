@@ -113,11 +113,14 @@ public class ManagerFeeController {
         int currentMonth = calendar.get(Calendar.MONTH) + 1;
         int currentYear = calendar.get(Calendar.YEAR);
         for (int i = 0; i < rooms.size(); i++) {
-            MandatoryFee a = new MandatoryFee(currentMonth, currentYear, 0, 0);
-            a.setRoom(rooms.get(i));
-            rooms.get(i).addMandatoryFee(a);
-            MandatoryFeeRepo.save(a);
-            RoomRepo.save(rooms.get(i));
+            List<MandatoryFee> fees = MandatoryFeeRepo.findIfExist(currentMonth, currentYear, rooms.get(i).getNoRoom());
+            if (fees.isEmpty()) {
+                MandatoryFee a = new MandatoryFee(currentMonth, currentYear, 0, 0);
+                a.setRoom(rooms.get(i));
+                rooms.get(i).addMandatoryFee(a);
+                MandatoryFeeRepo.save(a);
+                RoomRepo.save(rooms.get(i));
+            }
         }
         return "redirect:/manager/fee/index";
     }
