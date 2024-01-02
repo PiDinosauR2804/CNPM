@@ -23,8 +23,9 @@
         }
 
         .navbar {
+            overflow: hidden;
             height: 100%;
-            width: 210px;
+            width: 220px;
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
@@ -74,6 +75,14 @@
             align-items: center;
         }
 
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
         label {
             margin-right: 0px;
         }
@@ -86,9 +95,9 @@
         }
 
         button {
-            padding: 10px 20px;
             background-color: #2b589f;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -125,13 +134,16 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         th,
         td {
             border: 1px solid #ddd;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
@@ -181,15 +193,8 @@
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
             margin-top: 50px;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 16px;
-            margin-left: 230px;
-            position: relative;
         }
 
         .navbar1 {
@@ -197,6 +202,9 @@
             background-color: #f1f1f1;
             overflow: hidden;
             margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {

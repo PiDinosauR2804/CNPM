@@ -21,14 +21,10 @@
             flex: 1;
         }
 
-        h2 {
-            color: #2b589f;
-            text-align: center;
-        }
-
         .navbar {
+            overflow: hidden;
             height: 100%;
-            width: 210px;
+            width: 220px;
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
@@ -61,73 +57,69 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* New styles for the form */
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+        h2 {
+            text-align: center;
+            color: #2b589f;
+            margin-bottom: 20px;
+        }
+
         form {
-            margin: 20px;
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         label {
-            display: block;
+            margin-right: 0px;
             margin-bottom: 5px;
-            color: #000000;
-        }
-
-        .room-info {
-            margin-bottom: 15px;
         }
 
         input {
-            width: 100%;
-            padding: 10px;
             margin-bottom: 10px;
-            box-sizing: border-box;
+            flex: 2;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: medium;
-            text-align: left; /* Align text inside the input to the left */
-            direction: rtl;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         button {
-            padding: 10px 30px;
+            margin-bottom: 10px;
             background-color: #2b589f;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-top: 20px;
-            font-size: medium;
         }
 
         button:hover {
             background-color: #2879b3;
         }
 
-
         .content {
-            height: 80px;
             flex-grow: 1;
             padding: 16px;
             margin-left: 230px;
-            margin-right: 50px;
             position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
 
         .container {
             margin: auto;
-            max-width: 400px;
+            width: 470px;
+            height: 825px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-
-        .save {
-            margin-left: 280px;
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
         }
 
         .navbar1 {
@@ -135,6 +127,9 @@
             background-color: #f1f1f1;
             overflow: hidden;
             margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {
@@ -145,7 +140,7 @@
             padding: 14px 16px;
             text-decoration: none;
             font-size: 17px;
-            border-bottom: 2px solid transparent; /* Thang ngang mặc định không màu */
+            border-bottom: 2px solid transparent;
             position: relative;
         } 
 
@@ -158,10 +153,10 @@
             position: absolute;
             width: 100%;
             height: 2px;
-            background-color: #3498db; /* Màu xanh dương */
+            background-color: #3498db;
             bottom: 0;
             left: 0;
-            animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
+            animation: slideIn 0.5s ease forwards;
         }
 
         @keyframes slideIn {
@@ -172,6 +167,7 @@
                 width: 100%;
             }
         }
+
     </style>
 </head>
 <body>
@@ -193,7 +189,7 @@
             <a th:href="@{/manager/history/resident/index}" onclick="showTab('x2')">Lịch sử quản lý cư dân</a>
         </div>
         <div class="container">
-            <form th:action="@{/manager/room/{roomNumber}/addresident/save(roomNumber=${roomNumber})}" th:object="${Resident}" method="post">
+            <form th:action="@{/manager/room/{roomNumber}/addresident/save(roomNumber=${roomNumber})}" th:object="${Resident}" style="display: block;" method="post">
                 <div>
                     <h2 th:text="'Thêm mới cư dân phòng số ' + ${roomNumber}"></h2>
                     <label>CCCD</label>
