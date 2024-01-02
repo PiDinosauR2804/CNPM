@@ -280,14 +280,14 @@
                 <th>Năm</th>
                 <th>Tháng</th>
                 <th>Mã Phòng</th>
-                <th>Tiền Phòng Đã Đóng</th>
-                <th>Tiền Phòng Cần Phải Đóng</th>
-                <th>Tiền Nước Đã Đóng</th>
-                <th>Tiền Nước Cần Phải Đóng</th>
-                <th>Tiền Điện Đã Đóng</th>
-                <th>Tiền Điện Cần Phải Đóng</th>
-                <th>Tiền Gửi Xe Đã Đóng</th>
-                <th>Tiền Gửi Xe Cần Phải Đóng</th>
+                <th>Tiền Phòng Đã Đóng (VNĐ)</th>
+                <th>Tiền Phòng Cần Phải Đóng (VNĐ)</th>
+                <th>Tiền Nước Đã Đóng (VNĐ)</th>
+                <th>Tiền Nước Cần Phải Đóng (VNĐ)</th>
+                <th>Tiền Điện Đã Đóng (VNĐ)</th>
+                <th>Tiền Điện Cần Phải Đóng (VNĐ)</th>
+                <th>Tiền Gửi Xe Đã Đóng (VNĐ)</th>
+                <th>Tiền Gửi Xe Cần Phải Đóng (VNĐ)</th>
             </thead>
             <tbody>
                 <th:block th:each="Fee : ${listFees}">
@@ -295,14 +295,14 @@
                         <td>[[${Fee.year}]]</th>
                         <td>[[${Fee.month}]]</th>
                         <td>[[${Fee.room.noRoom}]]</th>
-                        <td>[[${Fee.roomFeePaid}]]</th>
-                        <td>[[${Fee.room.defaultFeeRoom}]]</th>
-                        <td>[[${Fee.roomFeePaid}]]</th>
-                        <td>[[${Fee.waterFee}]]</th>
-                        <td>[[${Fee.electricFeePaid}]]</th>
-                        <td>[[${Fee.electricFee}]]</th>
-                        <td>[[${Fee.parkingFeePaid}]]</th>
-                        <td>[[${Fee.room.defaultParkingFee}]]</th>
+                        <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
+                        <td class="formatted-number">[[${Fee.room.defaultFeeRoom}]]</th>
+                        <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
+                        <td class="formatted-number">[[${Fee.waterFee}]]</th>
+                        <td class="formatted-number">[[${Fee.electricFeePaid}]]</th>
+                        <td class="formatted-number">[[${Fee.electricFee}]]</th>
+                        <td class="formatted-number">[[${Fee.parkingFeePaid}]]</th>
+                        <td class="formatted-number">[[${Fee.room.defaultParkingFee}]]</th>
                     </tr>
                 </th:block>
             </tbody>
@@ -348,5 +348,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    
+        // Lặp qua tất cả các phần tử có class "formatted-number" và định dạng số
+        var elements = document.getElementsByClassName('formatted-number');
+        for (var i = 0; i < elements.length; i++) {
+            var number = parseFloat(elements[i].innerText);
+            var formattedNumber = formatNumberWithCommas(number);
+            elements[i].innerText = formattedNumber;
+        }
+    </script>
 </body>
 </html>

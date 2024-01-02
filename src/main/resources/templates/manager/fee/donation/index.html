@@ -280,7 +280,7 @@
                 <th>Số Phòng</th>
                 <th>Năm</th>
                 <th>Tháng</th>
-                <th>Số Tiền</th>
+                <th>Số Tiền (VNĐ)</th>
                 <th>Loại Tiền</th>
                 <th>Sửa</th>
             </thead>
@@ -290,7 +290,7 @@
                         <td>[[${Fee.room.noRoom}]]</th>
                         <td>[[${Fee.year}]]</th>
                         <td>[[${Fee.month}]]</th>
-                        <td>[[${Fee.amount}]]</th>
+                        <td class="formatted-number">[[${Fee.amount}]]</th>
                         <td>[[${Fee.type}]]</th>
                         <td><a th:href="@{'/manager/fee/donation/edit/' + ${Fee.no}}">Edit</a></td>
                     </tr>
@@ -338,5 +338,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function formatNumberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    
+        // Lặp qua tất cả các phần tử có class "formatted-number" và định dạng số
+        var elements = document.getElementsByClassName('formatted-number');
+        for (var i = 0; i < elements.length; i++) {
+            var number = parseFloat(elements[i].innerText);
+            var formattedNumber = formatNumberWithCommas(number);
+            elements[i].innerText = formattedNumber;
+        }
+    </script>
 </body>
 </html>

@@ -272,8 +272,8 @@
                 <th>Tên chủ hộ</th>
                 <th>Số điện thoại chủ hộ</th>
                 <th>Mã phòng</th>
-                <th>Tiền phòng</th>
-                <th>Tiền gửi xe</th>
+                <th>Tiền phòng (VNĐ)</th>
+                <th>Tiền gửi xe (VNĐ)</th>
                 <th>Chỉnh sửa</th>
             </thead>
             <tbody>
@@ -284,8 +284,8 @@
                         <td th:text="${Room.nameOwner}"></td>
                         <td th:text="${Room.numberPhoneOwner}"></td>
                         <td th:text="${Room.key}"></td>
-                        <td th:text="${Room.defaultFeeRoom}"></td>
-                        <td th:text="${Room.defaultParkingFee}"></td>
+                        <td th:text="${Room.defaultFeeRoom}" class="formatted-number"></td>
+                        <td th:text="${Room.defaultParkingFee}" class="formatted-number"></td>
                         <td><a th:href="@{'/manager/room/edit/'  + ${Room.key}}">Chỉnh sửa</a></td>
                     </tr>
                 </th:block>
@@ -364,4 +364,17 @@
     
     
 </body>
+<script>
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Lặp qua tất cả các phần tử có class "formatted-number" và định dạng số
+    var elements = document.getElementsByClassName('formatted-number');
+    for (var i = 0; i < elements.length; i++) {
+        var number = parseFloat(elements[i].innerText);
+        var formattedNumber = formatNumberWithCommas(number);
+        elements[i].innerText = formattedNumber;
+    }
+</script>
 </html>

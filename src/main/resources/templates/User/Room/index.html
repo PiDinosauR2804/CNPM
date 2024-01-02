@@ -240,14 +240,14 @@
                     <th>Năm</th>
                     <th>Tháng</th>
                     <th>Số Phòng</th>
-                    <th>Tiền Phòng Đã Đóng</th>
-                    <th>Tiền Phòng Cần Phải Đóng</th>
-                    <th>Tiền Nước Đã Đóng</th>
-                    <th>Tiền Nước Cần Phải Đóng</th>
-                    <th>Tiền Điện Đã Đóng</th>
-                    <th>Tiền Điện Cần Phải Đóng</th>
-                    <th>Tiền Gửi Xe Đã Đóng</th>
-                    <th>Tiền Gửi Xe Cần Phải Đóng</th>
+                    <th>Tiền Phòng Đã Đóng (VNĐ)</th>
+                    <th>Tiền Phòng Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Nước Đã Đóng (VNĐ)</th>
+                    <th>Tiền Nước Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Điện Đã Đóng (VNĐ)</th>
+                    <th>Tiền Điện Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Gửi Xe Đã Đóng (VNĐ)</th>
+                    <th>Tiền Gửi Xe Cần Phải Đóng (VNĐ)</th>
                 </thead>
                 <tbody>
                     <th:block th:each="Fee : ${listFees}">
@@ -255,14 +255,14 @@
                             <td th:text="${Fee.year}"></td>
                             <td th:text="${Fee.month}"></td>
                             <td th:text="${Fee.room.noRoom}"></td>
-                            <td th:text="${Fee.roomFeePaid}"></td>
-                            <td th:text="${Fee.room.defaultFeeRoom}"></td>
-                            <td th:text="${Fee.roomFeePaid}"></td>
-                            <td th:text="${Fee.waterFee}"></td>
-                            <td th:text="${Fee.electricFeePaid}"></td>
-                            <td th:text="${Fee.electricFee}"></td>
-                            <td th:text="${Fee.parkingFeePaid}"></td>
-                            <td th:text="${Fee.room.defaultParkingFee}"></td>
+                            <td th:text="${Fee.roomFeePaid}" class="formatted-number"></td>
+                            <td th:text="${Fee.room.defaultFeeRoom}" class="formatted-number"></td>
+                            <td th:text="${Fee.roomFeePaid}" class="formatted-number"></td>
+                            <td th:text="${Fee.waterFee}" class="formatted-number"></td>
+                            <td th:text="${Fee.electricFeePaid}" class="formatted-number"></td>
+                            <td th:text="${Fee.electricFee}" class="formatted-number"></td>
+                            <td th:text="${Fee.parkingFeePaid}" class="formatted-number"></td>
+                            <td th:text="${Fee.room.defaultParkingFee}" class="formatted-number"></td>
                         </tr>
                     </th:block>
                 </tbody>
@@ -277,7 +277,7 @@
                     <th>Số Phòng</th>
                     <th>Năm</th>
                     <th>Tháng</th>
-                    <th>Số Tiền</th>
+                    <th>Số Tiền (VNĐ)</th>
                     <th>Loại Phí</th>
                 </thead>
                 <tbody>
@@ -286,7 +286,7 @@
                             <td th:text="${Fee.room.noRoom}"></td>
                             <td th:text="${Fee.year}"></td>
                             <td th:text="${Fee.month}"></td>
-                            <td th:text="${Fee.amount}"></td>
+                            <td th:text="${Fee.amount}" class="formatted-number"></td>
                             <td th:text="${Fee.type}"></td>
                         </tr>
                     </th:block>
@@ -295,5 +295,17 @@
         </div>
     </div>
 </body>
+<script>
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
+    // Lặp qua tất cả các phần tử có class "formatted-number" và định dạng số
+    var elements = document.getElementsByClassName('formatted-number');
+    for (var i = 0; i < elements.length; i++) {
+        var number = parseFloat(elements[i].innerText);
+        var formattedNumber = formatNumberWithCommas(number);
+        elements[i].innerText = formattedNumber;
+    }
+</script>
 </html>

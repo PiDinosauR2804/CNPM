@@ -194,7 +194,7 @@
                     <option th:each="typeDo : ${list}" th:value="${typeDo.idMoney} + 20" th:text="${typeDo.type}"></option>
                 </select>
 
-                <label for="contentChanged">Số Tiền</label>
+                <label for="contentChanged">Số Tiền (VNĐ)</label>
                 <input type="text" id="contentChanged" th:field="*{contentChanged}" required />
 
                 <button type="submit">Lưu</button>

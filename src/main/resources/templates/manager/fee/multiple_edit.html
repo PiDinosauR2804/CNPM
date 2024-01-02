@@ -274,14 +274,14 @@
                     <th>Năm</th>
                     <th>Tháng</th>
                     <th>Số Phòng</th>
-                    <th>Tiền Phòng Đã Đóng</th>
-                    <th>Tiền Phòng Cần Phải Đóng</th>
-                    <th>Tiền Nước Đã Đóng</th>
-                    <th>Tiền Nước Cần Phải Đóng</th>
-                    <th>Tiền Điện Đã Đóng</th>
-                    <th>Tiền Điện Cần Phải Đóng</th>
-                    <th>Tiền Gửi Xe Đã Đóng</th>
-                    <th>Tiền Gửi Xe Cần Phải Đóng</th>
+                    <th>Tiền Phòng Đã Đóng (VNĐ)</th>
+                    <th>Tiền Phòng Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Nước Đã Đóng (VNĐ)</th>
+                    <th>Tiền Nước Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Điện Đã Đóng (VNĐ)</th>
+                    <th>Tiền Điện Cần Phải Đóng (VNĐ)</th>
+                    <th>Tiền Gửi Xe Đã Đóng (VNĐ)</th>
+                    <th>Tiền Gửi Xe Cần Phải Đóng (VNĐ)</th>
                 </thead>
                 <tbody>
                     <th:block th:each="Fee, rowStat : ${listFees}">
@@ -290,7 +290,7 @@
                             <td><input th:type="${Fee.month}" th:value="${Fee.month}" name="month" readonly></td>
                             <td><input th:type="${Fee.room.noRoom}" th:value="${Fee.room.noRoom}" name="noRooms" readonly></td>
                             <td><input th:type="${Fee.roomFeePaid}" th:value="${Fee.roomFeePaid}" name="roomFeePaids"></td>
-                            <td><input th:type="${Fee.DefaultFeeRoom}" th:value="${Fee.DefaultFeeRoom}" name="roomFees" readonly></td>
+                            <td><input th:type="${Fee.DefaultFeeRoom}" th:value="${Fee.DefaultFeeRoom}" name="roomFees"></td>
                             <td><input th:type="${Fee.waterFeePaid}" th:value="${Fee.waterFeePaid}" name="waterFeePaids"></td>
                             <td><input th:type="${Fee.waterFee}" th:value="${Fee.waterFee}" name="waterFees"></td>
                             <td><input th:type="${Fee.electricFeePaid}" th:value="${Fee.electricFeePaid}" name="electricFeePaids"></td>
