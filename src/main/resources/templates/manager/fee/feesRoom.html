@@ -59,7 +59,12 @@
         }
 
         a {
-            color: #2b589f;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        a:hover{
+            color: white;
             text-decoration: none;
         }
         h2 {
@@ -137,7 +142,7 @@
             box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         th,
@@ -336,10 +341,9 @@
                 </th:block>
             </tbody>
         </table>
-        <div style="display: inline-block; margin-right: 10px;">
-            <a th:href="@{/manager/room/{noRoom}(noRoom=${roomNumber})}" class="button">Quay lại</a>
+
+        <button><a th:href="@{/manager/room/{noRoom}(noRoom=${roomNumber})}">Quay lại</a></button>
         </div>
-    </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var badgeCount = document.getElementById("badgeCount").textContent;

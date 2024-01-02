@@ -202,36 +202,36 @@
             <h2>Thêm Người Dân Tạm Trú</h2>
             <form th:action="@{/manager/temporary_resident/save}" th:object="${TemporaryResident}" method="post" style="display: block;">
                 <div>
-                    <label for="name">Tên:</label>
+                    <label for="name">Tên</label>
                     <input type="text" id="name" th:field="*{name}" required>
                 </div>
             
                 <div>
-                    <label for="id">CCCD:</label>
+                    <label for="id">CCCD</label>
                     <input type="text" id="id" th:field="*{id}" required>
                 </div>
             
                 <div>
-                    <label for="noRoom">Số Phòng:</label>
+                    <label for="noRoom">Số Phòng</label>
                     <input type="text" id="noRoom" th:field="*{noRoom}" required>
                 </div>
             
                 <div>
-                    <label for="keyRoom">Mã Phòng:</label>
+                    <label for="keyRoom">Mã Phòng</label>
                     <input type="text" id="keyRoom" th:field="*{keyRoom}" required>
                 </div>
             
                 <div>
-                    <label for="dayIn">Ngày Vào:</label>
+                    <label for="dayIn">Ngày chuyển tới</label>
                     <input type="date" id="dayIn" th:field="*{dayIn}" required>
                 </div>
             
                 <div>
-                    <label for="dayOut">Ngày Ra:</label>
+                    <label for="dayOut">Ngày chuyển đi</label>
                     <input type="date" id="dayOut" th:field="*{dayOut}" required>
                 </div>
             
-                <div>
+                <div style="text-align: center;">
                     <button type="submit">Lưu</button>
                 </div>
             </form>

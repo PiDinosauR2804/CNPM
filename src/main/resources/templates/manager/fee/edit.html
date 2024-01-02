@@ -90,7 +90,7 @@
 
         input {
             flex: 2;
-            width: 250px;
+            width: 100%;
             margin: auto;
             padding: 8px;
             border: 1px solid #ddd;
@@ -268,37 +268,33 @@
     <div class = "content">
         <div class="navbar1">
             <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
-            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
-            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
-            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
             <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
             <a th:href="@{/manager/history/fee/index}">Lịch Sử Phí Bắt Buộc</a>
         </div>
         <div class="container">
-            <h2>Chỉnh sửa chi phí</h2>
-            <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post">
-                <h2 style="text-align: center;color: #102a76; margin-bottom: 20px;">Chỉnh sửa các khoản phí</h2>
+            <form th:action="@{'/manager/fee/save/' + ${fee.no}}" th:object="${fee}" method="post" style="display: block;">
+                <h2 style="text-align: center; color: #102a76; margin-bottom: 20px;">Chỉnh sửa các khoản phí</h2>
                 <div class="room-info">
                     <label>Phòng số:</label>
                     <label th:text="${fee.noRoom}"></label>
                 </div>
 
-                <div>
                     <label>Tháng:</label>
+                <div>
                     <input type="text" th:field="*{month}" required />
                 </div>
-                <div>
                     <label>Năm:</label>
+                <div>
                     <input type="text" th:field="*{year}" required />
                 </div>
 
-                <div>
                     <label>Tiền nước:</label>
+                <div>
                     <input type="text" th:field="*{waterFee}" required />
                 </div>
 
-                <div>
                     <label>Tiền điện:</label>
+                <div>
                     <input type="text" th:field="*{electricFee}" required />
                 </div>
                     <button type="submit">Lưu</button>

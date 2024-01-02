@@ -17,6 +17,10 @@ import com.example.project1.entity.Request;
 import com.example.project1.entity.TemporaryResident;
 import com.example.project1.service.serviceTemp;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+
+
 @Controller
 public class ManagerTemporaryResident {
 	@Autowired
@@ -31,11 +35,21 @@ public class ManagerTemporaryResident {
 	private AddResidentRequestRepository AddResidentRequestRepo;
 	//Xem tất cả bảng tạm trú, tìm kiếm được theo tên hoặc id, hoặc tìm kiếm được cả trong 1 khoảng tg
 	@GetMapping ("/manager/temporary_resident/index")
-	public String index(Model model,
+	public String index(Model model, HttpServletRequest request,
 	                   @RequestParam(name = "keyword", required = false) String keyword,
 	                   @RequestParam(name = "startDate", required = false) String startDate,
 	                   @RequestParam(name = "endDate", required = false) String endDate,
 	                   @RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+		boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
 		java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -59,7 +73,17 @@ public class ManagerTemporaryResident {
 
     //Thêm người vào tạm trú
 	@GetMapping("/manager/temporary_resident/create")
-    public String create(Model model) {
+    public String create(Model model, HttpServletRequest request) {
+		boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
 		java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;

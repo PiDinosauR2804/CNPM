@@ -87,9 +87,11 @@
         }
 
         input {
+            width: 100%;
             flex: 2;
             border: 1px solid #ddd;
             border-radius: 5px;
+            margin-bottom: 5px;
         }
 
         button {
@@ -132,7 +134,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -187,7 +189,7 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            max-width: 450px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -241,6 +243,13 @@
             }
         }
 
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -262,10 +271,10 @@
             <a th:href="@{/manager/history/resident/index}" onclick="showTab('x2')">Lịch sử quản lý cư dân</a>
         </div>
         <div class="container">
-            <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post">
+            <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post" style="display: block;">
                 <h2 style="text-align: center; color:#2879b3; margin-bottom: 20px;">Chỉnh sửa thông tin cư dân</h2>
-                <label style="width: auto;">ID:</label>
-                <td th:text="${Resident.idRes}"></td><br>
+                <label style="width: auto;">CCCD: </label>
+                <input type="text" name="id" th:field="*{idRes}" required /><br>
                 <label>Họ và tên</label>
                 <input type="text" name="name" th:field="*{name}" required /><br>
                 <label>Giới tính</label>
@@ -274,7 +283,7 @@
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select><br>
-                <label style="width: auto; margin-right: 10px;">Ngày sinh: </label><td th:text="${Resident.birthDate}"></td>
+                <label style="width: auto; margin-right: 10px;">Ngày sinh: </label>
                 <input type="date" name="birthDate" th:field="*{birthDate}" required /><br>
 
                 <label>Nơi sinh</label>

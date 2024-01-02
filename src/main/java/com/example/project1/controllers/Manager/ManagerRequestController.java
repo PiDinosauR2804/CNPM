@@ -29,6 +29,10 @@ import com.example.project1.entity.TypeDonation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
+
 @Controller
 public class ManagerRequestController {
     @Autowired
@@ -53,7 +57,17 @@ public class ManagerRequestController {
     AddResidentRequestRepository AddResidentRequestRepo;
 
     @GetMapping("/manager/request/change_information/index")
-    public String change_info_index(Model model) {
+    public String change_info_index(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -181,7 +195,17 @@ public class ManagerRequestController {
     }
     
     @GetMapping("/manager/request/change_information/history")
-    public String change_info_history(Model model) {
+    public String change_info_history(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -200,7 +224,17 @@ public class ManagerRequestController {
     }
 
     @GetMapping("/manager/request/add_resident/index")
-    public String add_resident_index(Model model) {
+    public String add_resident_index(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -250,7 +284,17 @@ public class ManagerRequestController {
     }
 
     @GetMapping("/manager/request/add_resident/history")
-    public String add_resident_history(Model model) {
+    public String add_resident_history(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;

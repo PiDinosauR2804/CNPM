@@ -39,6 +39,7 @@ import com.example.project1.service.serviceMandatoryFee;
 import com.example.project1.service.serviceMandatoryFeeHistory;
 import com.example.project1.service.serviceTypeFee;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,8 +84,18 @@ public class ManagerFeeController {
     // Mandatory Fee
 
     @GetMapping("/manager/fee/index")
-    public String index(@RequestParam(required = false) String keyword, Model model,
+    public String index(@RequestParam(required = false) String keyword, Model model, HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         Page<MandatoryFee> listFees = this.serviceMF.listAll(keyword, pageNo);
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
@@ -129,7 +140,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/room/{roomNumber}/fees")
-    public String detail(@PathVariable int roomNumber, Model model) {
+    public String detail(@PathVariable int roomNumber, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -154,7 +175,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/fee/edit/{no}")
-    public String edit(@PathVariable int no, Model model) {
+    public String edit(@PathVariable int no, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -200,7 +231,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/fee/mandatory/multiple_edit")
-    public String multipleEditMandatoryFee(Model model) {
+    public String multipleEditMandatoryFee(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -253,8 +294,18 @@ public class ManagerFeeController {
 
     // Donation Fee
     @GetMapping("/manager/fee/donation/index")
-    public String donation_index(@RequestParam(required = false) String keyword, Model model,
+    public String donation_index(@RequestParam(required = false) String keyword, Model model, HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int numNoti = listRequest1.size() + listRequest2.size();
@@ -267,7 +318,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/fee/donation/edit/{no}")
-    public String editDonation(@PathVariable int no, Model model) {
+    public String editDonation(@PathVariable int no, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -303,8 +364,18 @@ public class ManagerFeeController {
     // Type Donation
 
     @GetMapping("/manager/fee/donation/type")
-    public String donation_type_index(@RequestParam(required = false) String keyword, Model model,
+    public String donation_type_index(@RequestParam(required = false) String keyword, Model model, HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int numNoti = listRequest1.size() + listRequest2.size();
@@ -331,7 +402,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/fee/donation/type/create")
-    public String createType(Model model) {
+    public String createType(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -360,7 +441,17 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/fee/donation/type/edit/{no}")
-    public String editTypeDonation(@PathVariable int no, Model model) {
+    public String editTypeDonation(@PathVariable int no, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -394,8 +485,18 @@ public class ManagerFeeController {
     // History Fee
 
     @GetMapping("/manager/history/fee/index")
-    public String his_mdt_index(@RequestParam(required = false) String keyword, Model model,
+    public String his_mdt_index(@RequestParam(required = false) String keyword, Model model, HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;
@@ -421,8 +522,18 @@ public class ManagerFeeController {
     }
 
     @GetMapping("/manager/history/fee/donation/index")
-    public String his_dnt_index(@RequestParam(required = false) String keyword, Model model,
+    public String his_dnt_index(@RequestParam(required = false) String keyword, Model model, HttpServletRequest request,
             @RequestParam(defaultValue = "1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
         java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
         int num1 = 0;

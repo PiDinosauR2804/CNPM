@@ -33,6 +33,10 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.Room;
 import com.example.project1.service.serviceRoom;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+
+
 @Controller
 public class ManageSigninController {
     @Autowired

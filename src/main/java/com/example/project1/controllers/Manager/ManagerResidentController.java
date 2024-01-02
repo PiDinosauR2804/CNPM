@@ -29,6 +29,10 @@ import com.example.project1.entity.RoomHistory;
 import com.example.project1.service.serviceHistoryResident;
 import com.example.project1.service.serviceResident;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
+
 @Controller
 public class ManagerResidentController {
     @Autowired
@@ -55,8 +59,18 @@ public class ManagerResidentController {
     public int roomNumber = 0;
 
     @GetMapping ("/manager/resident/index")
-    public String index(Model model, @RequestParam(required = false) String keyword,
+    public String index(Model model, @RequestParam(required = false) String keyword, HttpServletRequest request,
     		@RequestParam(defaultValue ="1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -78,7 +92,17 @@ public class ManagerResidentController {
     }
 
     @GetMapping("/manager/resident/create_in_index")
-    public String addResident(Model model) {
+    public String addResident(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -109,7 +133,17 @@ public class ManagerResidentController {
     }    
 
     @GetMapping("/manager/resident/edit/{id}")
-    public String changeInfo(@PathVariable String id, Model model) {
+    public String changeInfo(@PathVariable String id, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -152,7 +186,17 @@ public class ManagerResidentController {
     }
 
     @GetMapping("/manager/room/{noRoom}")
-    public String viewRoomDetails(@PathVariable String noRoom, Model model) {
+    public String viewRoomDetails(@PathVariable String noRoom, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -175,7 +219,17 @@ public class ManagerResidentController {
     }
 
     @GetMapping("/manager/room/{roomNumber}/addresident")
-    public String viewRoomDetails(@PathVariable int roomNumber, Model model) {
+    public String viewRoomDetails(@PathVariable int roomNumber, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -211,11 +265,21 @@ public class ManagerResidentController {
     // Resident History
 
     @GetMapping ("/manager/history/resident/index")
-    public String his_ndex(Model model,
+    public String his_ndex(Model model, HttpServletRequest request,
   	                   @RequestParam(required = false) String keyword,
   	                   @RequestParam(required = false) String startDate,
   	                   @RequestParam(required = false) String endDate,
   	                   @RequestParam(defaultValue ="1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;

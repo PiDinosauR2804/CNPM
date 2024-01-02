@@ -31,6 +31,10 @@ import com.example.project1.entity.RoomHistory;
 import com.example.project1.service.serviceHistoryRoom;
 import com.example.project1.service.serviceRoom;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Cookie;
+
+
 
 @Controller
 public class ManagerRoomController {
@@ -57,8 +61,18 @@ public class ManagerRoomController {
     
     @GetMapping("/manager/index")
     //tìm kiếm theo keyword là 1 string
-    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword,
+    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword, HttpServletRequest request,
     		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
         Page <Room> listRoom = this.service.listAll(keyword,pageNo);
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
@@ -85,7 +99,17 @@ public class ManagerRoomController {
     // }
     
     @GetMapping("/manager/createRoom")
-    public String create(Model model) {
+    public String create(Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -103,7 +127,17 @@ public class ManagerRoomController {
     }
 
     @GetMapping("/manager/room/edit/{key}")
-    public String edit(@PathVariable String key, Model model) {
+    public String edit(@PathVariable String key, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -123,7 +157,17 @@ public class ManagerRoomController {
     }
 
     @PostMapping("/manager/room/update/{key}")
-    public String update(@PathVariable String key, @ModelAttribute Room room, Model model) {
+    public String update(@PathVariable String key, @ModelAttribute Room room, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         Room a = RoomRepo.findByKey(key).get(0);
         a.setNoRoom(room.getNoRoom());
         a.setNumberPhoneOwner(room.getNumberPhoneOwner());
@@ -172,11 +216,21 @@ public class ManagerRoomController {
     // Room History
 
     @GetMapping("/manager/history/room/index")
-    public String his_index(Model model,
+    public String his_index(Model model, HttpServletRequest request,
 	                   @RequestParam(required = false) String keyword,
 	                   @RequestParam(required = false) String startDate,
 	                   @RequestParam(required = false) String endDate,
 	                   @RequestParam(defaultValue ="1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
 	    Page<RoomHistory> listRoomHistory = this.serviceHR.listAll(keyword, startDate, endDate, pageNo);
 	    model.addAttribute("keyword",keyword);
 	    model.addAttribute("startDate",startDate);
@@ -200,7 +254,17 @@ public class ManagerRoomController {
 	}
 
     @GetMapping("/manager/history/room/detail/{key}")
-    public String his_detail(@PathVariable String key ,Model model) {
+    public String his_detail(@PathVariable String key ,Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         RoomHistory room = RoomHistoryRepo.findByKey(key).get(0);
         List<ResidentHistory> residents = room.getResidents();
         model.addAttribute("room", room);
@@ -257,7 +321,17 @@ public class ManagerRoomController {
     }
 
     @GetMapping("/manager/history/room/full_detail/{key}")
-    public String history_detail_room(@PathVariable("key") String key, Model model) {
+    public String history_detail_room(@PathVariable("key") String key, Model model, HttpServletRequest request) {
+        boolean flag1 = false;
+		Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+					flag1 = true;
+                }
+            }
+        }
+		if (!flag1) return "404";
         List<RoomHistory> rooms = RoomHistoryRepo.findByKey(key);
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();

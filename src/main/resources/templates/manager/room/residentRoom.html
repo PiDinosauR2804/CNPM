@@ -58,12 +58,17 @@
         }
 
         a {
-            color: #2b589f;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        a:hover{
+            color: white;
             text-decoration: none;
         }
         h2 {
             color: #2b589f;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
         }
 
         form {
@@ -94,6 +99,7 @@
         }
 
         button {
+            margin-top: 10px;
             background-color: #2b589f;
             color: white;
             padding: 10px 15px;
@@ -104,6 +110,7 @@
         }
 
         button:hover {
+            color: white;
             background-color: #2879b3;
         }
 
@@ -136,6 +143,16 @@
             box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
             overflow: hidden;
+        }
+
+        table a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            color: #2b589f;
+            text-decoration: none;
         }
 
         th,
@@ -183,6 +200,7 @@
         }
 
         .suggestion-link:hover {
+            color: white;
             background-color: #2980b9;
         }
 
@@ -264,7 +282,7 @@
             <a th:href="@{/manager/history/room/index}" onclick="showTab('x3')">Lịch sử</a>
         </div>
         <h2>Chi tiết phòng số <span th:text="${noRoom}"></span></h2>
-        <a th:href="@{/manager/room/{noRoom}/fees(noRoom=${noRoom})}" class="button">Thông tin chi phí</a>
+        <button><a th:href="@{/manager/room/{noRoom}/fees(noRoom=${noRoom})}">Thông tin chi phí</a></button>
         <table>
             <thead>
                 <th>Số phòng</th>
@@ -340,9 +358,7 @@
                 </th:block>
             </tbody>
         </table>
-        <div style="display: inline-block; margin-right: 10px;">
-            <a th:href="@{/manager/index}" class="button">Quay lại</a>
-        </div>
+        <button><a th:href="@{/manager/index}">Quay lại</a></button>
     </div>
     
     <script>
