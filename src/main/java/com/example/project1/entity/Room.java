@@ -35,12 +35,12 @@ public class Room {
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     // MapopedBy trỏ tới tên biến Address ở trong Person.
-    private List<DonationFee> donatioFees;
+    private List<DonationFee> donationFees;
 
     public Room() {
         this.residents = new ArrayList<Resident>();
         this.mandatoryFees = new ArrayList<MandatoryFee>();
-        this.donatioFees = new ArrayList<DonationFee>();
+        this.donationFees = new ArrayList<DonationFee>();
     }
 
     // Constructor với tham số
@@ -53,7 +53,7 @@ public class Room {
         this.defaultParkingFee = defaultParkingFee;
         this.residents = new ArrayList<Resident>();
         this.mandatoryFees = new ArrayList<MandatoryFee>();
-        this.donatioFees = new ArrayList<DonationFee>();
+        this.donationFees = new ArrayList<DonationFee>();
     }
 
     public void addResident(Resident resident) {
@@ -69,7 +69,7 @@ public class Room {
     }
 
     public void addDonationFee(DonationFee fee) {
-        donatioFees.add(fee);
+        donationFees.add(fee);
     }
 
     public List<Resident> getResidents(){
@@ -81,7 +81,7 @@ public class Room {
     }
 
     public List<DonationFee> getDonationFees(){
-        return donatioFees;
+        return donationFees;
     }
 
     public void generateKey() {
@@ -124,7 +124,6 @@ public class Room {
     public void setNumberPhoneOwner(String numberPhoneOwner) {
         this.numberPhoneOwner = numberPhoneOwner;
     }
-
 
     public String getKey() {
         return key;

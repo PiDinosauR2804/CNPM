@@ -191,7 +191,7 @@
         </div>
         <div class ="container">
             <h2>Thêm phòng</h2>
-            <form th:action ="@{/manager/room/create}" th:object="${room}" style="display: block;" method ="post">
+            <form th:action ="@{/manager/room/save}" th:object="${room}" style="display: block;" method ="post">
                 <div>
                 <label for="noRoom">Số phòng</label>
                 <input type="text" id="noRoom" th:field="*{noRoom}" required>

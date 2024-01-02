@@ -2,8 +2,6 @@ package com.example.project1.controllers.Manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -153,13 +151,13 @@ public class ManagerRoomController {
         return "manager/room/residentRoom";
     }
 
-    @PostMapping("/manager/save")
-    public String save(Room room) {
-        Room save = RoomRepo.save(room);
-        save.generateKey();
-        RoomRepo.save(save);
+    @PostMapping("/manager/room/save")
+    public String save(@ModelAttribute Room room) {
+        Room new_room = RoomRepo.save(room);
+        new_room.generateKey();
+        RoomRepo.save(new_room);
 
-        saveRoomInHistory(save);
+        saveRoomInHistory(new_room);
 
         return "redirect:/manager/index";
     }

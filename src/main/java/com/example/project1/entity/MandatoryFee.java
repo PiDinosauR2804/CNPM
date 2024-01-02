@@ -24,14 +24,8 @@ public class MandatoryFee {
     private int electricFeePaid;
     private int parkingFeePaid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
-    // @JoinColumns({
-    //     @JoinColumn(name = "defaultParkingFee", referencedColumnName = "defaultParkingFee", updatable = true),
-    //     @JoinColumn(name = "defaultFeeRoom", referencedColumnName = "defaultFeeRoom", updatable = true),
-    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
-    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
-    // })
+    @ManyToOne
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private Room room;
     
     public MandatoryFee() {};

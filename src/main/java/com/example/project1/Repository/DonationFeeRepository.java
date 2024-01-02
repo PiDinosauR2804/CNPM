@@ -21,8 +21,8 @@ public interface DonationFeeRepository extends JpaRepository<DonationFee, Intege
     @Query("SELECT r FROM DonationFee r WHERE r.room.noRoom = :noRoom AND r.typeDonation.type LIKE :type")
     List<DonationFee> findByRoomAndByType(@Param("noRoom") int noRoom, @Param("type") String type);
 
-    @Query("SELECT r FROM DonationFee r WHERE r.typeDonation.id = :id")
-    List<DonationFee> findByNo(@Param("id") int id);
+    @Query("SELECT r FROM DonationFee r WHERE r.no = :no")
+    List<DonationFee> findByNo(@Param("no") int no);
 
     @Query("SELECT d FROM DonationFee d JOIN FETCH d.typeDonation t JOIN FETCH d.room r WHERE CONCAT(d.month, d.year, d.amount, t.type, r.noRoom) LIKE %:keyword%")
     Page<DonationFee> findAll(@Param("keyword") String keyword, Pageable pageable);

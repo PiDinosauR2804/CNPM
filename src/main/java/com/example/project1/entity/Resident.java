@@ -23,13 +23,8 @@ public class Resident {
     private String phoneNumber;
     private String relationshipWithOwner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
-    // @JoinColumns({
-    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
-    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
-    //     @JoinColumn(name = "idOwner", referencedColumnName = "idOwner", updatable = true)
-    // })
+    @ManyToOne
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private Room room;
 
 

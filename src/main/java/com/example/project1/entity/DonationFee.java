@@ -5,9 +5,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;import jakarta.persistence.ManyToOne;
 
 @Entity
 public class DonationFee {
@@ -19,12 +17,8 @@ public class DonationFee {
 
     private int amount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true)
-    // @JoinColumns({
-    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`", updatable = true),
-    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom", updatable = true),
-    // })
+    @ManyToOne
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private Room room;
 
     @ManyToOne
