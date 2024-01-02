@@ -1,6 +1,6 @@
-<!-- src/main/resources/templates/manager/resident/createDontKnowRoom.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Quản lý cư dân</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -24,8 +24,9 @@
         }
 
         .navbar {
+            overflow: hidden;
             height: 100%;
-            width: 210px;
+            width: 220px;
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
@@ -46,7 +47,7 @@
 
         .navbar a {
             display: block;
-            padding: 5px;
+            padding: 10px;
             text-decoration: none;
             color: white;
             border-radius: 1px;
@@ -58,36 +59,45 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* New styles for the form */
+        a {
+            color: #2b589f;
+            text-decoration: none;
+        }
+
+        h2 {
+            color: #2b589f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
         form {
-            margin: 20px;
+            margin-top: 0px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            text-align: center;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2b589f;
+            margin-right: 0px;
         }
 
-        select {
-            width: 100%;
+        input {
+            flex: 2;
             padding: 10px;
-            box-sizing: border-box;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: medium;
         }
 
         button {
-            width: 100%;
-            padding: 12px;
             background-color: #2b589f;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
-            font-size: medium;
         }
 
         button:hover {
@@ -103,58 +113,43 @@
 
         .container {
             margin: auto;
+            margin-top: 200px;
+            width: 450px;
+            height: 170px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-            max-width: 500px;
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .navbar1 {
-            border-radius: 4px;
-            background-color: #f1f1f1;
-            overflow: hidden;
-            margin-bottom: 50px;
-        }
-
-        .navbar1 a {
-            float: left;
-            display: block;
-            color: #333;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-            border-bottom: 2px solid transparent;
-            position: relative;
-        }
-
-        .navbar1 a:hover {
-            background-color: #ddd;
-        }
-
-        .active::after {
-            content: "";
-            position: absolute;
+        select {
             width: 100%;
-            height: 2px;
-            background-color: #3498db;
-            bottom: 0;
-            left: 0;
-            animation: slideIn 0.5s ease forwards;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
-        @keyframes slideIn {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
+        .create-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .create-btn:hover {
+            background-color: #2879b3;
         }
     </style>
 </head>
+
 <body>
     <div class="navbar">
         <a href="/manager/index"><i class="fas fa-home"></i> Trang chủ</a>
@@ -165,30 +160,26 @@
         <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
         <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân </span></a>
         <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</span></a>
-        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
+        <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text=${numNoti}></span></a>
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
     <div class="content">
-        <div class="navbar1">
-            <a th:href="@{/manager/resident/index}" onclick="showTab('x1')" class="active">Quản lý cư dân</a>
-            <a th:href="@{/manager/history/resident/index}" onclick="showTab('x2')">Lịch sử quản lý cư dân</a>
-        </div>
         <div class="container">
-            <h2 style="text-align: center;">Chọn căn hộ</h2>
+            <h2>Chọn căn hộ</h2>
             <form th:action="@{/manager/resident/redirect/create}" method="post">
-                <div>	
+                <div>
                     <select id="numberRoom" name="numberRoom" required>
-                    <option th:each="room : ${rooms}" th:value="${room.noRoom}" th:text="${room.noRoom + ' - ' + room.nameOwner}"></option>
+                        <option th:each="room : ${rooms}" th:value="${room.noRoom}" th:text="${room.noRoom + ' - ' + room.nameOwner}"></option>
                     </select>
                 </div>
-                <div style="margin-top: 30px;">
-                    <button type="submit">Tiếp theo</button>
+                <div>
+                    <button>Tiếp theo</button>
                 </div>
             </form>
         </div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var badgeCount = document.getElementById("badgeCount").textContent;
             var badgeElement = document.getElementById("badgeCount");
 
@@ -196,7 +187,7 @@
                 badgeElement.textContent = badgeCount;
             } else {
                 badgeElement.style.display = "none";
-            }            
+            }
         });
     </script>
 
@@ -204,4 +195,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -61,7 +61,7 @@
             background: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
             flex-grow: 1;
         }
 
@@ -114,7 +114,10 @@
             border-radius: 4px;
             background-color: #f1f1f1;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {
@@ -154,14 +157,10 @@
         }
 
         .content {
-            height: 50px;
             flex-grow: 1;
             padding: 16px;
             margin-left: 230px;
-            margin-right: 50px;
             position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
     </style>
 </head>
@@ -185,7 +184,7 @@
             <h2>Thay Đổi Thông Tin Phòng</h2>
             <form th:action="@{'/user/request/' + ${key} + '/room_info/save'}" th:object="${request}" method="post">
                 <label for="noRoom">Số Phòng</label>
-                <input type="text" id="noRoom" th:field="*{noRoom}" required />
+                <input type="text" id="noRoom" th:field="*{noRoom}" readonly/>
 
                 <label for="idRequest">Loại Thay Đổi</label>
                 <select id="idRequest" th:field="*{idRequest}" required>

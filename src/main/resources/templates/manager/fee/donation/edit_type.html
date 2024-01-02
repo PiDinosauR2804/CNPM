@@ -23,8 +23,9 @@
         }
 
         .navbar {
+            overflow: hidden;
             height: 100%;
-            width: 210px;
+            width: 220px;
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
@@ -75,21 +76,21 @@
         }
 
         form {
+            margin-top: 20px;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         label {
-            display: block;
-            margin-bottom: 5px;
-            color: #2b589f;
+            margin-right: 0px;
         }
 
         input {
-            width: 100%;
-            padding: 8px;
             margin-bottom: 10px;
-            box-sizing: border-box;
+            flex: 2;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -109,6 +110,7 @@
         }
 
         .content {
+            margin-top: 200px;
             flex-grow: 1;
             padding: 16px;
             margin-left: 230px;
@@ -134,7 +136,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -143,7 +145,7 @@
         td {
             border: 1px solid #ddd;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
@@ -189,19 +191,12 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            width: 250px;
+            height: 200px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 16px;
-            margin-left: 230px;
-            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
         }
 
         .navbar1 {
@@ -209,6 +204,9 @@
             background-color: #f1f1f1;
             overflow: hidden;
             margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {
@@ -262,20 +260,22 @@
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
-    <div class = "container">
-        <form th:action="@{'/manager/fee/donation/type/save/' + ${no}}" th:object="${new_type}" method="post">
-        <div>
+    <div class = "content">
+        <div class = "container">
+            <form th:action="@{'/manager/fee/donation/type/save/' + ${no}}" th:object="${new_type}" method="post">
             <div>
-                <label>Tên Khoản Phí</label>
-            </div>
+                <div>
+                    <label>Tên Khoản Phí</label>
+                </div>
+                <div>
+                    <input type="text" th:field="*{type}" required />
+                </div>
+                <div>
+                    <button type="submit">Lưu</button>
+                </div>
             <div>
-                <input type="text" th:field="*{type}" required />
-            </div>
-            <div>
-                <button type="submit">Lưu</button>
-            </div>
-        <div>
-        </form>
+            </form>
+        </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

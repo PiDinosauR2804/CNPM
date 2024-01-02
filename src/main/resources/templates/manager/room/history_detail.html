@@ -22,8 +22,9 @@
         }
 
         .navbar {
+            overflow: hidden;
             height: 100%;
-            width: 210px;
+            width: 220px;
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
@@ -57,8 +58,22 @@
         }
 
         a {
-            color: #2b589f;
+            color: white;
             text-decoration: none;
+        }
+
+        a button{
+            background-color: #2b589f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        a button:hover {
+            background-color: #2879b3;
         }
         h2 {
             color: #2b589f;
@@ -129,10 +144,10 @@
         }
 
         table {
-            width: 120%;
+            width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -191,7 +206,7 @@
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
             margin-top: 50px;
         }
 
@@ -200,6 +215,9 @@
             background-color: #f1f1f1;
             overflow: hidden;
             margin-bottom: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
+            border-radius: 8px;
+            flex-grow: 1;
         }
 
         .navbar1 a {
@@ -236,17 +254,6 @@
             to {
                 width: 100%;
             }
-        }
-
-        .content {
-            height: 80px;
-            flex-grow: 1;
-            padding: 16px;
-            margin-left: 230px;
-            margin-right: 50px;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
 
     </style>
@@ -393,6 +400,6 @@
         </tbody>
     </table>
     <br>
-    <button th:href="@{/manager/history/room/index}">Quay lại</button>
+    <a th:href="@{/manager/history/room/index}"><button>Quay lại</button></a>
 </body>
 </html>
