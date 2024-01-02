@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -187,7 +188,7 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            max-width: 600px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -263,25 +264,31 @@
             <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
             <a th:href="@{/manager/history/room/index}" onclick="showTab('x4')">Lịch sử</a>
         </div>
-        <h2>Chỉnh sửa thông tin phòng</h2>
+        
         <br>
 
         <form th:action="@{'/manager/room/update/' + ${key}}" th:object="${room}" method="post">
         <div class ="container">
-            <label>Số phòng</label>
-            <input type="text" th:value="${noRoom}" th:field="*{noRoom}" required />
-            <label>CCCD Chủ hộ</label>
-            <input type="text" th:field="*{idOwner}" required />
-            <label>Tên chủ hộ</label>
-            <input type="text" th:field="*{nameOwner}" required />
-            <label>Số điện thoại chủ hộ</label>
-            <input type="text" th:field="*{numberPhoneOwner}" required />
-            <label>Tiền phòng</label>
-            <input type="text" th:field="*{defaultFeeRoom}" required />
-            <label>Tiền gửi xe</label>
+            <h2 style="text-align: center;">Chỉnh sửa thông tin phòng</h2>
+            <label>Số phòng</label><br>
+            <input type="text" th:value="${noRoom}" th:field="*{noRoom}" required /><br>
+            <label>CCCD Chủ hộ</label><br>
+            <input type="text" th:field="*{idOwner}" required /><br>
+            <label>Tên chủ hộ</label><br>
+            <input type="text" th:field="*{nameOwner}" required /><br>
+            <label>Số điện thoại chủ hộ</label><br>
+            <input type="text" th:field="*{numberPhoneOwner}" required /><br>
+            <label>Tiền phòng</label><br>
+            <input type="text" th:field="*{defaultFeeRoom}" required /><br>
+            <label>Tiền gửi xe</label><br>
             <input type="text" th:field="*{defaultParkingFee}" required />
-            <button type="submit">Lưu</button>
-            <button th:href="@{/manager/index}">Quay lại</button>
+            <br>
+            <br>
+            <div class="button-container">
+                <button type="submit">Lưu</button>
+                <button th:href="@{/manager/index}">Quay lại</button>
+            </div>
+
         </div>
         </form>
     </div>

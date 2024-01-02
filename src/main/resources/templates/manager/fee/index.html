@@ -107,6 +107,23 @@
         button:hover {
             background-color: #2879b3;
         }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2b589f;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px; /* Add some spacing between buttons */
+        }
+
+        .button:hover {
+            background-color: #2879b3;
+        }
+
 
         .content {
             flex-grow: 1;
@@ -262,9 +279,6 @@
     <div class="content">
         <div class="navbar1">
             <a th:href="@{/manager/fee/index}" class = "active">Phí Bắt Buộc</a>
-            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
-            <a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
-            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
             <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
             <a th:href="@{/manager/history/fee/index}">Lịch Sử Phí Bắt Buộc</a>
         </div>
@@ -278,6 +292,12 @@
                 <button type="submit">Tìm Kiếm</button>
             </form>
         </div>
+        <div>
+            <a class="button" th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
+            <a class="button" th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a>
+            <a class="button" th:href="@{/manager/fee/update}">Cập Nhật</a>
+        </div>
+        
         <table>
             <thead>
                 <th>Năm</th>

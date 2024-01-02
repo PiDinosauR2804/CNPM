@@ -102,6 +102,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s ease;
+            margin-top: 20px;
         }
 
         button:hover {
@@ -149,6 +150,7 @@
         th {
             background-color: #2b589f;
             color: white;
+            text-align: center;
         }
 
         .pagination {
@@ -261,10 +263,7 @@
 
     <div class = "content">
         <div class="navbar1">
-            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
-            <a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a>
-            <a th:href="@{/manager/fee/mandatory/multiple_edit}" class = "active">Sửa Tất Cả</a>
-            <a th:href="@{/manager/fee/update}" >Cập Nhật</a>
+            <a th:href="@{/manager/fee/index}" class="active">Phí Bắt Buộc</a>
             <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
             <a th:href="@{/manager/history/fee/index}">Lịch Sử Phí Bắt Buộc</a>
         </div>
@@ -272,7 +271,9 @@
         <form th:action="@{/manager/fee/mandatory/saveAll}" method="post">
             <table>
                 <thead>
-                    <th>Mã Phòng</th>
+                    <th>Năm</th>
+                    <th>Tháng</th>
+                    <th>Số Phòng</th>
                     <th>Tiền Phòng Đã Đóng</th>
                     <th>Tiền Phòng Cần Phải Đóng</th>
                     <th>Tiền Nước Đã Đóng</th>
@@ -285,6 +286,8 @@
                 <tbody>
                     <th:block th:each="Fee, rowStat : ${listFees}">
                         <tr>
+                            <td><input th:type="${Fee.year}" th:value="${Fee.year}" name="year" readonly></td>
+                            <td><input th:type="${Fee.month}" th:value="${Fee.month}" name="month" readonly></td>
                             <td><input th:type="${Fee.room.noRoom}" th:value="${Fee.room.noRoom}" name="noRooms" readonly></td>
                             <td><input th:type="${Fee.roomFeePaid}" th:value="${Fee.roomFeePaid}" name="roomFeePaids"></td>
                             <td><input th:type="${Fee.DefaultFeeRoom}" th:value="${Fee.DefaultFeeRoom}" name="roomFees" readonly></td>

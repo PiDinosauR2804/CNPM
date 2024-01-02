@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -89,7 +88,6 @@
 
         input {
             flex: 2;
-            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -265,6 +263,7 @@
         </div>
         <div class="container">
             <form th:action="@{/manager/changeInfo/{id}/save(id=${id})}" th:object="${Resident}" method="post">
+                <h2 style="text-align: center; color:#2879b3; margin-bottom: 20px;">Chỉnh sửa thông tin cư dân</h2>
                 <label style="width: auto;">ID:</label>
                 <td th:text="${Resident.idRes}"></td><br>
                 <label>Họ và tên</label>
@@ -283,20 +282,17 @@
 
                 <label>Nghề nghiệp</label>
                 <input type="text" name="job" th:field="*{job}" required /><br>
-
                 <label>Số điện thoại</label>
                 <input type="tel" name="phoneNumber" th:field="*{phoneNumber}" required /><br>
 
                 <label style="margin-top: 5px;">Quan hệ với chủ hộ</label>
                 <input type="text" name="relationshipWithOwner" th:field="*{relationshipWithOwner}" required style="margin-top: -5px;"/>
-                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="submit" onclick="updateAndGoBack()">Lưu</button>
+                </div>
             </form>
-            <div style="text-align: center;">
-                <button onclick="updateAndGoBack()">Lưu & Quay lại</button>
-            </div>
             
         </div>
-        
         <script>
             function updateField(field) {
                 var otherFields = fieldsToUpdate.filter(function (otherField) {
@@ -337,6 +333,7 @@
                     badgeElement.style.display = "none";
                 }            
             });
+
         </script>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
