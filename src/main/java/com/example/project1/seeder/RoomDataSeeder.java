@@ -170,6 +170,10 @@ public class RoomDataSeeder implements CommandLineRunner {
 
         
         MandatoryFee a_fee = new MandatoryFee(12, 2023, 1000000, 1000000);
+        a_fee.setElectricFeePaid(1000000);
+        a_fee.setParkingFeePaid(200000);
+        a_fee.setRoomFeePaid(1000000);
+        a_fee.setWaterFeePaid(1000000);
         a.addMandatoryFee(a_fee);
         a_fee.setRoom(a);
         RoomRepo.save(a);
@@ -322,7 +326,11 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(resident4);
 
         // MandatoryFee 4
-        MandatoryFee a_fee4 = new MandatoryFee(6, 2023, 800000, 800000);
+        MandatoryFee a_fee4 = new MandatoryFee(12, 2023, 800000, 800000);
+        a_fee4.setElectricFeePaid(800000);
+        a_fee4.setParkingFeePaid(210000);
+        a_fee4.setWaterFeePaid(800000);
+        a_fee4.setRoomFeePaid(1100000);
         room4.addMandatoryFee(a_fee4);
         a_fee4.setRoom(room4);
         RoomRepo.save(room4);
@@ -364,7 +372,10 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(resident5);
 
         // MandatoryFee 5
-        MandatoryFee a_fee5 = new MandatoryFee(4, 2023, 700000, 700000);
+        MandatoryFee a_fee5 = new MandatoryFee(12, 2023, 700000, 700000);
+        a_fee5.setElectricFeePaid(700000);
+        a_fee5.setParkingFeePaid(230000);
+        a_fee5.setWaterFeePaid(700000);
         room5.addMandatoryFee(a_fee5);
         a_fee5.setRoom(room5);
         RoomRepo.save(room5);
@@ -401,6 +412,66 @@ public class RoomDataSeeder implements CommandLineRunner {
 
         AbsentResident absentResident1 = new AbsentResident("Ngô Văn Hải", "001204888361", "4", "21090", "2023-03-01", "2023-03-10");
         AbsentResidentRepo.save(absentResident1);
+
+        // Room 6
+        Room room6 = new Room(0006, "987654321", "Trần Văn F", "0987654321", 1400000, 240000);
+        room6.generateKey();
+        RoomRepo.save(room6);
+
+        // RoomHistory 6
+        RoomHistory roomHis6 = new RoomHistory(room6.getKey(), room6.getNoRoom(), room6.getIdOwner(), room6.getNameOwner(), room6.getNumberPhoneOwner(), room6.getDefaultFeeRoom(), room6.getDefaultParkingFee(), getTime());
+        RoomHistoryRepo.save(roomHis6);
+
+        // Resident 6
+        Resident resident6 = new Resident("001203000773", "Trần Văn F", "Male", "15/09/1985", "Bình Dương", "Engineer", "0987654322", "Chủ");
+        room6.addResident(resident6);
+        resident6.setRoom(room6);
+        residentController.saveResidentInHistory(resident6);
+        ResidentRepo.save(resident6);
+
+        Resident resident61 = new Resident("001203000831", "Trần Văn Z", "Female", "15/09/2003", "Hà Nội", "IT", "0987654366", "Con trai");
+        room6.addResident(resident61);
+        resident61.setRoom(room6);
+        residentController.saveResidentInHistory(resident61);
+        ResidentRepo.save(resident61);
+
+        // MandatoryFee 6
+        MandatoryFee a_fee6 = new MandatoryFee(10, 2023, 800000, 800000);
+        a_fee6.setElectricFeePaid(800000);
+        a_fee6.setParkingFeePaid(240000);
+        a_fee6.setWaterFeePaid(800000);
+        a_fee6.setRoomFeePaid(1400000);
+        room6.addMandatoryFee(a_fee6);
+        a_fee6.setRoom(room6);
+        RoomRepo.save(room6);
+        MandatoryFeeRepo.save(a_fee6);
+
+        // Room 7
+        Room room7 = new Room(0007, "112233445", "Lê Thị H", "0987654321", 1500000, 250000);
+        room7.generateKey();
+        RoomRepo.save(room7);
+
+        // RoomHistory 7
+        RoomHistory roomHis7 = new RoomHistory(room7.getKey(), room7.getNoRoom(), room7.getIdOwner(), room7.getNameOwner(), room7.getNumberPhoneOwner(), room7.getDefaultFeeRoom(), room7.getDefaultParkingFee(), getTime());
+        RoomHistoryRepo.save(roomHis7);
+
+        // Resident 7
+        Resident resident7 = new Resident("001203000775", "Lê Thị H", "Female", "05/12/1995", "Hồ Chí Minh", "Accountant", "0987654322", "Chủ");
+        room7.addResident(resident7);
+        resident7.setRoom(room7);
+        residentController.saveResidentInHistory(resident7);
+        ResidentRepo.save(resident7);
+
+        // MandatoryFee 7
+        MandatoryFee a_fee7 = new MandatoryFee(10, 2023, 900000, 900000);
+        a_fee7.setElectricFeePaid(900000);
+        a_fee7.setParkingFeePaid(250000);
+        a_fee7.setWaterFeePaid(900000);
+        a_fee7.setRoomFeePaid(1500000);
+        room7.addMandatoryFee(a_fee7);
+        a_fee7.setRoom(room7);
+        RoomRepo.save(room7);
+        MandatoryFeeRepo.save(a_fee7);
 
 
 

@@ -52,6 +52,8 @@ public class UserRequestController {
 
     @PostMapping("/user/request/{key}/save_resident")
     public String requestSaveResident(@PathVariable String key, AddResidentRequest request) {
+        Room aa = RoomRepo.findByKey(key).get(0);
+        request.setRoom(aa.getNoRoom());
         AddResidentRequestRepo.save(request);
         return "redirect:/user/index/{key}";
     }

@@ -29,15 +29,15 @@ public interface RoomHistoryRepository extends JpaRepository<RoomHistory, Intege
     public Page<RoomHistory> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và khoảng thời gian
-    @Query(value = "SELECT * FROM room_history WHERE concat(name_owner, id_owner, no_room) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM room_history WHERE room.nameOwner LIKE :keyword OR room.idOwner LIKE :keyword OR room.noRoom LIKE :keyword AND STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<RoomHistory> findByKeywordAndDateRange(@Param("keyword") String keyword, @Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và ngày bắt đầu
-    @Query(value = "SELECT * FROM room_history WHERE concat(name_owner, id_owner,no_room) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM room_history WHERE room.nameOwner LIKE :keyword OR room.idOwner LIKE :keyword OR room.noRoom LIKE :keyword AND STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<RoomHistory> findByKeywordAndstartDate(@Param("keyword") String keyword, @Param("startDate") String startDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và ngày kết thúc
-    @Query(value = "SELECT * FROM room_history WHERE concat(name_owner, id_owner,no_room) LIKE %:keyword% AND STR_TO_DATE(day_out, '%Y-%m-%d') <= STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM room_history WHERE room.nameOwner LIKE :keyword OR room.idOwner LIKE :keyword OR room.noRoom LIKE :keyword AND STR_TO_DATE(day_out, '%Y-%m-%d') <= STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<RoomHistory> findByKeywordAndendDate(@Param("keyword") String keyword, @Param("endDate") String endDate, Pageable pageable);
  // Tìm kiếm theo ngày bắt đầu
     @Query(value = "SELECT * FROM room_history WHERE STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)

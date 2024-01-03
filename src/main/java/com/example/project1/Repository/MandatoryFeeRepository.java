@@ -30,6 +30,9 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
     @Query("SELECT r FROM MandatoryFee r WHERE r.waterFeePaid = r.waterFee AND r.electricFee = r.electricFeePaid AND r.roomFeePaid = r.room.defaultFeeRoom AND r.parkingFeePaid = r.room.defaultParkingFee")
     List<MandatoryFee> findIfFeeComplete();
 
+    @Query("SELECT r FROM MandatoryFee r WHERE r.month = :month AND r.year = :year")
+    List<MandatoryFee> findPreviousMonthFees(@Param("month") int month, @Param("year") int year);
+
     @Modifying
     @Transactional
     @Query("UPDATE MandatoryFee mf SET mf.roomFeePaid = :roomFeePaid, mf.waterFee = :waterFee, mf.waterFeePaid = :waterFeePaid, mf.electricFee = :electricFee, mf.electricFeePaid = :electricFeePaid, mf.parkingFeePaid = :parkingFeePaid WHERE mf.no = :no")
@@ -41,7 +44,11 @@ public interface MandatoryFeeRepository extends JpaRepository<MandatoryFee, Inte
                         @Param("electricFeePaid") int electricFeePaid,
                         @Param("parkingFeePaid") int parkingFeePaid);
 
-    @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE CONCAT(mf.month, mf.year, r.key, r.noRoom) LIKE %:keyword%")
+    @Query("SELECT mf FROM MandatoryFee mf JOIN FETCH mf.room r WHERE \r\n" + //
+            "  mf.month LIKE :keyword OR \r\n" + //
+            "  mf.year LIKE :keyword OR \r\n" + //
+            "  r.key LIKE :keyword OR \r\n" + //
+            "  r.noRoom LIKE :keyword")
     Page<MandatoryFee> findAll(@Param("keyword") String keyword, Pageable pageable);
 
     

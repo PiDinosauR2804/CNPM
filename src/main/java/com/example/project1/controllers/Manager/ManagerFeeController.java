@@ -1,8 +1,5 @@
 package com.example.project1.controllers.Manager;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -222,6 +219,24 @@ public class ManagerFeeController {
     @GetMapping("/manager/fee/update")
     public String update() {
         List<MandatoryFee> fees = MandatoryFeeRepo.findIfFeeComplete();
+        for (int i = 0; i < fees.size(); i++) {
+            // Room a = RoomRepo.findByRoom(fees.get(i).getNoRoom()).get(0);
+            eraseMandatoryFee(fees.get(i));
+            MandatoryFeeRepo.delete(fees.get(i));
+        }
+        return "redirect:/manager/fee/index";
+    }
+
+    @GetMapping("/manager/fee/closeMonth")
+    public String closeMonth() {
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH) + 1;
+        int currentYear = calendar.get(Calendar.YEAR);
+        if (currentMonth == 1) {
+            currentMonth = 12;
+            currentYear = currentYear - 1;
+        }
+        List<MandatoryFee> fees = MandatoryFeeRepo.findPreviousMonthFees(currentMonth, currentYear);
         for (int i = 0; i < fees.size(); i++) {
             // Room a = RoomRepo.findByRoom(fees.get(i).getNoRoom()).get(0);
             eraseMandatoryFee(fees.get(i));

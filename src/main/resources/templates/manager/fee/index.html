@@ -311,6 +311,7 @@
             <button><a th:href="@{/manager/fee/mandatory/createAll}">Tạo tất Cả</a></button>
             <button><a th:href="@{/manager/fee/mandatory/multiple_edit}">Sửa Tất Cả</a></button>
             <button><a th:href="@{/manager/fee/update}">Cập Nhật</a></button>
+            <button><a th:href="@{/manager/fee/closeMonth}">Đóng khoản thu tháng trước</a></button>
         </div>
         
         <table>
@@ -336,7 +337,7 @@
                         <td>[[${Fee.room.noRoom}]]</th>
                         <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
                         <td class="formatted-number">[[${Fee.room.defaultFeeRoom}]]</th>
-                        <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
+                        <td class="formatted-number">[[${Fee.waterFeePaid}]]</th>
                         <td class="formatted-number">[[${Fee.waterFee}]]</th>
                         <td class="formatted-number">[[${Fee.electricFeePaid}]]</th>
                         <td class="formatted-number">[[${Fee.electricFee}]]</th>

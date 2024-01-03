@@ -172,8 +172,11 @@ public class ManagerRequestController {
                             TypeDonation typeDonation = typeDonations.get(0);
                             donationFee.setTypeDonation(typeDonation);
                             typeDonation.addDonationFee(donationFee);
+                            donationFee.setRoom(room);
+                            room.addDonationFee(donationFee);
                             DonationFeeRepo.save(donationFee);
                             TypeDonationRepo.save(typeDonation);
+                            RoomRepo.save(room);
                         }
                     }
                 }
