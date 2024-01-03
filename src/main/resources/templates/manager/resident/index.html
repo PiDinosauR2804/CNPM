@@ -57,6 +57,10 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+        table tbody tr:hover{
+            background-color:#dadcde;
+        }
+
         a {
             color: #2b589f;
             text-decoration: none;
@@ -264,7 +268,7 @@
             <a th:href="@{/manager/resident/index}" onclick="showTab('x1')" class="active">Quản lý cư dân</a>
             <a th:href="@{/manager/history/resident/index}" onclick="showTab('x2')">Lịch sử quản lý cư dân</a>
         </div>
-        <form th:action="@{/manager/resident/residentIndex}" method="get">
+        <form th:action="@{/manager/resident/index}" method="get">
             <label for="searchInput">Tìm kiếm:</label>
             <input type="text" id="searchInput" name="keyword" th:value="${keyword}"/>
             <button type="submit">Tìm kiếm</button>

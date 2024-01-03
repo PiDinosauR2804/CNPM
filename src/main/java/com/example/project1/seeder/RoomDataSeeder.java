@@ -436,7 +436,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(resident61);
 
         // MandatoryFee 6
-        MandatoryFee a_fee6 = new MandatoryFee(10, 2023, 800000, 800000);
+        MandatoryFee a_fee6 = new MandatoryFee(12, 2023, 800000, 800000);
         a_fee6.setElectricFeePaid(800000);
         a_fee6.setParkingFeePaid(240000);
         a_fee6.setWaterFeePaid(800000);
@@ -463,7 +463,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         ResidentRepo.save(resident7);
 
         // MandatoryFee 7
-        MandatoryFee a_fee7 = new MandatoryFee(10, 2023, 900000, 900000);
+        MandatoryFee a_fee7 = new MandatoryFee(12, 2023, 900000, 900000);
         a_fee7.setElectricFeePaid(900000);
         a_fee7.setParkingFeePaid(250000);
         a_fee7.setWaterFeePaid(900000);
