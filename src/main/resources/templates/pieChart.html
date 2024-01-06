@@ -1,0 +1,55 @@
+<!-- Trong file pieChart.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <link rel="stylesheet" href="https://cdn.plot.ly/plotly-latest.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #pie-chart-container {
+            width: 80vw;
+            height: 60vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pie-chart-container"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var pieChartValues = /*[[${pieChartValues}]]*/ [];
+
+        var dataPie = [{
+            values: pieChartValues,
+            labels: ['Nam', 'Nữ', 'Khác'],
+            type: 'pie'
+        }];
+
+        var layoutPie = {
+            title: 'Biểu Đồ Bánh',
+            margin: { t: 50 },
+            paper_bgcolor: '#f8f8f8',
+            plot_bgcolor: '#f8f8f8'
+        };
+
+        Plotly.newPlot('pie-chart-container', dataPie, layoutPie);
+        /*]]>*/
+    </script>
+</body>
+
+</html>
