@@ -177,6 +177,15 @@ public class ManagerRoomController {
         a.setDefaultFeeRoom(room.getDefaultFeeRoom());
         int noRoom = a.getNoRoom();
         RoomRepo.save(a);
+        RoomHistory aa = RoomHistoryRepo.findByKey(a.getKey()).get(0);
+        aa.setNoRoom(room.getNoRoom());
+        aa.setNumberPhoneOwner(room.getNumberPhoneOwner());
+        aa.setNameOwner(room.getNameOwner());
+        aa.setIdOwner(room.getIdOwner());
+        aa.setDefaultParkingFee(room.getDefaultParkingFee());
+        aa.setDefaultFeeRoom(room.getDefaultFeeRoom());
+        RoomHistoryRepo.save(aa);
+
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;

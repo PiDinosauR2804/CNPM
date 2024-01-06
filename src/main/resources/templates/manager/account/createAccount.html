@@ -269,12 +269,13 @@
     <div class = "content">
         <div class="container">
             <h2>Tạo tài khoản</h2>
-            <form method="get" th:object="${AccountManager}" th:action="@{/account/createaccount/save}">
+            <form method="get" th:object="${AccountManager}" th:action="@{/account/createaccount/save}" style="justify-content: center;">
                 <p>
                     <input type="text" id="textUsername" th:field="*{username}" placeholder="Tên Tài Khoản">
                     <input type="password" id="textPassword" th:field="*{password}" placeholder="Mật Khẩu">
-                
+                    <div>
                     <button type="submit" id="loginButton">Tạo Tài Khoản</button>
+                    </div>
                     <div class="show-text" th:if="${message}">
                         <p th:text="${message}"></p>
                     </div>

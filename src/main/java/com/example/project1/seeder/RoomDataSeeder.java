@@ -476,7 +476,7 @@ public class RoomDataSeeder implements CommandLineRunner {
 
 
         // Account 1
-        AccountManager account1 = new AccountManager("accc1tuedeptrai", "123456789");
+        AccountManager account1 = new AccountManager("password", "admin");
         AccountManagerRepo.save(account1);
 
         // Account 2

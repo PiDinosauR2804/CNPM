@@ -182,6 +182,16 @@ public class ManagerResidentController {
                 resident.getJob(),
                 resident.getPhoneNumber(),
                 resident.getRelationshipWithOwner());
+        Resident a = residentRepo.findByIdResident(id).get(0);
+        ResidentHistory aa = residentHistoryRepo.findByIdRes(id).get(0);
+        aa.setBirthDate(a.getBirthDate());
+        aa.setBirthPlace(a.getBirthPlace());
+        aa.setGender(a.getGender());
+        aa.setJob(a.getJob());
+        aa.setName(a.getName());
+        aa.setPhoneNumber(a.getPhoneNumber());
+        aa.setRelationshipWithOwner(a.getPhoneNumber());
+        residentHistoryRepo.save(aa);
         return "redirect:/manager/resident/edit/{id}";
     }
 
