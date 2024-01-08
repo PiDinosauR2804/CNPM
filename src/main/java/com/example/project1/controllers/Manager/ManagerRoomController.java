@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.MandatoryFeeHistoryRepository;
+import com.example.project1.Repository.MandatoryFeeRepository;
 import com.example.project1.Repository.RequestRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
@@ -28,6 +30,7 @@ import com.example.project1.entity.Resident;
 import com.example.project1.entity.ResidentHistory;
 import com.example.project1.entity.Room;
 import com.example.project1.entity.RoomHistory;
+import com.example.project1.entity.ChartData;
 import com.example.project1.service.serviceHistoryRoom;
 import com.example.project1.service.serviceRoom;
 
@@ -45,6 +48,12 @@ public class ManagerRoomController {
 
     @Autowired
     private RequestRepository RequestRepo;
+
+    @Autowired
+    private MandatoryFeeRepository MandatoryFeeRepo;
+
+    @Autowired
+    private MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
 
     @Autowired
     private AddResidentRequestRepository AddResidentRequestRepo;
@@ -68,12 +77,12 @@ public class ManagerRoomController {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("username")) {
+                    model.addAttribute("username", cookie.getValue());
                     flag1 = true;
                 }
             }
         }
         if (!flag1) return "404";
-        Page <Room> listRoom = this.service.listAll(keyword,pageNo);
         java.util.List<Request> listRequest1 = RequestRepo.findAll();
 		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
 		int num1 = 0;
@@ -86,9 +95,119 @@ public class ManagerRoomController {
 		}
 		int numNoti = num1 + num2;
 		model.addAttribute("numNoti", numNoti);
-        model.addAttribute("totalPage",listRoom.getTotalPages());
-        model.addAttribute("currentPage",pageNo);
-        model.addAttribute("listRoom", listRoom);
+        
+        // Tạo dữ liệu mẫu cho biểu đồ cột
+        ChartData barData = new ChartData();
+        int[] bardata = new int[6];
+        java.util.List<MandatoryFee> listMandatoryFees = MandatoryFeeRepo.findAll();
+        java.util.List<MandatoryFeeHistory> listMandatoryFeeHistories = MandatoryFeeHistoryRepo.findAll();
+        for (int i = 0; i < 7; ++i){
+            for (MandatoryFee mdF : listMandatoryFees) {
+                int month = mdF.getMonth();
+                if (month == 7){
+                    bardata[0] += mdF.getRoomFeePaid();
+                } else if (month == 8){
+                    bardata[1] += mdF.getRoomFeePaid();
+                } else if (month == 9){
+                    bardata[2] += mdF.getRoomFeePaid();
+                } else if (month == 10){
+                    bardata[3] += mdF.getRoomFeePaid();
+                } else if (month == 11){
+                    bardata[4] += mdF.getRoomFeePaid();
+                } else if (month == 12){
+                    bardata[5] += mdF.getRoomFeePaid();
+                }
+		    }
+
+            for (MandatoryFeeHistory mdF : listMandatoryFeeHistories) {
+                int month = mdF.getMonth();
+                if (month == 7){
+                    bardata[0] += mdF.getRoomFeePaid();
+                } else if (month == 8){
+                    bardata[1] += mdF.getRoomFeePaid();
+                } else if (month == 9){
+                    bardata[2] += mdF.getRoomFeePaid();
+                } else if (month == 10){
+                    bardata[3] += mdF.getRoomFeePaid();
+                } else if (month == 11){
+                    bardata[4] += mdF.getRoomFeePaid();
+                } else if (month == 12){
+                    bardata[5] += mdF.getRoomFeePaid();
+                }
+		    }
+        }
+        barData.setLabels(new String[]{"Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"});
+        barData.setData(bardata);
+        barData.setTitle("Tổng hợp tiền nhà 6 tháng cuối năm 2023");
+
+        // Tạo dữ liệu mẫu cho biểu đồ đường
+        ChartData lineData = new ChartData();
+        int[] linedata = new int[6];
+        for (int i = 0; i < 7; ++i){
+            for (MandatoryFee mdF : listMandatoryFees) {
+                int month = mdF.getMonth();
+                if (month == 7){
+                    linedata[0] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 8){
+                    linedata[1] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 9){
+                    linedata[2] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 10){
+                    linedata[3] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 11){
+                    linedata[4] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 12){
+                    linedata[5] += mdF.getElectricFee() + mdF.getWaterFee();
+                }
+		    }
+
+            for (MandatoryFeeHistory mdF : listMandatoryFeeHistories) {
+                int month = mdF.getMonth();
+                if (month == 7){
+                    linedata[0] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 8){
+                    linedata[1] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 9){
+                    linedata[2] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 10){
+                    linedata[3] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 11){
+                    linedata[4] += mdF.getElectricFee() + mdF.getWaterFee();
+                } else if (month == 12){
+                    linedata[5] += mdF.getElectricFee() + mdF.getWaterFee();
+                }
+		    }
+        }
+        lineData.setLabels(new String[]{"Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"});
+        lineData.setData(linedata);
+        lineData.setTitle("Tiền điện và tiền nước 6 tháng cuối năm 2023");
+
+        // Tạo dữ liệu mẫu cho biểu đồ tròn
+        int numapp = 0;
+        int numrej = 0;
+        int numprc = 0;
+		for (Request req : listRequest1) {
+            int res = req.getApproved();
+			if (res == 1) {numprc++;}
+            else if (res == 2){numrej++;}
+            else if (res == 0){numapp++;}
+		}
+		for (AddResidentRequest Addreq : listRequest2) {
+            int res = Addreq.getApproved();
+            if (res == 1) {numprc++;}
+            else if (res == 2){numrej++;}
+            else if (res == 0){numapp++;}
+		}
+        ChartData pieData = new ChartData();
+        pieData.setLabels(new String[]{"Chấp nhận", "Từ chối", "Chưa phản hồi"});
+        pieData.setData(new int[]{numapp, numrej, numprc});
+        pieData.setTitle("Yêu cầu");
+
+        // Truyền dữ liệu vào model
+        model.addAttribute("barData", barData);
+        model.addAttribute("lineData", lineData);
+        model.addAttribute("pieData", pieData);
+
         return "manager/index";
     }
 
@@ -125,6 +244,39 @@ public class ManagerRoomController {
         model.addAttribute("room", new Room());
         return "manager/room/create";
     }
+
+    @GetMapping("/manager/room/index")
+    public String roomindex(Model model, @RequestParam(name = "keyword", required = false) String keyword, HttpServletRequest request,
+    		@RequestParam(name = "pageNo", defaultValue ="1") Integer pageNo) {
+        boolean flag1 = false;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    flag1 = true;
+                }
+            }
+        }
+        if (!flag1) return "404";
+        Page <Room> listRoom = this.service.listAll(keyword,pageNo);
+        java.util.List<Request> listRequest1 = RequestRepo.findAll();
+		java.util.List<AddResidentRequest> listRequest2 = AddResidentRequestRepo.findAll();
+		int num1 = 0;
+		for (Request req : listRequest1) {
+			if (req.getApproved() == 1) {num1 ++;}
+		}
+		int num2 = 0;
+		for (AddResidentRequest Addreq : listRequest2) {
+			if (Addreq.getApproved() == 1) {num2 ++;}
+		}
+		int numNoti = num1 + num2;
+		model.addAttribute("numNoti", numNoti);
+        model.addAttribute("totalPage",listRoom.getTotalPages());
+        model.addAttribute("currentPage",pageNo);
+        model.addAttribute("listRoom", listRoom);
+        return "manager/room/index";
+    }
+
 
     @GetMapping("/manager/room/edit/{key}")
     public String edit(@PathVariable String key, Model model, HttpServletRequest request) {

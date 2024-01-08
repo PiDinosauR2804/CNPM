@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,7 +13,7 @@
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background: linear-gradient(45deg, #e1e5e8, #dcd7d7, #dbe4df, #e4e1dd);
+            background: linear-gradient(45deg, #e1e5e8, #dcd7d7, #dbe4df, #e4e1dd);            
         }
 
         main {
@@ -134,10 +134,15 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);
-            background-color: #f1f1f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             border-radius: 8px;
+            z-index: 0;
             overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
+        table tbody tr:hover{
+            background-color:#dadcde;
         }
 
         th,
@@ -235,10 +240,6 @@
             animation: slideIn 0.5s ease forwards; /* Tạo animation với thời gian 0.5s */
         }
 
-        table tbody tr:hover{
-            background-color:#dadcde;
-        }
-
         @keyframes slideIn {
             from {
                 width: 0;
@@ -250,6 +251,7 @@
 
     </style>
 </head>
+
 <body>
     <div class="navbar">
         <a href="/manager/index"><i class="fas fa-home"></i> Trang chủ</a>
@@ -263,80 +265,80 @@
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
-    <div class = "content">
+    <div class="content">        
         <div class="navbar1">
-            <a th:href="@{/manager/fee/index}">Phí Bắt Buộc</a>
-            <a th:href="@{/manager/fee/donation/index}">Phí Quyên Góp</a>
-            <a th:href="@{/manager/history/fee/index}" class = "active">Lịch Sử Phí Bắt Buộc</a>
+            <a th:href="@{/manager/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
+            <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
+            <a th:href="@{/manager/history/room/index}" onclick="showTab('x3')">Lịch sử</a>
         </div>
-        <h2>Lịch Sử Phí Bắt Buộc</h2>
-        <div class="search-form">
-            <!-- tìm kiếm -->
-            <form th:action="@{/manager/history/fee/index}" method="get">
-                <label for="searchInput">Tìm Kiếm</label>
-                <input type="text" id="searchInput" name="keyword" placeholder="Enter your search query..."
-                    th:value="${keyword}" />
-                <button type="submit">Tìm Kiếm</button>
-            </form>
-        </div>
-        
+
+
+        <h2>Danh sách Phòng</h2>
+        <!-- Tìm kiếm -->
+        <form th:action="@{/manager/index}" method="get">
+            <label for="searchInput">Tìm kiếm:</label>
+            <input type="text" id="searchInput" name="keyword" th:value="${keyword}" />
+            <button type="submit">Tìm kiếm</button>
+        </form>        
+
+        <!-- Bảng hiển thị dữ liệu -->
         <table>
             <thead>
-                <th>Năm</th>
-                <th>Tháng</th>
-                <th>Mã Phòng</th>
-                <th>Tiền Phòng Đã Đóng (VNĐ)</th>
-                <th>Tiền Phòng Cần Phải Đóng (VNĐ)</th>
-                <th>Tiền Nước Đã Đóng (VNĐ)</th>
-                <th>Tiền Nước Cần Phải Đóng (VNĐ)</th>
-                <th>Tiền Điện Đã Đóng (VNĐ)</th>
-                <th>Tiền Điện Cần Phải Đóng (VNĐ)</th>
-                <th>Tiền Gửi Xe Đã Đóng (VNĐ)</th>
-                <th>Tiền Gửi Xe Cần Phải Đóng (VNĐ)</th>
+                <th>Số phòng</th>
+                <th>CCCD Chủ hộ</th>
+                <th>Tên chủ hộ</th>
+                <th>Số điện thoại chủ hộ</th>
+                <th>Mã phòng</th> <!-- Fixed typo here -->
+                <th>Chi tiết</th>
+                <th>Xóa</th>
             </thead>
             <tbody>
-                <th:block th:each="Fee : ${listFees}">
+                <th:block th:each="room : ${listRoom}">
                     <tr>
-                        <td>[[${Fee.year}]]</th>
-                        <td>[[${Fee.month}]]</th>
-                        <td>[[${Fee.room.noRoom}]]</th>
-                        <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
-                        <td class="formatted-number">[[${Fee.room.defaultFeeRoom}]]</th>
-                        <td class="formatted-number">[[${Fee.roomFeePaid}]]</th>
-                        <td class="formatted-number">[[${Fee.waterFee}]]</th>
-                        <td class="formatted-number">[[${Fee.electricFeePaid}]]</th>
-                        <td class="formatted-number">[[${Fee.electricFee}]]</th>
-                        <td class="formatted-number">[[${Fee.parkingFeePaid}]]</th>
-                        <td class="formatted-number">[[${Fee.room.defaultParkingFee}]]</th>
+                        <td th:text="${room.noRoom}"></td>
+                        <td th:text="${room.idOwner}"></td>
+                        <td th:text="${room.nameOwner}"></td>
+                        <td th:text="${room.numberPhoneOwner}"></td>
+                        <td th:text="${room.key}"></td>
+                        <td>
+                            <a th:href="@{'/manager/room/' + ${room.noRoom}}" style="text-decoration: none; margin-right: 5px;">Chi tiết</a>
+                            
+                        </td>
+                        <td>
+                            <a th:href="@{'/manager/room/delete/' + ${room.noRoom}}" style="text-decoration: none;">Xóa</a>
+                        </td>
                     </tr>
                 </th:block>
             </tbody>
         </table>
-        <div th:if="${totalPage > 0}" class="pagination">
+
+        <!-- Đánh số trang -->
+        <div th:if="${totalPage > 0}" class="" style="text-align: center; margin-top: 20px;">
             <!-- Link to the first page -->
-            <a th:if="${currentPage > 1}"
-                th:href="@{/manager/history/fee/index(pageNo=1, keyword=${keyword})}">First</a>
+            <a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
 
             <!-- Link to the previous page -->
             <a th:if="${currentPage > 1}"
-                th:href="@{/manager/history/fee/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
+            th:href="@{/manager/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
 
             <!-- Links to individual pages -->
             <span th:each="i : ${#numbers.sequence(1, totalPage)}">
-                <a th:if="${currentPage != i}"
-                    th:href="@{/manager/history/fee/index(pageNo=${i}, keyword=${keyword})}" th:text="${i}"></a>
-                <span th:if="${currentPage == i}" th:text="${i}"></span>
+                <a th:if="${currentPage != i}" th:href="@{/manager/index(pageNo=${i}, keyword=${keyword})}"
+                th:text="${i}"></a>
+                <span th:if="${currentPage == i}" th:text="${i}" style="font-weight: bold;"></span>
             </span>
 
             <!-- Link to the next page -->
             <a th:if="${currentPage < totalPage}"
-                th:href="@{/manager/history/fee/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
+            th:href="@{/manager/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
 
             <!-- Link to the last page -->
             <a th:if="${currentPage < totalPage}"
-                th:href="@{/manager/history/fee/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
+            th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
         </div>
+
     </div>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var badgeCount = document.getElementById("badgeCount").textContent;
@@ -353,18 +355,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        function formatNumberWithCommas(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+
     
-        // Lặp qua tất cả các phần tử có class "formatted-number" và định dạng số
-        var elements = document.getElementsByClassName('formatted-number');
-        for (var i = 0; i < elements.length; i++) {
-            var number = parseFloat(elements[i].innerText);
-            var formattedNumber = formatNumberWithCommas(number);
-            elements[i].innerText = formattedNumber;
-        }
-    </script>
 </body>
+
+
 </html>
