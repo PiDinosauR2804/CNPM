@@ -301,11 +301,11 @@
                         <td th:text="${room.numberPhoneOwner}"></td>
                         <td th:text="${room.key}"></td>
                         <td>
-                            <a th:href="@{'/manager/room/' + ${room.noRoom}}" style="text-decoration: underline; margin-right: 5px;">Chi tiết</a>
+                            <a th:href="@{'/manager/room/' + ${room.noRoom}}" style="text-decoration: none; margin-right: 5px;">Chi tiết</a>
                             
                         </td>
                         <td>
-                            <a th:href="@{'/manager/room/delete/' + ${room.noRoom}}" style="text-decoration: underline;">Xóa</a>
+                            <a th:href="@{'/manager/room/delete/' + ${room.noRoom}}" style="text-decoration: none;">Xóa</a>
                         </td>
                     </tr>
                 </th:block>
