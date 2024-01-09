@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.project1.Repository.AddResidentRequestRepository;
+import com.example.project1.Repository.DonationFeeRepository;
 import com.example.project1.Repository.MandatoryFeeHistoryRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
 import com.example.project1.Repository.RequestRepository;
@@ -58,6 +60,9 @@ public class ManagerRoomController {
 
     @Autowired
     private MandatoryFeeHistoryRepository MandatoryFeeHistoryRepo;
+
+    @Autowired
+    private DonationFeeRepository DonationFeeRepo;
 
     @Autowired
     private AddResidentRequestRepository AddResidentRequestRepo;
@@ -214,6 +219,24 @@ public class ManagerRoomController {
         model.addAttribute("barData", barData);
         model.addAttribute("lineData", lineData);
         model.addAttribute("pieData", pieData);
+
+        java.util.List<Integer> listnoRoom = new ArrayList<>();
+        java.util.List<Integer> listDonation = new ArrayList<>();
+        java.util.List<DonationFee> listDonationFees = DonationFeeRepo.findAll();
+        for (Room room : listRoom){
+            listnoRoom.add(room.getNoRoom());
+            int count = 0;
+            for (DonationFee fee : listDonationFees){
+                if (fee.getNoRoom() == room.getNoRoom()){
+                    count += fee.getAmount();
+                }
+            }
+            listDonation.add(count);
+        }
+        model.addAttribute("listDonation", listDonation);
+        model.addAttribute("listnoRoom", listnoRoom);
+        
+
 
         return "manager/index";
     }
