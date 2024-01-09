@@ -191,7 +191,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         Request re_a = new Request(1, 1, "012334598");
         RequestRepo.save(re_a);
 
-        Request re_b = new Request(2, 6, "123456789");
+        Request re_b = new Request(4, 6, "123456789");
         re_b.setObjectId("001203000768");
         re_b.setObjectName(ResidentRepo.findByIdResident(re_b.getObjectId()).get(0).getName());
         RequestRepo.save(re_b);

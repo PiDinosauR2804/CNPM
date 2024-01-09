@@ -290,6 +290,7 @@
                 <th>Số điện thoại</th>
                 <th>Quan hệ với chủ hộ</th>
                 <th>Chỉnh sửa</th>
+                <th>Xóa</th>
             </thead>
             <tbody>
                 <th:block th:each="resident : ${listResident.content}">
@@ -304,6 +305,7 @@
                         <td th:text="${resident.phoneNumber}"></td>
                         <td th:text="${resident.relationshipWithOwner}"></td>
                         <td><a th:href="@{'/manager/resident/edit/'  + ${resident.idRes}}">Chỉnh sửa</a></td>
+                        <td><a th:href="@{'/manager/resident/erase/'  + ${resident.idRes}}">Xóa</a></td>
                     </tr>
                 </th:block>
             </tbody>

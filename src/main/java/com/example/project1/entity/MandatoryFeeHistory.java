@@ -24,12 +24,13 @@ public class MandatoryFeeHistory {
     private int parkingFeePaid;
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "defaultParkingFee", referencedColumnName = "defaultParkingFee"),
-        @JoinColumn(name = "defaultFeeRoom", referencedColumnName = "defaultFeeRoom"),
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-    })
+    // @JoinColumns({
+    //     @JoinColumn(name = "defaultParkingFee", referencedColumnName = "defaultParkingFee"),
+    //     @JoinColumn(name = "defaultFeeRoom", referencedColumnName = "defaultFeeRoom"),
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
+    // })
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private RoomHistory roomHistory;
     
     public MandatoryFeeHistory() {};

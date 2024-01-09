@@ -19,10 +19,11 @@ public class DonationFeeHistory {
     private int amount;
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-    })
+    // @JoinColumns({
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
+    // })
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private RoomHistory roomHistory;
 
     public DonationFeeHistory() {

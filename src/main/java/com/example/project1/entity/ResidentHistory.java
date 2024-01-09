@@ -26,11 +26,12 @@ public class ResidentHistory {
     private String dayOut;
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
-        @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
-        @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
-    })
+    // @JoinColumns({
+    //     @JoinColumn(name = "noRoom", referencedColumnName = "noRoom"),
+    //     @JoinColumn(name = "`key`", referencedColumnName = "`key`"),
+    //     @JoinColumn(name = "idOwner", referencedColumnName = "idOwner")
+    // })
+    @JoinColumn(name = "idRoom", referencedColumnName = "id")
     private RoomHistory roomHistory;
 
 
