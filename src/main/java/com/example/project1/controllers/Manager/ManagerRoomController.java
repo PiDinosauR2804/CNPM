@@ -18,6 +18,7 @@ import com.example.project1.Repository.AddResidentRequestRepository;
 import com.example.project1.Repository.MandatoryFeeHistoryRepository;
 import com.example.project1.Repository.MandatoryFeeRepository;
 import com.example.project1.Repository.RequestRepository;
+import com.example.project1.Repository.ResidentRepository;
 import com.example.project1.Repository.RoomHistoryRepository;
 import com.example.project1.Repository.RoomRepository;
 import com.example.project1.entity.AddResidentRequest;
@@ -45,6 +46,9 @@ public class ManagerRoomController {
     private RoomRepository RoomRepo;
     @Autowired
     private RoomHistoryRepository RoomHistoryRepo;
+
+    @Autowired
+    private ResidentRepository ResidentRepo;
 
     @Autowired
     private RequestRepository RequestRepo;
@@ -95,8 +99,11 @@ public class ManagerRoomController {
 		}
 		int numNoti = num1 + num2;
 		model.addAttribute("numNoti", numNoti);
-        
+        java.util.List<Room> listRoom = RoomRepo.findAll();
+        java.util.List<Resident> listResidents = ResidentRepo.findAll();
         // Tạo dữ liệu mẫu cho biểu đồ cột
+        model.addAttribute("numRoom", listRoom.size());
+        model.addAttribute("numResident", listResidents.size());
         ChartData barData = new ChartData();
         int[] bardata = new int[6];
         java.util.List<MandatoryFee> listMandatoryFees = MandatoryFeeRepo.findAll();
