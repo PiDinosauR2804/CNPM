@@ -1,9 +1,5 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/webjars/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
@@ -195,7 +191,15 @@
 
         .container {
             margin: auto;
-            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
+            margin-top: 50px;
+        }
+
+        .container2 {
+            margin: auto;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -249,9 +253,57 @@
             }
         }
 
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-icon {
+            font-size: 5em;
+            color: #007bff;
+        }
+        .card-text {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .chart {
+            width: 400px;
+            height: 300px;
+        }
+        .recent-articles {
+            overflow-x: scroll;
+        }
+        .article {
+            width: 300px;
+            height: 200px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .article-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .article-info {
+            padding: 10px;
+        }
     </style>
 </head>
-
 <body>
     <div class="navbar">
         <a href="/manager/index"><i class="fas fa-home"></i> Trang chủ</a>
@@ -259,105 +311,145 @@
         <a href="/account/createaccount"><i class="fas fa-user-plus"></i> Tạo Tài Khoản Mới</a>
         <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
         <a href="/manager/absent_resident/index"><i class="fas fa-door-open"></i> Quản lý tạm vắng </span></a>
-        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
+        <a href="/manager/room/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
         <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân </span></a>
         <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</span></a>
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
-    <div class="content">        
-        <div class="navbar1">
-            <a th:href="@{/manager/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
-            <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
-            <a th:href="@{/manager/history/room/index}" onclick="showTab('x3')">Lịch sử</a>
+    <div class="content">  
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="bar-chart" class="chart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="line-chart" class="chart"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="pie-chart" class="chart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-deck mt-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-users card-icon"></i>
+                                <h5 class="card-title" th:text = ${numRoom}>7 cư dân</h5>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-home card-icon"></i>
+                                <h5 class="card-title" th:text = ${numResident}>5 phòng</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
-
-
-        <h2>Danh sách Phòng</h2>
-        <!-- Tìm kiếm -->
-        <form th:action="@{/manager/index}" method="get">
-            <label for="searchInput">Tìm kiếm:</label>
-            <input type="text" id="searchInput" name="keyword" th:value="${keyword}" />
-            <button type="submit">Tìm kiếm</button>
-        </form>        
-
-        <!-- Bảng hiển thị dữ liệu -->
-        <table>
-            <thead>
-                <th>Số phòng</th>
-                <th>CCCD Chủ hộ</th>
-                <th>Tên chủ hộ</th>
-                <th>Số điện thoại chủ hộ</th>
-                <th>Mã phòng</th> <!-- Fixed typo here -->
-                <th>Chi tiết</th>
-                <th>Xóa</th>
-            </thead>
-            <tbody>
-                <th:block th:each="room : ${listRoom}">
-                    <tr>
-                        <td th:text="${room.noRoom}"></td>
-                        <td th:text="${room.idOwner}"></td>
-                        <td th:text="${room.nameOwner}"></td>
-                        <td th:text="${room.numberPhoneOwner}"></td>
-                        <td th:text="${room.key}"></td>
-                        <td>
-                            <a th:href="@{'/manager/room/' + ${room.noRoom}}" style="text-decoration: none; margin-right: 5px;">Chi tiết</a>
-                            
-                        </td>
-                        <td>
-                            <a th:href="@{'/manager/room/delete/' + ${room.noRoom}}" style="text-decoration: none;">Xóa</a>
-                        </td>
-                    </tr>
-                </th:block>
-            </tbody>
-        </table>
-
-        <!-- Đánh số trang -->
-        <div th:if="${totalPage > 0}" class="" style="text-align: center; margin-top: 20px;">
-            <!-- Link to the first page -->
-            <a th:if="${currentPage > 1}" th:href="@{/manager/index(pageNo=1, keyword=${keyword})}">First</a>
-
-            <!-- Link to the previous page -->
-            <a th:if="${currentPage > 1}"
-            th:href="@{/manager/index(pageNo=${currentPage - 1}, keyword=${keyword})}">Previous</a>
-
-            <!-- Links to individual pages -->
-            <span th:each="i : ${#numbers.sequence(1, totalPage)}">
-                <a th:if="${currentPage != i}" th:href="@{/manager/index(pageNo=${i}, keyword=${keyword})}"
-                th:text="${i}"></a>
-                <span th:if="${currentPage == i}" th:text="${i}" style="font-weight: bold;"></span>
-            </span>
-
-            <!-- Link to the next page -->
-            <a th:if="${currentPage < totalPage}"
-            th:href="@{/manager/index(pageNo=${currentPage + 1}, keyword=${keyword})}">Next</a>
-
-            <!-- Link to the last page -->
-            <a th:if="${currentPage < totalPage}"
-            th:href="@{/manager/index(pageNo=${totalPage}, keyword=${keyword})}">Last</a>
-        </div>
-
     </div>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var badgeCount = document.getElementById("badgeCount").textContent;
-            var badgeElement = document.getElementById("badgeCount");
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script th:inline="javascript">
+        // Biểu đồ cột
+        var barChart = document.getElementById('bar-chart');
+        // Lấy dữ liệu từ model bằng thymeleaf
+        var barData = /*[[${barData}]]*/ barData;
+        // Chuyển dữ liệu thành định dạng JSON
+        // Tạo đối tượng data cho biểu đồ
+        var barChartData = {
+            labels: barData.labels,
+            datasets: [{
+                label: barData.title,
+                data: barData.data,
+                backgroundColor: '#007bff'
+            }]
+        };
+        // Tạo đối tượng config cho biểu đồ
+        var barConfig = {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: barData.title,
+                        position: 'bottom'
+                    }
+                }
+            }
+        };
+        // Tạo biểu đồ
+        var barChart = new Chart(barChart, barConfig);
 
-            if (badgeCount > 0) {
-                badgeElement.textContent = badgeCount;
-            } else {
-                badgeElement.style.display = "none";
-            }            
-        });
+        // Biểu đồ đường
+        var lineChart = document.getElementById('line-chart');
+        // Lấy dữ liệu từ model bằng thymeleaf
+        var lineData = /*[[${lineData}]]*/ lineData;
+        // Chuyển dữ liệu thành định dạng JSON
+        // Tạo đối tượng data cho biểu đồ
+        var lineChartData = {
+            labels: lineData.labels,
+            datasets: [{
+                label: lineData.title,
+                data: lineData.data,
+                fill: false,
+                borderColor: '#007bff'
+            }]
+        };
+        // Tạo đối tượng config cho biểu đồ
+        var lineConfig = {
+            type: 'line',
+            data: lineChartData,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: lineData.title,
+                        position: 'bottom'
+                    }
+                }
+            }
+        };
+        // Tạo biểu đồ
+        var lineChart = new Chart(lineChart, lineConfig);
+
+        // Biểu đồ tròn
+        var pieChart = document.getElementById('pie-chart');
+        // Lấy dữ liệu từ model bằng thymeleaf
+        var pieData = /*[[${pieData}]]*/ pieData;
+        // Chuyển dữ liệu thành định dạng JSON
+        // Tạo đối tượng data cho biểu đồ
+        var pieChartData = {
+            labels: pieData.labels,
+            datasets: [{
+                label: pieData.title,
+                data: pieData.data,
+                backgroundColor: ['#007bff', '#28a745;', '#ffc107']
+            }]
+        };
+        // Tạo đối tượng config cho biểu đồ
+        var pieConfig = {
+            type: 'pie',
+            data: pieChartData,
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right' // Chuyển legend về phía bên phải
+                    },
+                    title: {
+                        display: true,
+                        text: pieData.title,
+                        position: 'bottom'
+                    }
+                }
+            }
+        };
+        // Tạo biểu đồ
+        var pieChart = new Chart(pieChart, pieConfig);
     </script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    
 </body>
-
-
 </html>
