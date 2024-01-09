@@ -9,7 +9,7 @@
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background: linear-gradient(45deg, #e1e5e8, #dcd7d7, #dbe4df, #e4e1dd);            
+            background: linear-gradient(45deg, #f1f3f4, #eae7e7, #eef1f0, #f1f0ee);            
         }
 
         main {
@@ -128,13 +128,13 @@
 
         table {
             width: 100%;
+            height: 80%;
             border-collapse: collapse;
-            margin-top: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             border-radius: 8px;
             z-index: 0;
             overflow: hidden;
-            background-color: #f1f1f1;
+            background-color: #ffffff;
         }
 
         table tbody tr:hover{
@@ -192,10 +192,18 @@
         .container {
             margin: auto;
             padding: 20px;
+            background-color: false;
+            margin-top: 50px;
+        }
+
+        .container1 {
+            margin-bottom: 50px;
+            margin-left: 25px;
+            margin-right: 25px;
+            width: 45%;
+            padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0.4, 0.4, 0.4);
-            margin-top: 50px;
         }
 
         .container2 {
@@ -253,7 +261,14 @@
             }
         }
 
+        .card-deck {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
         .card {
+            width: 300px;
+            height: 300px;
             border: none;
             border-radius: 10px;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -302,6 +317,8 @@
         .article-info {
             padding: 10px;
         }
+
+        
     </style>
 </head>
 <body>
@@ -318,35 +335,43 @@
         <a href="/signout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
     </div>
     <div class="content">  
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
+        <div class="container" style="justify-content: center;">
+            <div class = "row">
+            <div class="container1">
+                <div class="col-12">
                     <canvas id="bar-chart" class="chart"></canvas>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="container1">
+                <div class="col-12">
                     <canvas id="line-chart" class="chart"></canvas>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <canvas id="pie-chart" class="chart"></canvas>
-                </div>
-                <div class="col-md-6">
-                    <div class="card-deck mt-4">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <i class="fas fa-users card-icon"></i>
-                                <h5 class="card-title" th:text = ${numRoom}>7 cư dân</h5>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <i class="fas fa-home card-icon"></i>
-                                <h5 class="card-title" th:text = ${numResident}>5 phòng</h5>
-                            </div>
-                        </div>
+            </div>
+            <div class = "row">
+                <div class="container1">
+                    <div class="col-12">
+                        <canvas id="pie-chart" class="chart"></canvas>
                     </div>
                 </div>
+                <div class="container1">
+                    <h2>Bảng danh sách tiền quyên góp</h2>
+                    <table>
+                        <thead>
+                            <th>ID Phòng</th>
+                            <th>Số tiền quyên góp</th>
+                        </thead>
+                        <tbody>
+                            <!-- Sử dụng Thymeleaf để lặp qua danh sách và hiển thị dữ liệu -->
+                            <tr th:each="item, index : ${listnoRoom}">
+                                <td th:text="${item}"></td>
+                                <!-- Sử dụng index để truy cập phần tử tương ứng trong listDonation -->
+                                <td th:text="${listDonation[index.index]}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
             
         </div>
@@ -427,7 +452,7 @@
             datasets: [{
                 label: pieData.title,
                 data: pieData.data,
-                backgroundColor: ['#007bff', '#28a745;', '#ffc107']
+                backgroundColor: ['#007bff', '#d63420', '#ffc107']
             }]
         };
         // Tạo đối tượng config cho biểu đồ
