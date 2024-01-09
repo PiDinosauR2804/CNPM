@@ -284,7 +284,7 @@
     
     <div class="content">
         <div class="navbar1">
-            <a th:href="@{/manager/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
+            <a th:href="@{/manager/room/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
             <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
             <a th:href="@{/manager/history/room/index}" onclick="showTab('x3')">Lịch sử</a>
         </div>
@@ -365,7 +365,7 @@
                 </th:block>
             </tbody>
         </table>
-        <button><a th:href="@{/manager/index}">Quay lại</a></button>
+        <button><a th:href="@{/manager/room/index}">Quay lại</a></button>
     </div>
     
     <script>

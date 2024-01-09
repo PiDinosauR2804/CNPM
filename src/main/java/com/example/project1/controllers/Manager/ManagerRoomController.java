@@ -379,7 +379,7 @@ public class ManagerRoomController {
         int roomNumber = Integer.parseInt(noRoom);
         Room a = RoomRepo.findByRoom(roomNumber).get(0);
         closeRoom(a);
-        return "redirect:/manager/index";
+        return "redirect:/manager/room/index";
     }
     // Room History
 

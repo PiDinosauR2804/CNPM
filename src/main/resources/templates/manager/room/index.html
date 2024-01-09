@@ -267,7 +267,7 @@
     </div>
     <div class="content">        
         <div class="navbar1">
-            <a th:href="@{/manager/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
+            <a th:href="@{/manager/room/index}" onclick="showTab('x1')" class="active">Quản lý phòng</a>
             <a th:href="@{/manager/createRoom}" onclick="showTab('x2')">Tạo phòng</a>
             <a th:href="@{/manager/history/room/index}" onclick="showTab('x3')">Lịch sử</a>
         </div>
@@ -275,7 +275,7 @@
 
         <h2>Danh sách Phòng</h2>
         <!-- Tìm kiếm -->
-        <form th:action="@{/manager/index}" method="get">
+        <form th:action="@{/manager/room/index}" method="get">
             <label for="searchInput">Tìm kiếm:</label>
             <input type="text" id="searchInput" name="keyword" th:value="${keyword}" />
             <button type="submit">Tìm kiếm</button>
