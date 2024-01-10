@@ -173,6 +173,16 @@ public class ManagerResidentController {
         return "manager/resident/edit";
     }
 
+    @GetMapping("/manager/resident/erase/{id}")
+    public String erase(@PathVariable String id) {
+        java.util.List<Resident> a = residentRepo.findByIdResident(id);
+        if (!a.isEmpty()) {
+            eraseResident(a.get(0));
+        }
+        return "redirect:/manager/resident/index";
+    }
+
+
     @PostMapping("/manager/changeInfo/{id}/save")
     public String save(@PathVariable String id, Resident resident) {
         residentRepo.updateResident(id, resident.getName(),

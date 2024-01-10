@@ -26,7 +26,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
     @Query("SELECT r FROM Room r WHERE r.noRoom = :noRoom")
     List<Room> findByRoom(@Param("noRoom") int noRoom);
     
-    @Query("SELECT r FROM Room r WHERE r.idOwner LIKE %?1%")
+    @Query("SELECT r FROM Room r WHERE r.idOwner LIKE %?1% OR r.nameOwner LIKE %?1% OR r.key LIKE %?1%")
     public Page<Room> findAll(String keyword,Pageable pagaeble);
     
 }

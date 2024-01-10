@@ -12,7 +12,7 @@
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #f5f5f5;
+            background: linear-gradient(45deg, #e1e5e8, #dcd7d7, #dbe4df, #e4e1dd);
         }
 
         main {
@@ -28,7 +28,7 @@
             position: fixed;
             background: linear-gradient(90deg, #2b589f 0%, #2879b3 100%);
             padding-top: 50px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.4);
             z-index: 2;
             transition: width 0.3s ease;
             overflow-y: auto;
@@ -139,6 +139,7 @@
             margin-top: 20px;
             box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4);;
             border-radius: 8px;
+            background-color: #f1f1f1;
             overflow: hidden;
         }
 
@@ -247,6 +248,21 @@
             }
         }
 
+        .btn-delete {
+            text-decoration: none;
+            margin-right: 5px;
+            color: #2b589f;
+            background-color: #f1f1f1;
+            border: #f1f1f1;
+        }
+
+        .btn-delete:hover {
+            background-color: #dadcde;
+            border: #dadcde;
+            color: #2b589f;
+
+        }
+
     </style>
 </head>
 <body>
@@ -256,7 +272,7 @@
         <a href="/account/createaccount"><i class="fas fa-user-plus"></i> Tạo Tài Khoản Mới</a>
         <a href="/manager/temporary_resident/index"><i class="fas fa-bed"></i> Quản lý tạm trú</a>
         <a href="/manager/absent_resident/index"><i class="fas fa-door-open"></i> Quản lý tạm vắng </span></a>
-        <a href="/manager/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
+        <a href="/manager/room/index"><i class="fas fa-building"></i> Quản lý phòng </span></a>
         <a href="/manager/resident/index"><i class="fas fa-users"></i> Quản lý cư dân </span></a>
         <a href="/manager/fee/index"><i class="fas fa-dollar-sign"></i> Quản lý chi phí</span></a>
         <a href="/manager/request/change_information/index"><i class="fas fa-exchange-alt"></i> Quản lý yêu cầu cư dân <span class="badge badge-danger" id="badgeCount" th:text = ${numNoti}></span></a>
@@ -280,7 +296,7 @@
         <table>
             <thead>
                 <th>Phòng</th>
-                <th>ID</th>
+                <th>CCCD</th>
                 <th>Họ và tên</th>
                 <th>Giới tính</th>
                 <th>Ngày sinh</th>
@@ -289,6 +305,7 @@
                 <th>Số điện thoại</th>
                 <th>Quan hệ với chủ hộ</th>
                 <th>Chỉnh sửa</th>
+                <th>Xóa</th>
             </thead>
             <tbody>
                 <th:block th:each="resident : ${listResident.content}">
@@ -303,6 +320,34 @@
                         <td th:text="${resident.phoneNumber}"></td>
                         <td th:text="${resident.relationshipWithOwner}"></td>
                         <td><a th:href="@{'/manager/resident/edit/'  + ${resident.idRes}}">Chỉnh sửa</a></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete">
+                                Xóa
+                            </button>
+            
+                            <!-- Modal xác nhận xóa -->
+                            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style = "margin-top: 150px;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có chắc chắn muốn xóa người này khỏi phòng chứ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!-- Nút Đúng -->
+                                            <a th:href="@{'/manager/resident/erase/'  + ${resident.idRes}}" class="btn btn-danger">Đúng</a>
+                                            <!-- Nút Không -->
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </th:block>
             </tbody>

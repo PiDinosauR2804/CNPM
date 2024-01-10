@@ -1,0 +1,56 @@
+<!-- src/main/resources/templates/chart.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Example</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #line-chart-container {
+            width: 80vw;
+            height: 60vh;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Biểu Đồ</h1>
+
+    <div id="chart-container"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var dataPoints = /*[[${dataPoints}]]*/ [];
+
+        // Tạo biểu đồ sử dụng Plotly
+        var trace = {
+            x: ['A', 'B', 'C', 'D', 'E'],
+            y: dataPoints,
+            type: 'bar'
+        };
+
+        var layout = {
+            title: 'Biểu Đồ Đơn Giản',
+            xaxis: { title: 'X Axis' },
+            yaxis: { title: 'Y Axis' }
+        };
+
+        Plotly.newPlot('chart-container', [trace], layout);
+        /*]]>*/
+    </script>
+</body>
+
+</html>
