@@ -44,9 +44,9 @@ import jakarta.persistence.PersistenceContext;
 @Component
 public class RoomDataSeeder implements CommandLineRunner {
     @Autowired
-	RoomRepository RoomRepo;
+    RoomRepository RoomRepo;
     @Autowired
-	RoomHistoryRepository RoomHistoryRepo;
+    RoomHistoryRepository RoomHistoryRepo;
 
     @Autowired
     ResidentRepository ResidentRepo;
@@ -88,11 +88,11 @@ public class RoomDataSeeder implements CommandLineRunner {
     @Autowired
     private AddResidentRequestRepository AddResidentRequestRepo;
 
-	@Override
+    @Override
     @Transactional
-	public void run(String... args) throws Exception {
-		loadUserData();
-	}
+    public void run(String... args) throws Exception {
+        loadUserData();
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -123,7 +123,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         AbsentResidentRepo.truncateTable();
 
         RoomHistoryRepo.truncateTable();
-		RoomRepo.truncateTable();
+        RoomRepo.truncateTable();
 
         TypeDonationRepo.truncateTable();
         RequestRepo.truncateTable();
@@ -157,18 +157,19 @@ public class RoomDataSeeder implements CommandLineRunner {
         // Room 1
         Room a = new Room(0001, "123456783", "Ngô Đình Luyện", "0911052884", 1000000, 200000);
         a.generateKey();
-        RoomRepo.save(a);        
+        RoomRepo.save(a);
 
-        RoomHistory roomHis = new RoomHistory(a.getKey(), a.getNoRoom(), a.getIdOwner(), a.getNameOwner(), a.getNumberPhoneOwner(), a.getDefaultFeeRoom(), a.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis = new RoomHistory(a.getKey(), a.getNoRoom(), a.getIdOwner(), a.getNameOwner(),
+                a.getNumberPhoneOwner(), a.getDefaultFeeRoom(), a.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis);
 
-        Resident b = new Resident("001203000768", "Ngô Đình Luyện", "Male", "28/04/2003", "Hà Nội", "Student", "0911052885", "Chủ");
+        Resident b = new Resident("001203000768", "Ngô Đình Luyện", "Male", "28/04/2003", "Hà Nội", "Student",
+                "0911052885", "Chủ");
         a.addResident(b);
         b.setRoom(a);
         residentController.saveResidentInHistory(b);
         ResidentRepo.save(b);
 
-        
         MandatoryFee a_fee = new MandatoryFee(12, 2023, 1000000, 1000000);
         a_fee.setElectricFeePaid(1000000);
         a_fee.setParkingFeePaid(200000);
@@ -178,7 +179,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         a_fee.setRoom(a);
         RoomRepo.save(a);
         MandatoryFeeRepo.save(a_fee);
-        
+
         DonationFee a_dfee = new DonationFee(12, 2023, 100000);
         a.addDonationFee(a_dfee);
         a_dfee.setRoom(a);
@@ -196,7 +197,8 @@ public class RoomDataSeeder implements CommandLineRunner {
         re_b.setObjectName(ResidentRepo.findByIdResident(re_b.getObjectId()).get(0).getName());
         RequestRepo.save(re_b);
 
-        AddResidentRequest add_a = new AddResidentRequest("123123123", 1, "Manh" , "Male", "28-11-2023", "Ha Noi", "Pho", "0922374112", "Bo");
+        AddResidentRequest add_a = new AddResidentRequest("123123123", 1, "Manh", "Male", "28-11-2023", "Ha Noi", "Pho",
+                "0922374112", "Bo");
         AddResidentRequestRepo.save(add_a);
         // Room 1 History
 
@@ -204,10 +206,13 @@ public class RoomDataSeeder implements CommandLineRunner {
         room1.generateKey();
         RoomRepo.save(room1);
 
-        RoomHistory roomHis1 = new RoomHistory(room1.getKey(), room1.getNoRoom(), room1.getIdOwner(), room1.getNameOwner(), room1.getNumberPhoneOwner(), room1.getDefaultFeeRoom(), room1.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis1 = new RoomHistory(room1.getKey(), room1.getNoRoom(), room1.getIdOwner(),
+                room1.getNameOwner(), room1.getNumberPhoneOwner(), room1.getDefaultFeeRoom(),
+                room1.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis1);
 
-        Resident resident1 = new Resident("001203000769", "Nguyễn Văn A", "Male", "20/05/1995", "Hồ Chí Minh", "Professional", "0912345679", "Chủ");
+        Resident resident1 = new Resident("001203000769", "Nguyễn Văn A", "Male", "20/05/1995", "Hồ Chí Minh",
+                "Professional", "0912345679", "Chủ");
         room1.addResident(resident1);
         resident1.setRoom(room1);
         residentController.saveResidentInHistory(resident1);
@@ -227,7 +232,7 @@ public class RoomDataSeeder implements CommandLineRunner {
         DonationFee dfee1 = new DonationFee(11, 2023, 80000);
         room1.addDonationFee(dfee1);
         dfee1.setRoom(room1);
-        dfee1.setTypeDonation(a_type);  // Chắc chắn biến a_type đã được khởi tạo
+        dfee1.setTypeDonation(a_type); // Chắc chắn biến a_type đã được khởi tạo
         RoomRepo.save(room1);
         DonationFeeRepo.save(dfee1);
 
@@ -239,10 +244,13 @@ public class RoomDataSeeder implements CommandLineRunner {
         room2.generateKey();
         RoomRepo.save(room2);
 
-        RoomHistory roomHis2 = new RoomHistory(room2.getKey(), room2.getNoRoom(), room2.getIdOwner(), room2.getNameOwner(), room2.getNumberPhoneOwner(), room2.getDefaultFeeRoom(), room2.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis2 = new RoomHistory(room2.getKey(), room2.getNoRoom(), room2.getIdOwner(),
+                room2.getNameOwner(), room2.getNumberPhoneOwner(), room2.getDefaultFeeRoom(),
+                room2.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis2);
 
-        Resident resident2 = new Resident("001203000770", "Trần Thị B", "Female", "15/08/1990", "Đà Nẵng", "Employee", "0913456790", "Chủ");
+        Resident resident2 = new Resident("001203000770", "Trần Thị B", "Female", "15/08/1990", "Đà Nẵng", "Employee",
+                "0913456790", "Chủ");
         room2.addResident(resident2);
         resident2.setRoom(room2);
         residentController.saveResidentInHistory(resident2);
@@ -273,10 +281,13 @@ public class RoomDataSeeder implements CommandLineRunner {
         room3.generateKey();
         RoomRepo.save(room3);
 
-        RoomHistory roomHis3 = new RoomHistory(room3.getKey(), room3.getNoRoom(), room3.getIdOwner(), room3.getNameOwner(), room3.getNumberPhoneOwner(), room3.getDefaultFeeRoom(), room3.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis3 = new RoomHistory(room3.getKey(), room3.getNoRoom(), room3.getIdOwner(),
+                room3.getNameOwner(), room3.getNumberPhoneOwner(), room3.getDefaultFeeRoom(),
+                room3.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis3);
 
-        Resident resident3 = new Resident("001203000771", "Lê Văn C", "Male", "03/12/1985", "Nha Trang", "Businessman", "0914567891", "Chủ");
+        Resident resident3 = new Resident("001203000771", "Lê Văn C", "Male", "03/12/1985", "Nha Trang", "Businessman",
+                "0914567891", "Chủ");
         room3.addResident(resident3);
         resident3.setRoom(room3);
         residentController.saveResidentInHistory(resident3);
@@ -301,7 +312,6 @@ public class RoomDataSeeder implements CommandLineRunner {
 
         roomController.closeRoom(room3);
 
-
         // Room 2
         // Room 4
         Room room4 = new Room(0004, "765432109", "Lê Văn D", "0965432109", 1100000, 210000);
@@ -309,17 +319,21 @@ public class RoomDataSeeder implements CommandLineRunner {
         RoomRepo.save(room4);
 
         // RoomHistory 4
-        RoomHistory roomHis4 = new RoomHistory(room4.getKey(), room4.getNoRoom(), room4.getIdOwner(), room4.getNameOwner(), room4.getNumberPhoneOwner(), room4.getDefaultFeeRoom(), room4.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis4 = new RoomHistory(room4.getKey(), room4.getNoRoom(), room4.getIdOwner(),
+                room4.getNameOwner(), room4.getNumberPhoneOwner(), room4.getDefaultFeeRoom(),
+                room4.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis4);
 
         // Resident 4
-        Resident resident4 = new Resident("001203000771", "Lê Văn D", "Male", "10/10/1980", "Huế", "Engineer", "0965432110", "Chủ");
+        Resident resident4 = new Resident("001203000771", "Lê Văn D", "Male", "10/10/1980", "Huế", "Engineer",
+                "0965432110", "Chủ");
         room4.addResident(resident4);
         resident4.setRoom(room4);
         residentController.saveResidentInHistory(resident4);
         ResidentRepo.save(resident4);
 
-        Resident resident41 = new Resident("001203000888", "Hoàng Đức Huy", "Male", "10/10/1999", "Huế", "Engineer", "0965432110", "Con");
+        Resident resident41 = new Resident("001203000888", "Hoàng Đức Huy", "Male", "10/10/1999", "Huế", "Engineer",
+                "0965432110", "Con");
         room4.addResident(resident41);
         resident41.setRoom(room4);
         residentController.saveResidentInHistory(resident41);
@@ -351,9 +365,9 @@ public class RoomDataSeeder implements CommandLineRunner {
         RequestRepo.save(re_a4);
 
         // AddResidentRequest 4
-        AddResidentRequest add_a4 = new AddResidentRequest("456456456", 4, "Linh" , "Female", "15-05-2023", "Quảng Ninh", "Ngách", "0977333444", "Em");
+        AddResidentRequest add_a4 = new AddResidentRequest("456456456", 4, "Linh", "Female", "15-05-2023", "Quảng Ninh",
+                "Ngách", "0977333444", "Em");
         AddResidentRequestRepo.save(add_a4);
-
 
         // Room 5
         Room room5 = new Room(0005, "654321098", "Phạm Thị E", "0954321098", 1300000, 230000);
@@ -361,11 +375,14 @@ public class RoomDataSeeder implements CommandLineRunner {
         RoomRepo.save(room5);
 
         // RoomHistory 5
-        RoomHistory roomHis5 = new RoomHistory(room5.getKey(), room5.getNoRoom(), room5.getIdOwner(), room5.getNameOwner(), room5.getNumberPhoneOwner(), room5.getDefaultFeeRoom(), room5.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis5 = new RoomHistory(room5.getKey(), room5.getNoRoom(), room5.getIdOwner(),
+                room5.getNameOwner(), room5.getNumberPhoneOwner(), room5.getDefaultFeeRoom(),
+                room5.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis5);
 
         // Resident 5
-        Resident resident5 = new Resident("001203000772", "Phạm Thị E", "Female", "02/07/1992", "Đồng Tháp", "Nurse", "0954321099", "Chủ");
+        Resident resident5 = new Resident("001203000772", "Phạm Thị E", "Female", "02/07/1992", "Đồng Tháp", "Nurse",
+                "0954321099", "Chủ");
         room5.addResident(resident5);
         resident5.setRoom(room5);
         residentController.saveResidentInHistory(resident5);
@@ -399,21 +416,26 @@ public class RoomDataSeeder implements CommandLineRunner {
         RequestRepo.save(re_a6);
 
         // AddResidentRequest 5
-        AddResidentRequest add_a5 = new AddResidentRequest("567567567", 5, "Quang" , "Male", "10-09-2023", "Bình Dương", "Hẻm", "0988444555", "Anh");
+        AddResidentRequest add_a5 = new AddResidentRequest("567567567", 5, "Quang", "Male", "10-09-2023", "Bình Dương",
+                "Hẻm", "0988444555", "Anh");
         AddResidentRequestRepo.save(add_a5);
 
         // TemporaryResident
-        TemporaryResident temporaryResident = new TemporaryResident("Phan Trọng Cường", "01203000341", "4", "21090", "2023-01-01", "2023-02-01");
+        TemporaryResident temporaryResident = new TemporaryResident("Phan Trọng Cường", "01203000341", "4", "21090",
+                "2023-01-01", "2023-02-01");
         TemporaryResidentRepo.save(temporaryResident);
 
-        TemporaryResident temporaryResident1 = new TemporaryResident("Phan Trọng Lan", "01203089212", "5", "10980", "2023-01-01", "2023-02-01");
+        TemporaryResident temporaryResident1 = new TemporaryResident("Phan Trọng Lan", "01203089212", "5", "10980",
+                "2023-01-01", "2023-02-01");
         TemporaryResidentRepo.save(temporaryResident1);
 
         // AbsentResident
-        AbsentResident absentResident = new AbsentResident("Nguyễn Văn A", "0123456789", "5", "10980", "2023-03-01", "2023-03-10");
+        AbsentResident absentResident = new AbsentResident("Nguyễn Văn A", "0123456789", "5", "10980", "2023-03-01",
+                "2023-03-10");
         AbsentResidentRepo.save(absentResident);
 
-        AbsentResident absentResident1 = new AbsentResident("Ngô Văn Hải", "001204888361", "4", "21090", "2023-03-01", "2023-03-10");
+        AbsentResident absentResident1 = new AbsentResident("Ngô Văn Hải", "001204888361", "4", "21090", "2023-03-01",
+                "2023-03-10");
         AbsentResidentRepo.save(absentResident1);
 
         // Room 6
@@ -422,17 +444,21 @@ public class RoomDataSeeder implements CommandLineRunner {
         RoomRepo.save(room6);
 
         // RoomHistory 6
-        RoomHistory roomHis6 = new RoomHistory(room6.getKey(), room6.getNoRoom(), room6.getIdOwner(), room6.getNameOwner(), room6.getNumberPhoneOwner(), room6.getDefaultFeeRoom(), room6.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis6 = new RoomHistory(room6.getKey(), room6.getNoRoom(), room6.getIdOwner(),
+                room6.getNameOwner(), room6.getNumberPhoneOwner(), room6.getDefaultFeeRoom(),
+                room6.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis6);
 
         // Resident 6
-        Resident resident6 = new Resident("001203000773", "Trần Văn F", "Male", "15/09/1985", "Bình Dương", "Engineer", "0987654322", "Chủ");
+        Resident resident6 = new Resident("001203000773", "Trần Văn F", "Male", "15/09/1985", "Bình Dương", "Engineer",
+                "0987654322", "Chủ");
         room6.addResident(resident6);
         resident6.setRoom(room6);
         residentController.saveResidentInHistory(resident6);
         ResidentRepo.save(resident6);
 
-        Resident resident61 = new Resident("001203000831", "Trần Văn Z", "Female", "15/09/2003", "Hà Nội", "IT", "0987654366", "Con trai");
+        Resident resident61 = new Resident("001203000831", "Trần Văn Z", "Female", "15/09/2003", "Hà Nội", "IT",
+                "0987654366", "Con trai");
         room6.addResident(resident61);
         resident61.setRoom(room6);
         residentController.saveResidentInHistory(resident61);
@@ -455,11 +481,14 @@ public class RoomDataSeeder implements CommandLineRunner {
         RoomRepo.save(room7);
 
         // RoomHistory 7
-        RoomHistory roomHis7 = new RoomHistory(room7.getKey(), room7.getNoRoom(), room7.getIdOwner(), room7.getNameOwner(), room7.getNumberPhoneOwner(), room7.getDefaultFeeRoom(), room7.getDefaultParkingFee(), getTime());
+        RoomHistory roomHis7 = new RoomHistory(room7.getKey(), room7.getNoRoom(), room7.getIdOwner(),
+                room7.getNameOwner(), room7.getNumberPhoneOwner(), room7.getDefaultFeeRoom(),
+                room7.getDefaultParkingFee(), getTime());
         RoomHistoryRepo.save(roomHis7);
 
         // Resident 7
-        Resident resident7 = new Resident("001203000775", "Lê Thị H", "Female", "05/12/1995", "Hồ Chí Minh", "Accountant", "0987654322", "Chủ");
+        Resident resident7 = new Resident("001203000775", "Lê Thị H", "Female", "05/12/1995", "Hồ Chí Minh",
+                "Accountant", "0987654322", "Chủ");
         room7.addResident(resident7);
         resident7.setRoom(room7);
         residentController.saveResidentInHistory(resident7);
@@ -475,8 +504,6 @@ public class RoomDataSeeder implements CommandLineRunner {
         a_fee7.setRoom(room7);
         RoomRepo.save(room7);
         MandatoryFeeRepo.save(a_fee7);
-
-
 
         // Account 1
         AccountManager account1 = new AccountManager("password", "admin");
