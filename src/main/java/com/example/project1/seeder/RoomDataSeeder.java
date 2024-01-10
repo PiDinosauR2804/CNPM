@@ -395,6 +395,9 @@ public class RoomDataSeeder implements CommandLineRunner {
         Request re_a5 = new Request(5, 5, "0123456789");
         RequestRepo.save(re_a5);
 
+        Request re_a6 = new Request(5, 13, "1300000");
+        RequestRepo.save(re_a6);
+
         // AddResidentRequest 5
         AddResidentRequest add_a5 = new AddResidentRequest("567567567", 5, "Quang" , "Male", "10-09-2023", "Bình Dương", "Hẻm", "0988444555", "Anh");
         AddResidentRequestRepo.save(add_a5);

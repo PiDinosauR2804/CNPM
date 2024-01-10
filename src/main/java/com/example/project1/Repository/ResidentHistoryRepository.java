@@ -25,7 +25,7 @@ public interface ResidentHistoryRepository extends JpaRepository<ResidentHistory
     List<ResidentHistory> findByIdRes(@Param("no") String no);
 
     // tìm kiếm theo idOwner -> phát triển ra concat để tìm được nhiều hơn
-    @Query("SELECT r FROM ResidentHistory r WHERE concat(r.id, r.name) LIKE %?1%")
+    @Query("SELECT r FROM ResidentHistory r WHERE concat(r.id, r.name, r.roomHistory.key) LIKE %?1%")
     public Page<ResidentHistory> findAll(String keyword, Pageable pageable);
 
     //Tìm kiếm trong một khoảng thời gian
@@ -33,17 +33,18 @@ public interface ResidentHistoryRepository extends JpaRepository<ResidentHistory
     public Page<ResidentHistory> findByDateRange(@Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và khoảng thời gian
-    @Query(value = "SELECT * FROM resident_history WHERE concat(name, id, job,birth_place,birth_date) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM resident_history r WHERE concat(r.name, r.id, r.job, r.birth_place, r.birth_date) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') BETWEEN STR_TO_DATE(:startDate, '%Y-%m-%d') AND STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<ResidentHistory> findByKeywordAndDateRange(@Param("keyword") String keyword, @Param("startDate") String startDate, @Param("endDate") String endDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và ngày bắt đầu
-    @Query(value = "SELECT * FROM resident_history WHERE concat(name, id, job,birth_place,birth_date) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM resident_history r WHERE concat(name, id, job,birth_place,birth_date) LIKE %:keyword% AND STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<ResidentHistory> findByKeywordAndstartDate(@Param("keyword") String keyword, @Param("startDate") String startDate, Pageable pageable);
 
     // Tìm kiếm theo keyword và ngày kết thúc
-    @Query(value = "SELECT * FROM resident_history WHERE concat(name, id, job,birth_place,birth_date) LIKE %:keyword% AND STR_TO_DATE(day_out, '%Y-%m-%d') <= STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
+    @Query(value = "SELECT * FROM resident_history r WHERE concat(name, id, job,birth_place,birth_date) LIKE %:keyword% AND STR_TO_DATE(day_out, '%Y-%m-%d') <= STR_TO_DATE(:endDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<ResidentHistory> findByKeywordAndendDate(@Param("keyword") String keyword, @Param("endDate") String endDate, Pageable pageable);
- // Tìm kiếm theo ngày bắt đầu
+    
+    // Tìm kiếm theo ngày bắt đầu
     @Query(value = "SELECT * FROM resident_history WHERE STR_TO_DATE(day_in, '%Y-%m-%d') >= STR_TO_DATE(:startDate, '%Y-%m-%d')", nativeQuery = true)
     public Page<ResidentHistory> findBystartDate(@Param("startDate") String startDate, Pageable pageable);
 

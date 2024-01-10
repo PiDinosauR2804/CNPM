@@ -248,6 +248,21 @@
             }
         }
 
+        .btn-delete {
+            text-decoration: none;
+            margin-right: 5px;
+            color: #2b589f;
+            background-color: #f1f1f1;
+            border: #f1f1f1;
+        }
+
+        .btn-delete:hover {
+            background-color: #dadcde;
+            border: #dadcde;
+            color: #2b589f;
+
+        }
+
     </style>
 </head>
 <body>
@@ -305,7 +320,34 @@
                         <td th:text="${resident.phoneNumber}"></td>
                         <td th:text="${resident.relationshipWithOwner}"></td>
                         <td><a th:href="@{'/manager/resident/edit/'  + ${resident.idRes}}">Chỉnh sửa</a></td>
-                        <td><a th:href="@{'/manager/resident/erase/'  + ${resident.idRes}}">Xóa</a></td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-delete" data-toggle="modal" data-target="#confirmDelete">
+                                Xóa
+                            </button>
+            
+                            <!-- Modal xác nhận xóa -->
+                            <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content" style = "margin-top: 150px;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có chắc chắn muốn xóa người này khỏi phòng chứ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!-- Nút Đúng -->
+                                            <a th:href="@{'/manager/resident/erase/'  + ${resident.idRes}}" class="btn btn-danger">Đúng</a>
+                                            <!-- Nút Không -->
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 </th:block>
             </tbody>
